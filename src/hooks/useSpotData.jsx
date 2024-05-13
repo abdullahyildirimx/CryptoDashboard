@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 const useSpotData = () => {
   const [priceData, setPriceData] = useState(null);
   const [tickSizeData, setTickSizeData] = useState(null);
+  const [coinList, setCoinList] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const countDecimalPlaces = (num) => {
@@ -13,7 +14,7 @@ const useSpotData = () => {
     if (reduced === "1e-8") { return 8; }
     return reduced.split(".")[1].length;
   };
-  
+
   useEffect(() => {
     const fetchPriceData = async () => {
       try {
@@ -22,12 +23,44 @@ const useSpotData = () => {
           throw new Error('Network response was not ok');
         }
         const jsonData = await response.json();
-
-        const filtered = jsonData.filter(item => {
-          return (item.symbol.endsWith('USDT') || item.symbol === 'USDTTRY') && item.bidPrice !== '0.00000000';
+    
+        const filteredCoins = jsonData.filter(coin => {
+          return (coin.symbol.endsWith('USDT') || coin.symbol === 'USDTTRY') && coin.bidPrice !== '0.00000000';
         });
+    
+        const priceList = filteredCoins.map(coin => {
+          let symbol = coin.symbol;
+          let currency = '$';
+          if (symbol !== "USDTTRY") {
+            symbol = symbol.slice(0, -"USDT".length);
+          } else {
+            symbol = symbol.slice(0, -"TRY".length);
+            currency = '₺';
+          }
+    
+          let price = coin.lastPrice;
+          if (tickSizeData) {
+            let tickData = tickSizeData.find(coin => coin.symbol === symbol);
+            if (tickData) {
+              const tickSizeDecimals = tickData.tickSize;
+              price = parseFloat(price).toFixed(tickSizeDecimals);
+            }
+          } else {
+            price = parseFloat(price);
+          }
+    
+          const change = parseFloat(coin.priceChangePercent).toFixed(2);
+    
+          return {
+            symbol: symbol,
+            price: price,
+            change: change,
+            currency: currency
+          };
+        });
+    
+        setPriceData(priceList);
 
-        setPriceData(filtered);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -36,41 +69,58 @@ const useSpotData = () => {
     };
 
     fetchPriceData();
-
     const intervalId = setInterval(fetchPriceData, 5000);
     return () => clearInterval(intervalId);
-  }, []);
+    
+  }, [tickSizeData]);
 
   useEffect(() => {
-    const fetchTickSizeData = async () => {
+    const fetchListAndTickSizeData = async () => {
       try {
         const response = await fetch('https://api.binance.com/api/v3/exchangeInfo');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const jsonData = await response.json();
-
-        const filtered = jsonData.symbols.filter(item => {
-          return (item.symbol.endsWith('USDT') || item.symbol === 'USDTTRY') && item.status !== 'BREAK';
+    
+        const filteredCoins = jsonData.symbols.filter(coin => {
+          return (coin.symbol.endsWith('USDT') || coin.symbol === 'USDTTRY') && coin.status !== 'BREAK';
+        });
+    
+        const tickSizeList = filteredCoins.map(item => {
+          let symbol = item.symbol;
+          let tickSize = countDecimalPlaces(item.filters[0].tickSize);
+          if (symbol !== "USDTTRY") {
+            symbol = symbol.slice(0, -"USDT".length);
+          } else {
+            symbol = symbol.slice(0, -"TRY".length);
+          }
+          return {
+            symbol: symbol,
+            tickSize: tickSize
+          };
         });
 
-        const filteredTickSizes = filtered && filtered.map(item => ({
-          symbol: item.symbol,
-          tickSize: countDecimalPlaces(item.filters[0].tickSize)
-        }));
-
-        setTickSizeData(filteredTickSizes);
+        const coinSymbolList = filteredCoins.map(item => {
+          let symbol = item.symbol;
+          if (symbol !== "USDTTRY") {
+            symbol = symbol.slice(0, -"USDT".length);
+          } else {
+            symbol = symbol.slice(0, -"TRY".length);
+          }
+          return symbol;
+        });
+        setTickSizeData(tickSizeList);
+        setCoinList(coinSymbolList);
       } catch (error) {
         console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
       }
     };
-
-    fetchTickSizeData();
+    
+    fetchListAndTickSizeData();
   }, []);
 
-  return { priceData, tickSizeData, loading };
+  return { priceData, coinList, loading };
 };
 
 export default useSpotData;

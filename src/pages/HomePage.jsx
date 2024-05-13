@@ -1,19 +1,19 @@
 import React from 'react';
-import BinanceData from '../BinanceData';
-import TopMovers from '../TopMovers';
 import { useIsMobile } from '../hooks/useScreenSize';
+import SpotMarketCard from '../components/SpotMarketCard';
+import MarketActivityCard from '../components/MarketActivityCard';
 
-const HomePage = () => {
+const HomePage = ({priceData, coinList}) => {
   const isMobile = useIsMobile();
   
   return (
     <>
-      <div className='HomePage row col-12 p-3 g-0'>
-        <div className={`${isMobile ? 'col-12' : 'col-6 p-2'}`}>
-          <BinanceData />
+      <div className='row col-12 p-3 g-0'>
+        <div className={`${isMobile ? 'col-12 mb-3' : 'col-6 p-2'}`}>
+          <SpotMarketCard priceData={priceData} coinList={coinList} />
         </div>
-        <div className={`${isMobile ? 'col-12' : 'col-6 p-2'}`}>
-          <TopMovers />
+        <div className={`${isMobile ? 'col-12 mb-3' : 'col-6 p-2'}`}>
+          <MarketActivityCard />
         </div> 
       </div>
     </>

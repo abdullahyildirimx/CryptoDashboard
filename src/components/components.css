@@ -1,41 +1,8 @@
 .HomePage {
   min-height: calc(100vh - 80px);
-  background-color: #181a20;
   color: #eaecef;
 }
 
-.asd {
-  border-radius: 20px !important;
-}
-.top-movers {
-  background-color: #1e2329;
-  border-radius: 8px;
-  padding: 10px;
-  color: #eaecef;
-}
-.top-movers header {
-  font-weight: bold;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #fff;
-}
-.tabs {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #444;
-}
-.tab {
-  color: #000;
-  cursor: pointer;
-}
-.tab:hover {
-  color: #444;
-}
-.tab.active {
-  color: red;
-}
 .currency-pair {
   display: flex;
   justify-content: space-between;
@@ -45,7 +12,6 @@
 .price-change {
   border-radius: 5px;
   padding: 2px 8px;
-  color: #fff;
 }
 .negative {
   background-color: #d9534f;
@@ -53,20 +19,24 @@
 .positive {
   background-color: #5cb85c;
 }
-.card {
-  border: 0px;
-  border-radius: 32px;
-}
+.card,
 .card-body {
-  background-color: #1e2329;
-  border: 0px;
   border-radius: 16px;
+  background-color: #1e2329;
   color: #eaecef;
+  font-size: 14px;
 }
 
 .table-container {
-  min-height: 445px;
   max-height: 445px;
+  min-height: 445px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.table-container-mobile {
+  max-height: 225px;
+  min-height: 225px;
   overflow-y: auto;
   overflow-x: auto;
 }
@@ -92,14 +62,6 @@
 
 .table-container::-webkit-scrollbar-thumb:hover {
   background: #555;
-}
-
-.table {
-  margin-bottom: 0px;
-}
-
-.asd td {
-  border: 0px;
 }
 
 .icon-button {
