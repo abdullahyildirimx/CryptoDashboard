@@ -9,6 +9,9 @@ import {
   mainnet,
 } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import SpotDataReducer from './reducers/SpotDataSlice.jsx';
 
 const config = getDefaultConfig({
   appName: 'RainbowKit App',
@@ -29,13 +32,21 @@ const config = getDefaultConfig({
 
 const queryClient = new QueryClient();
 
+const store = configureStore({
+  reducer: {
+    spotData: SpotDataReducer
+  }
+});
+
 const Providers = ({children}) => {
   
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider theme={darkTheme()} modalSize="compact" locale="en-US">
+          <Provider store={store}>
             {children}
+          </Provider>
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>

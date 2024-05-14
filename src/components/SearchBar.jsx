@@ -1,25 +1,18 @@
 import React, { useState } from 'react';
 
-const SearchBar = ({ options, handleSelect }) => {
+const SearchBar = ({ handleSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
-		setSearchTerm(event.target.value);
-		if (event.target.value) {
-			const filteredResults = options.filter(item =>
-				item.toLowerCase().startsWith(event.target.value.toLowerCase())
-			);
-			handleSelect(filteredResults);
-		}
-    else {
-      handleSelect([]);
-    }
+    const value = event.target.value;
+		setSearchTerm(value);
+    handleSearch(value);
   };
 
   return (
     <div>
       <input
-        className="form-control"
+        className="form-control bg-dark text-light"
         type="text"
         placeholder='Search'
         value={searchTerm}

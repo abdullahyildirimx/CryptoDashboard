@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
-
-const useDocumentTitle = (priceData) => {
+import useSpotData from './useSpotData';
+const useDocumentTitle = () => {
+  const { priceData } = useSpotData();
 
   useEffect(() => {
 

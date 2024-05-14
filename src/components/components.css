@@ -1,24 +1,3 @@
-.HomePage {
-  min-height: calc(100vh - 80px);
-  color: #eaecef;
-}
-
-.currency-pair {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 0;
-}
-.price-change {
-  border-radius: 5px;
-  padding: 2px 8px;
-}
-.negative {
-  background-color: #d9534f;
-}
-.positive {
-  background-color: #5cb85c;
-}
 .card,
 .card-body {
   border-radius: 16px;
@@ -27,18 +6,56 @@
   font-size: 14px;
 }
 
+.icon-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.form-control::placeholder {
+  color: #8b8b8b;
+}
+
+.currency-pair {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.change {
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.negative {
+  background-color: #3a2434;
+  color: #c74242;
+}
+.positive {
+  background-color: #1c3238;
+  color: #0ec56b;
+  
+}
+
 .table-container {
-  max-height: 445px;
-  min-height: 445px;
+  max-height: 450px;
+  min-height: 450px;
   overflow-y: auto;
   overflow-x: auto;
+  font-weight: 500;
 }
 
 .table-container-mobile {
-  max-height: 225px;
-  min-height: 225px;
+  max-height: 250px;
+  min-height: 250px;
+  font-size: 12px;
   overflow-y: auto;
   overflow-x: auto;
+  font-weight: 500;
 }
 
 .table-container::-webkit-scrollbar {
@@ -64,9 +81,4 @@
   background: #555;
 }
 
-.icon-button {
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
+

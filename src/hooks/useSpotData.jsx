@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPriceData, setCoinList, setLoading } from '../reducers/SpotDataSlice';
 
 const useSpotData = () => {
-  const [priceData, setPriceData] = useState(null);
   const [tickSizeData, setTickSizeData] = useState(null);
-  const [coinList, setCoinList] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { priceData, coinList, loading } = useSelector((state) => state.spotData);
 
   const countDecimalPlaces = (num) => {
     let reduced = parseFloat(num);
@@ -59,7 +60,7 @@ const useSpotData = () => {
           };
         });
     
-        setPriceData(priceList);
+        dispatch(setPriceData(priceList));
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -72,7 +73,7 @@ const useSpotData = () => {
     const intervalId = setInterval(fetchPriceData, 5000);
     return () => clearInterval(intervalId);
     
-  }, [tickSizeData]);
+  }, [tickSizeData, dispatch]);
 
   useEffect(() => {
     const fetchListAndTickSizeData = async () => {
@@ -111,14 +112,14 @@ const useSpotData = () => {
           return symbol;
         });
         setTickSizeData(tickSizeList);
-        setCoinList(coinSymbolList);
+        dispatch(setCoinList(coinSymbolList));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     
     fetchListAndTickSizeData();
-  }, []);
+  }, [dispatch]);
 
   return { priceData, coinList, loading };
 };

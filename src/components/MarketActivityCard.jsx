@@ -7,7 +7,7 @@ const MarketActivityCard = () => {
   const activities = [
     { symbol: 'PEOPLE', change: -7.32 },
     { symbol: 'RVN', change: -7.84 },
-    { symbol: 'ENA', change: +7.09 },
+    { symbol: 'ENA', change: +1117.09 },
     { symbol: 'BAL', change: -7.02 },
   ];
 
@@ -21,7 +21,7 @@ const MarketActivityCard = () => {
         {activities.map(coin => (
           <div key={coin.symbol} className="currency-pair">
             <span>{coin.symbol}</span>
-            <span className={`price-change ${coin.change > 0 ? 'positive' : 'negative'}`}>
+            <span className={`change ${parseFloat(coin.change) < 0 ? 'negative' : 'positive'}`}>
               <span className="icon">{coin.change > 0 ? '↑' : '↓'}</span>
               {Math.abs(coin.change)}%
             </span>

@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useIsMobile } from '../hooks/useScreenSize';
-import './components.css';
 import SearchBar from './SearchBar';
+import SpotTable from './SpotTable';
+import useSpotData from '../hooks/useSpotData';
+import './components.css';
 
-const SpotMarketCard = ({ priceData, coinList }) => {
-  const [sortOrder, setSortOrder] = useState('desc');
-  const [selectedTab, setSelectedTab] = useState('favorite');
-  const [favoriteCoins, setFavoriteCoins] = useState([]);
-  const [selectedCoins, setSelectedCoins] = useState([]);
-  const isMobile = useIsMobile();
+const SpotMarketCard = () => {
+  const [selectedTab, setSelectedTab] = useState('all');
+  const [sortOrder, setSortOrder] = useState('default');
+  const [favoritedCoins, setFavoritedCoins] = useState([]);
+  const [searchedCoins, setSearchedCoins] = useState([]);
+  const { priceData, coinList } = useSpotData();
+
   useEffect(() => {
     const savedFavoriteCoins = JSON.parse(localStorage.getItem('favoriteCoins')) || [];
-    setFavoriteCoins(savedFavoriteCoins);
+    setFavoritedCoins(savedFavoriteCoins);
   }, []);
     
   const handleTabChange = (tab) => {
@@ -19,72 +21,99 @@ const SpotMarketCard = ({ priceData, coinList }) => {
   };
 
   const toggleFavorite = (symbol) => {
-    if (favoriteCoins.includes(symbol)) {
-      const updatedFavorites = favoriteCoins.filter((coin) => coin !== symbol);
-      setFavoriteCoins(updatedFavorites);
+    if (favoritedCoins.includes(symbol)) {
+      const updatedFavorites = favoritedCoins.filter((coin) => coin !== symbol);
+      setFavoritedCoins(updatedFavorites);
       localStorage.setItem('favoriteCoins', JSON.stringify(updatedFavorites));
     } else {
-      const updatedFavorites = [...favoriteCoins, symbol];
-      setFavoriteCoins(updatedFavorites);
+      const updatedFavorites = [...favoritedCoins, symbol];
+      setFavoritedCoins(updatedFavorites);
       localStorage.setItem('favoriteCoins', JSON.stringify(updatedFavorites));
     }
   };
 
-  const getPercent = (percent) => {
-    const parsedPercent = parseFloat(percent);
-    const formattedPercent = parsedPercent.toFixed(2);
-    return parsedPercent < 0 ? `${formattedPercent}%` : `+${formattedPercent}%`;
-  };
-
-  const toggleSortOrder = () => {
-    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-  };
-
-  const sortedFavoriteCoins = () => {
-    if (!priceData) {
-      return [];
+  const toggleSortOrder = (column) => {
+    let nextOrder = 'default';
+    if (column === 'price') {
+      nextOrder =
+          sortOrder === 'priceDesc' ? 'default' :
+          sortOrder === 'priceAsc' ? 'priceDesc' :
+          'priceAsc';
+    } 
+    else if (column === 'change') {
+        nextOrder =
+            sortOrder === 'changeDesc' ? 'default' :
+            sortOrder === 'changeAsc' ? 'changeDesc' :
+            'changeAsc';
+    } 
+    else {
+        nextOrder =
+            sortOrder === 'symbolDesc' ? 'default' :
+            sortOrder === 'symbolAsc' ? 'symbolDesc' :
+            'symbolAsc';
     }
-    if (selectedCoins.length) {
-      return selectedCoins;
-    }
-    const sortedCoins = favoriteCoins.map(symbol => {
-      const coin = priceData.find(data => data.symbol === symbol);
-      return coin ? coin : null;
-    }).filter(Boolean);
-    return sortOrder === 'asc' ? sortedCoins.sort((a, b) => parseFloat(a.price) - parseFloat(b.price)) : sortedCoins.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    setSortOrder(nextOrder);
   };
 
   const sortedAllCoins = () => {
     if (!priceData) {
       return [];
     }
-    if (selectedCoins.length) {
-      return selectedCoins;
+    let coins = [];
+    if (searchedCoins.length > 0) {
+      coins = searchedCoins.map(symbol => {
+        return priceData.find(data => data.symbol === symbol);
+      });
+
     }
-    return priceData.slice().sort((a, b) => {
+    else if (selectedTab === 'favorite') {
+      coins = favoritedCoins.map(symbol => {
+        return priceData.find(data => data.symbol === symbol);
+      });
+    }
+    else {
+      coins = priceData;
+    }
+    
+    return coins.slice().sort((a, b) => {
+      const symbolA = a.symbol;
+      const symbolB = b.symbol;
+      const changeA = parseFloat(a.change);
+      const changeB = parseFloat(b.change);
       const priceA = parseFloat(a.price);
       const priceB = parseFloat(b.price);
-      return sortOrder === 'asc' ? priceA - priceB : priceB - priceA;
+      
+      return sortOrder === 'priceAsc' ? priceA - priceB :
+             sortOrder === 'priceDesc' ? priceB - priceA :
+             sortOrder === 'symbolAsc' ? symbolA.localeCompare(symbolB) :
+             sortOrder === 'symbolDesc' ? symbolB.localeCompare(symbolA) :
+             sortOrder === 'changeAsc' ? changeA - changeB :
+             sortOrder === 'changeDesc' ? changeB - changeA :
+             priceB - priceA;
     });
   };
 
-  const handleSearch = (coins) => {
+  const handleSearch = (result) => {
     if (!priceData) {
       return [];
     }
-    const sortedCoins = coins.map(symbol => {
-      const coin = priceData.find(data => data.symbol === symbol);
-      return coin ? coin : null;
-    }).filter(Boolean);
-    setSelectedCoins(sortOrder === 'asc' ? sortedCoins.slice().sort((a, b) => parseFloat(a.price) - parseFloat(b.price)) : sortedCoins.sort((a, b) => parseFloat(b.price) - parseFloat(a.price)));
+    if (result) {
+			const filteredResults = coinList.filter(item =>
+				item.toLowerCase().startsWith(result.toLowerCase())
+			);
+			setSearchedCoins(filteredResults);
+		}
+    else {
+      setSearchedCoins([]);
+    }
   };
 
   return (
-    <div className="card bg-dark">
+    <div className="card">
       <div className="card-body">
         <div className='d-flex justify-content-between'>
           <h5 className="card-title mb-3">Spot Market</h5>
-          <SearchBar options={coinList} handleSelect={handleSearch} />
+          <SearchBar handleSearch={handleSearch} />
         </div>
         <ul className="nav nav-tabs">
           <li className="nav-item">
@@ -104,82 +133,7 @@ const SpotMarketCard = ({ priceData, coinList }) => {
             </button>
           </li>
         </ul>
-        {selectedTab === 'all' && (
-          <div className={`${isMobile ? 'table-container-mobile' : 'table-container'}`}>
-            <table className="table table-dark table-striped">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th>Coin</th>
-                  <th className='d-flex'>Price
-                    <button className="mx-1 icon-button" onClick={toggleSortOrder}>
-                      {sortOrder === 'asc' ? <i className="fa-solid fa-arrow-up text-white"></i> : <i className="fa-solid fa-arrow-down text-white"></i>}
-                    </button>
-                  </th>
-                  <th>Change</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortedAllCoins().map((item) => (
-                  <tr key={item.symbol}>
-                    <td>
-                      <button
-                        className="icon-button"
-                        onClick={() => toggleFavorite(item.symbol)}
-                      >
-                        {favoriteCoins.includes(item.symbol) ? <i className="fa-solid fa-star" style={{ color: 'gold'}}></i>
-                        : <i className="fa-regular fa-star" style={{ color: 'white'}}></i>}
-                      </button>
-                    </td>
-                    <td><i className="fa-brands fa-bitcoin"></i></td>
-                    <td>{item.symbol}</td>
-                    <td><span>{item.currency}{item.price}</span></td>
-                    <td>{getPercent(item.change)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-        {selectedTab === 'favorite' && (
-          <div className={`${isMobile ? 'table-container-mobile' : 'table-container'}`}>
-            <table className="table table-dark table-striped">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th>Coin</th>
-                  <th className='d-flex'>Price
-                    <button className="mx-1 icon-button" onClick={toggleSortOrder}>
-                      {sortOrder === 'asc' ? <i className="fa-solid fa-arrow-up text-white"></i> : <i className="fa-solid fa-arrow-down text-white"></i>}
-                    </button>
-                  </th>
-                  <th>Change</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortedFavoriteCoins().map((coin) => (
-                  <tr key={coin.symbol}>
-                    <td>
-                    <button
-                        className="icon-button"
-                        onClick={() => toggleFavorite(coin.symbol)}
-                      >
-                        {favoriteCoins.includes(coin.symbol) ? <i className="fa-solid fa-star" style={{ color: 'gold'}}></i>
-                        : <i className="fa-regular fa-star" style={{ color: 'white'}}></i>}
-                      </button>
-                    </td>
-                    <td><i className="fa-brands fa-bitcoin"></i></td>
-                    <td>{coin.symbol}</td>
-                    <td><span>{coin.currency}{coin.price}</span></td>
-                    <td>{getPercent(coin.change)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+        <SpotTable content={sortedAllCoins} favoritedCoins={favoritedCoins} sortOrder={sortOrder} toggleFavorite={toggleFavorite} toggleSortOrder={toggleSortOrder} />
       </div>
     </div>
   );
