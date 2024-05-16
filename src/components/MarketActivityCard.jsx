@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchDropdown from './SearchDropdown';
+import useSpotData from '../hooks/useSpotData';
 import './components.css';
 
 const MarketActivityCard = () => {
@@ -10,13 +11,13 @@ const MarketActivityCard = () => {
     { symbol: 'ENA', change: +1117.09 },
     { symbol: 'BAL', change: -7.02 },
   ];
-
+  const { coinList } = useSpotData();
   return (
     <div className="card">
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h5 className="card-title">Market Activity</h5>
-          <span><SearchDropdown /></span>
+          <span><SearchDropdown options={coinList}/></span>
         </div>
         {activities.map(coin => (
           <div key={coin.symbol} className="currency-pair">

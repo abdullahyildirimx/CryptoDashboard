@@ -13,10 +13,6 @@
   cursor: pointer;
 }
 
-.form-control::placeholder {
-  color: #8b8b8b;
-}
-
 .currency-pair {
   display: flex;
   justify-content: space-between;
@@ -58,26 +54,37 @@
   font-weight: 500;
 }
 
-.table-container::-webkit-scrollbar {
+.dropdown-toggle,
+.dropdown-menu,
+.form-control {
+  font-size: 14px;
+}
+
+.dropdown-menu {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
 
-.table-container::-webkit-scrollbar-corner {
+::-webkit-scrollbar-corner {
   background: #181a20;
 }
 
-.table-container::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   border-radius: 5px;
   background: #1e2329;
 }
 
-.table-container::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 5px;
 }
 
-.table-container::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 

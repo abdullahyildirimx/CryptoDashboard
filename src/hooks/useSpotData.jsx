@@ -110,7 +110,7 @@ const useSpotData = () => {
             symbol = symbol.slice(0, -"TRY".length);
           }
           return symbol;
-        });
+        }).slice().sort((a, b) => { return a.localeCompare(b) });
         setTickSizeData(tickSizeList);
         dispatch(setCoinList(coinSymbolList));
       } catch (error) {

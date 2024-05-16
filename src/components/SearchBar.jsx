@@ -12,8 +12,9 @@ const SearchBar = ({ handleSearch }) => {
   return (
     <div>
       <input
-        className="form-control bg-dark text-light"
+        className="form-control"
         type="text"
+        id="searchBar"
         placeholder='Search'
         value={searchTerm}
         onChange={handleChange}

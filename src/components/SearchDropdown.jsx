@@ -1,25 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const SearchDropdown = () => {
-
-  const options = [
-    { id: 1, name: 'BTC' },
-    { id: 2, name: 'ETH' },
-    { id: 3, name: 'USDC' },
-    { id: 4, name: 'USDT' },
-    { id: 5, name: 'SOL' },
-  ];
+const SearchDropdown = ({ options }) => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
-  const [searchResults, setSearchResults] = useState(options);
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    if (options) {
+      setSearchResults(options);
+    }
+  }, [options]);
 
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-    const filteredResults = options.filter(item =>
-      item.name.toLowerCase().includes(event.target.value.toLowerCase())
-    );
-    setSearchResults(filteredResults);
+    const value = event.target.value;
+		setSearchTerm(value);
+    handleSearch(value);
+  };
+
+  const handleSearch = (result) => {
+    if (result) {
+			const filteredResults = options.filter(item =>
+				item.toLowerCase().startsWith(result.toLowerCase())
+			);
+			setSearchResults(filteredResults);
+		}
+    else {
+      setSearchResults(options);
+    }
   };
 
   const handleSelect = (item) => {
@@ -31,30 +39,30 @@ const SearchDropdown = () => {
   return (
     <div className="dropdown">
       <button
-        className="btn btn-secondary dropdown-toggle bg-dark"
+        className="btn dropdown-toggle"
         type="button"
         id="dropdownMenuButton"
-        data-toggle="dropdown"
-        aria-haspopup="true"
+        data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {selectedItem ? selectedItem.name : 'Add to favorites'}
+        {selectedItem ? selectedItem : 'Add to favorites'}
       </button>
-      <div className="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
+      <div className="dropdown-menu p-2" aria-labelledby="dropdownMenuButton">
         <input
           type="text"
-          className="form-control bg-dark text-light"
-          placeholder="Search..."
+          className="form-control"
+          id="dropdownSearchBar"
+          placeholder="Search"
           value={searchTerm}
           onChange={handleChange}
         />
         {searchResults.map(result => (
           <button
-            key={result.id}
-            className="dropdown-item bg-dark text-light"
+            key={result}
+            className="dropdown-item"
             onClick={() => handleSelect(result)}
           >
-            {result.name}
+            {result}
           </button>
         ))}
       </div>
