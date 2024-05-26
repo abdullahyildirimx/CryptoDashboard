@@ -1,6 +1,5 @@
-import React from 'react';
 import SearchDropdown from './SearchDropdown';
-import useSpotData from '../hooks/useSpotData';
+import { useSelector } from 'react-redux';
 import './components.css';
 
 const MarketActivityCard = () => {
@@ -11,7 +10,7 @@ const MarketActivityCard = () => {
     { symbol: 'ENA', change: +1117.09 },
     { symbol: 'BAL', change: -7.02 },
   ];
-  const { coinList } = useSpotData();
+  const { coinList } = useSelector((state) => state.spotData);
   return (
     <div className="card">
       <div className="card-body">

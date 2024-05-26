@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setPriceData, setCoinList, setLoading } from '../reducers/SpotDataSlice';
 
 const useSpotData = () => {
   const [tickSizeData, setTickSizeData] = useState(null);
   const dispatch = useDispatch();
-  const { priceData, coinList, loading } = useSelector((state) => state.spotData);
 
   const countDecimalPlaces = (num) => {
     let reduced = parseFloat(num);
@@ -120,8 +119,6 @@ const useSpotData = () => {
     
     fetchListAndTickSizeData();
   }, [dispatch]);
-
-  return { priceData, coinList, loading };
 };
 
 export default useSpotData;

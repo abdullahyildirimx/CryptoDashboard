@@ -1,10 +1,11 @@
-import React from 'react';
 import { useIsMobile } from '../hooks/useScreenSize';
 import SpotMarketCard from '../components/SpotMarketCard';
 import MarketActivityCard from '../components/MarketActivityCard';
+import useSpotData from '../hooks/useSpotData';
 
 const HomePage = () => {
   const isMobile = useIsMobile();
+  useSpotData();
 
   return (
     <>

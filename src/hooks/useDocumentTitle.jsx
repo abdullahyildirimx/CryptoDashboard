@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
-import useSpotData from './useSpotData';
+import { useSelector } from 'react-redux';
 const useDocumentTitle = () => {
-  const { priceData } = useSpotData();
+  const { priceData } = useSelector((state) => state.spotData);
 
   useEffect(() => {
 

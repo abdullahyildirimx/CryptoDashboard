@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import SpotTable from './SpotTable';
-import useSpotData from '../hooks/useSpotData';
+import { useSelector } from 'react-redux';
 import './components.css';
 
 const SpotMarketCard = () => {
@@ -9,7 +9,7 @@ const SpotMarketCard = () => {
   const [sortOrder, setSortOrder] = useState('default');
   const [favoritedCoins, setFavoritedCoins] = useState([]);
   const [searchedCoins, setSearchedCoins] = useState([]);
-  const { priceData, coinList } = useSpotData();
+  const { priceData, coinList } = useSelector((state) => state.spotData);
 
   useEffect(() => {
     const savedFavoriteCoins = JSON.parse(localStorage.getItem('favoriteCoins')) || [];

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const SearchDropdown = ({ options }) => {
 
@@ -30,7 +30,7 @@ const SearchDropdown = ({ options }) => {
     }
   };
 
-  const handleSelect = (item) => {
+  const handleSelect = () => {
     setSelectedItem(null);
     setSearchTerm('');
     setSearchResults(options);
