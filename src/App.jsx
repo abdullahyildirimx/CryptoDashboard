@@ -7,7 +7,7 @@ const App = () => {
   useDocumentTitle();
 
   return (
-    <div style={{margin: '0 auto',minHeight: '100vh', maxWidth: '1920px'}}>
+    <div style={{margin: '0 auto',minHeight: '100vh', maxWidth: '1400px'}}>
       <MenuHeader />
       <HomePage />
     </div>

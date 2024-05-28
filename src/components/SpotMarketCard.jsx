@@ -82,6 +82,8 @@ const SpotMarketCard = () => {
       const changeB = parseFloat(b.change);
       const priceA = parseFloat(a.price);
       const priceB = parseFloat(b.price);
+      const volumeA = parseFloat(a.volume);
+      const volumeB = parseFloat(b.volume);
       
       return sortOrder === 'priceAsc' ? priceA - priceB :
              sortOrder === 'priceDesc' ? priceB - priceA :
@@ -89,7 +91,7 @@ const SpotMarketCard = () => {
              sortOrder === 'symbolDesc' ? symbolB.localeCompare(symbolA) :
              sortOrder === 'changeAsc' ? changeA - changeB :
              sortOrder === 'changeDesc' ? changeB - changeA :
-             priceB - priceA;
+             volumeB - volumeA;
     });
   };
 

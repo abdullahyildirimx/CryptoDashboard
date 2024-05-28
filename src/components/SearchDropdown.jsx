@@ -50,7 +50,7 @@ const SearchDropdown = ({ options }) => {
       <div className="dropdown-menu p-2" aria-labelledby="dropdownMenuButton">
         <input
           type="text"
-          className="form-control"
+          className="form-control mb-2"
           id="dropdownSearchBar"
           placeholder="Search"
           value={searchTerm}

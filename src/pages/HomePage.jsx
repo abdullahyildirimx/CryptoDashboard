@@ -9,13 +9,13 @@ const HomePage = () => {
 
   return (
     <>
-      <div className='row col-12 p-3 g-0'>
+      <div className='row p-3 g-0'>
         <div className={`${isMobile ? 'col-12 mb-3' : 'col-6 p-2'}`}>
           <SpotMarketCard />
         </div>
         <div className={`${isMobile ? 'col-12 mb-3' : 'col-6 p-2'}`}>
           <MarketActivityCard />
-        </div> 
+        </div>
       </div>
     </>
   );
