@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 const useDocumentTitle = () => {
-  const { priceData } = useSelector((state) => state.spotData);
+  const { priceData } = useSelector((state) => state.dataStore);
 
   useEffect(() => {
 

@@ -1,34 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SearchBar from './SearchBar';
 import SpotTable from './SpotTable';
+import { getSpotCardStorage, setSpotCardStorage } from '../utils/localStorageUtils';
 import { useSelector } from 'react-redux';
 import './components.css';
 
 const SpotMarketCard = () => {
-  const [selectedTab, setSelectedTab] = useState('all');
-  const [sortOrder, setSortOrder] = useState('default');
-  const [favoritedCoins, setFavoritedCoins] = useState([]);
+  const localStorageData = getSpotCardStorage();
+  const [selectedTab, setSelectedTab] = useState(localStorageData.selectedTab || 'all');
+  const [favoritedCoins, setFavoritedCoins] = useState(localStorageData.favoriteCoins || []);
+  const [sortOrder, setSortOrder] = useState(localStorageData.sortOrder || 'default');
   const [searchedCoins, setSearchedCoins] = useState([]);
-  const { priceData, coinList } = useSelector((state) => state.spotData);
-
-  useEffect(() => {
-    const savedFavoriteCoins = JSON.parse(localStorage.getItem('favoriteCoins')) || [];
-    setFavoritedCoins(savedFavoriteCoins);
-  }, []);
+  const { priceData, coinList } = useSelector((state) => state.dataStore);
     
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
+    setSpotCardStorage('selectedTab', tab);
   };
 
   const toggleFavorite = (symbol) => {
     if (favoritedCoins.includes(symbol)) {
       const updatedFavorites = favoritedCoins.filter((coin) => coin !== symbol);
       setFavoritedCoins(updatedFavorites);
-      localStorage.setItem('favoriteCoins', JSON.stringify(updatedFavorites));
+      setSpotCardStorage('favoriteCoins', updatedFavorites);
     } else {
       const updatedFavorites = [...favoritedCoins, symbol];
       setFavoritedCoins(updatedFavorites);
-      localStorage.setItem('favoriteCoins', JSON.stringify(updatedFavorites));
+      setSpotCardStorage('favoriteCoins', updatedFavorites);
     }
   };
 
@@ -53,6 +51,7 @@ const SpotMarketCard = () => {
             'symbolAsc';
     }
     setSortOrder(nextOrder);
+    setSpotCardStorage('sortOrder', nextOrder);
   };
 
   const sortedAllCoins = () => {

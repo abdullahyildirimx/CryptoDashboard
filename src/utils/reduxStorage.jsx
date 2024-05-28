@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const SpotDataSlice = createSlice({
-  name: 'spotData',
+const ReduxSlice = createSlice({
+  name: 'dataStore',
   initialState: {
     priceData: null,
     coinList: null,
@@ -20,5 +20,5 @@ const SpotDataSlice = createSlice({
   },
 });
 
-export const { setPriceData, setCoinList, setLoading } = SpotDataSlice.actions;
-export default SpotDataSlice.reducer;
+export const { setPriceData, setCoinList, setLoading } = ReduxSlice.actions;
+export default ReduxSlice.reducer;

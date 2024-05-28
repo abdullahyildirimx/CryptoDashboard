@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setPriceData, setCoinList, setLoading } from '../reducers/SpotDataSlice';
+import { setPriceData, setCoinList, setLoading } from '../utils/reduxStorage';
 
 const useSpotData = () => {
   const [tickSizeData, setTickSizeData] = useState(null);

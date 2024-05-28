@@ -10,7 +10,7 @@ const MarketActivityCard = () => {
     { symbol: 'ENA', change: +1117.09 },
     { symbol: 'BAL', change: -7.02 },
   ];
-  const { coinList } = useSelector((state) => state.spotData);
+  const { coinList } = useSelector((state) => state.dataStore);
   return (
     <div className="card">
       <div className="card-body">
