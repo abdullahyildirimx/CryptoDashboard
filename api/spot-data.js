@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-const fetchPriceData = async () => {
+export default async function handler(req, res) {
   const response = await fetch('https://api.binance.com/api/v3/ticker/24hr');
   const jsonData = await response.json();
 
@@ -32,15 +32,5 @@ const fetchPriceData = async () => {
     };
   });
 
-  return priceList;
-};
-
-module.exports = async (req, res) => {
-  try {
-    const priceData = await fetchPriceData();
-    res.status(200).json(priceData);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    res.status(500).send('Internal Server Error');
-  }
+  return res.json(priceList);
 };
