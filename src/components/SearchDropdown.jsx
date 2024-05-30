@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
+import SearchBar from './SearchBar';
 
 const SearchDropdown = ({ options }) => {
-
-  const [searchTerm, setSearchTerm] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
 
@@ -11,12 +10,6 @@ const SearchDropdown = ({ options }) => {
       setSearchResults(options);
     }
   }, [options]);
-
-  const handleChange = (event) => {
-    const value = event.target.value;
-		setSearchTerm(value);
-    handleSearch(value);
-  };
 
   const handleSearch = (result) => {
     if (result) {
@@ -32,7 +25,6 @@ const SearchDropdown = ({ options }) => {
 
   const handleSelect = () => {
     setSelectedItem(null);
-    setSearchTerm('');
     setSearchResults(options);
   };
 
@@ -48,14 +40,9 @@ const SearchDropdown = ({ options }) => {
         {selectedItem ? selectedItem : 'Add to favorites'}
       </button>
       <div className="dropdown-menu p-2" aria-labelledby="dropdownMenuButton">
-        <input
-          type="text"
-          className="form-control mb-2"
-          id="dropdownSearchBar"
-          placeholder="Search"
-          value={searchTerm}
-          onChange={handleChange}
-        />
+        <div className='mb-2'>
+          <SearchBar handleSearch={handleSearch} />
+        </div>
         {searchResults.map(result => (
           <button
             key={result}

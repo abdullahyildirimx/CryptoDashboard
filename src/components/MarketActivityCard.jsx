@@ -1,6 +1,5 @@
 import SearchDropdown from './SearchDropdown';
 import { useSelector } from 'react-redux';
-import './components.css';
 
 const MarketActivityCard = () => {
 

@@ -1,5 +1,4 @@
 import { useIsMobile } from '../hooks/useScreenSize';
-import './components.css';
 
 const SpotTable = ({ content, favoritedCoins, toggleFavorite, sortOrder, toggleSortOrder }) => {
   const isMobile = useIsMobile();
@@ -20,7 +19,7 @@ const SpotTable = ({ content, favoritedCoins, toggleFavorite, sortOrder, toggleS
 
   return (
     <div className={`${isMobile ? 'table-container-mobile' : 'table-container'}`}>
-			<table className="table table-dark table-striped">
+			<table className="table table-striped">
 				<thead>
 					<tr>
 						<th></th>
