@@ -122,6 +122,24 @@ const useSpotData = () => {
     
     fetchListAndTickSizeData();
   }, [dispatch]);
+
+  useEffect(() => {
+    const fetchList = async () => {
+      try {
+        const response = await fetch('https://cryptodashboards.vercel.app/api/spot-data');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const jsonData = await response.json();
+        console.log(jsonData);
+    
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    
+    fetchList();
+  }, []);
 };
 
 export default useSpotData;
