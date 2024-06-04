@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SearchBar from './SearchBar';
 import SpotTable from './SpotTable';
-import { getSpotCardStorage, setSpotCardStorage } from '../utils/LocalStorageUtils';
+import { getSpotCardStorage, setSpotCardStorage } from '../utils/localStorageUtils';
 import { useSelector } from 'react-redux';
 
 const SpotMarketCard = () => {
