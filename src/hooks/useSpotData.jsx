@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setPriceData, setCoinList, setLoading } from '../utils/reduxStorage';
+import { setPriceData, setCoinList, setLoading } from '../utils/ReduxStorage';
 
 const useSpotData = () => {
   const [tickSizeData, setTickSizeData] = useState(null);
@@ -9,7 +9,7 @@ const useSpotData = () => {
   useEffect(() => {
     const fetchPriceData = async () => {
       try {
-        const response = await fetch('/api/spot-data');
+        const response = await fetch('https://cryptodashboards.vercel.app/api/spot-data');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -59,7 +59,7 @@ const useSpotData = () => {
   useEffect(() => {
     const fetchListAndTickSizeData = async () => {
       try {
-        const response = await fetch('/api/coin-list');
+        const response = await fetch('https://cryptodashboards.vercel.app/api/coin-list');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

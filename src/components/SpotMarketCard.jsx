@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SearchBar from './SearchBar';
 import SpotTable from './SpotTable';
-import { getSpotCardStorage, setSpotCardStorage } from '../utils/localStorageUtils';
+import { getSpotCardStorage, setSpotCardStorage } from '../utils/LocalStorageUtils';
 import { useSelector } from 'react-redux';
 
 const SpotMarketCard = () => {
@@ -118,7 +118,7 @@ const SpotMarketCard = () => {
         <ul className="nav nav-tabs">
           <li className="nav-item">
             <button
-              className={`nav-link ${selectedTab === 'favorite' ? 'active' : null}`}
+              className={`nav-link ${selectedTab === 'favorite' ? 'active' : 'text-white'}`}
               onClick={() => handleTabChange('favorite')}
             >
               Favorite
@@ -126,7 +126,7 @@ const SpotMarketCard = () => {
           </li>
           <li className="nav-item">
             <button
-              className={`nav-link ${selectedTab === 'all' ? 'active' : null}`}
+              className={`nav-link ${selectedTab === 'all' ? 'active' : 'text-white'}`}
               onClick={() => handleTabChange('all')}
             >
               All

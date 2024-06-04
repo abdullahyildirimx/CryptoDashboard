@@ -1,8 +1,8 @@
 body {
-  background-color: #181a20 !important;
+  background-color: #181a20;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif !important;
+    sans-serif;
 }
 
 code {
