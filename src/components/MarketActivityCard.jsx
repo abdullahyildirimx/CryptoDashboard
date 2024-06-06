@@ -3,13 +3,7 @@ import { useSelector } from 'react-redux';
 
 const MarketActivityCard = () => {
 
-  const activities = [
-    { symbol: 'PEOPLE', change: -7.32 },
-    { symbol: 'RVN', change: -7.84 },
-    { symbol: 'ENA', change: +1117.09 },
-    { symbol: 'BAL', change: -7.02 },
-  ];
-  const { coinList } = useSelector((state) => state.dataStore);
+  const { coinList, marketActivity } = useSelector((state) => state.dataStore);
   return (
     <div className="card">
       <div className="card-body">
@@ -17,12 +11,12 @@ const MarketActivityCard = () => {
           <h5 className="card-title">Market Activity</h5>
           <span><SearchDropdown options={coinList}/></span>
         </div>
-        {activities.map(coin => (
-          <div key={coin.symbol} className="currency-pair">
-            <span>{coin.symbol}</span>
-            <span className={`change ${parseFloat(coin.change) < 0 ? 'negative' : 'positive'}`}>
-              <span className="icon">{coin.change > 0 ? '↑' : '↓'}</span>
-              {Math.abs(coin.change)}%
+        {marketActivity.map((item, index) => (
+          <div key={index} className="currency-pair">
+            <span>{item.symbol}</span>
+            <span className={`change ${item.change < 0 ? 'negative' : 'positive'}`}>
+              <span className="icon">{item.change > 0 ? '↑' : '↓'}</span>
+              {Math.abs(item.change)}%
             </span>
           </div>
         ))}

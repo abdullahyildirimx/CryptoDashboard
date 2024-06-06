@@ -26,5 +26,5 @@ export const useScreenSize = () => {
 
 export const useIsMobile = () => {
   const { width } = useScreenSize();
-  return width < 768;
+  return width < 850;
 }

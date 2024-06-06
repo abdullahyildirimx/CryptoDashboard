@@ -2,11 +2,12 @@ import { useIsMobile } from '../hooks/useScreenSize';
 import SpotMarketCard from '../components/SpotMarketCard';
 import MarketActivityCard from '../components/MarketActivityCard';
 import useSpotData from '../hooks/useSpotData';
+import useMarketActivity from '../hooks/useMarketActivity';
 
 const HomePage = () => {
   const isMobile = useIsMobile();
   useSpotData();
-
+  useMarketActivity();
   return (
     <>
       <div className='row p-2 g-0'>
