@@ -8,7 +8,7 @@ import { setFavoriteCoins } from '../utils/reduxStorage';
 
 const SpotMarketCard = () => {
   const localStorageData = getSpotCardStorage();
-  const [selectedTab, setSelectedTab] = useState(localStorageData.selectedTab || 'all');
+  const [selectedTab, setSelectedTab] = useState(localStorageData?.selectedTab || 'all');
   const [sortOrder, setSortOrder] = useState('default');
   const [searchedCoins, setSearchedCoins] = useState([]);
   const { priceData, coinList, favoriteCoins } = useSelector((state) => state.dataStore);

@@ -8,7 +8,7 @@ import MarketActivity from './MarketActivity';
 const MarketActivityCard = () => {
   const localStorageActivity = getMarketActivityStorage();
   const isMobile = useIsMobile();
-  const [showFavorites, setShowFavorites] = useState(localStorageActivity.showFavorites || true);
+  const [showFavorites, setShowFavorites] = useState(localStorageActivity ? localStorageActivity.showFavorites : true);
   const { marketActivity, favoriteCoins } = useSelector((state) => state.dataStore);
 
   const filteredMarketActivity = showFavorites

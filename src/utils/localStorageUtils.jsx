@@ -1,9 +1,9 @@
 export const getSpotCardStorage = () => {
-	return JSON.parse(localStorage.getItem('spotCard')) || {};
+	return JSON.parse(localStorage.getItem('spotCard'));
 };
 
 export const getMarketActivityStorage = () => {
-	return JSON.parse(localStorage.getItem('marketActivity')) || {};
+	return JSON.parse(localStorage.getItem('marketActivity'));
 };
 
 export const setSpotCardStorage = (key, value) => {
