@@ -61,7 +61,6 @@ const useSpotData = () => {
             currency: currency
           };
         });
-    
         dispatch(setPriceData(priceList));
 
       } catch (error) {

@@ -1,30 +1,32 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import SearchBar from './SearchBar';
 import SpotTable from './SpotTable';
 import { getSpotCardStorage, setSpotCardStorage } from '../utils/localStorageUtils';
-import { useSelector } from 'react-redux';
+import { setFavoriteCoins } from '../utils/reduxStorage';
+
 
 const SpotMarketCard = () => {
   const localStorageData = getSpotCardStorage();
   const [selectedTab, setSelectedTab] = useState(localStorageData.selectedTab || 'all');
-  const [favoritedCoins, setFavoritedCoins] = useState(localStorageData.favoriteCoins || []);
-  const [sortOrder, setSortOrder] = useState(localStorageData.sortOrder || 'default');
+  const [sortOrder, setSortOrder] = useState('default');
   const [searchedCoins, setSearchedCoins] = useState([]);
-  const { priceData, coinList } = useSelector((state) => state.dataStore);
-    
+  const { priceData, coinList, favoriteCoins } = useSelector((state) => state.dataStore);
+  const dispatch = useDispatch();
+
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
     setSpotCardStorage('selectedTab', tab);
   };
 
   const toggleFavorite = (symbol) => {
-    if (favoritedCoins.includes(symbol)) {
-      const updatedFavorites = favoritedCoins.filter((coin) => coin !== symbol);
-      setFavoritedCoins(updatedFavorites);
+    if (favoriteCoins.includes(symbol)) {
+      const updatedFavorites = favoriteCoins.filter((coin) => coin !== symbol);
+      dispatch(setFavoriteCoins(updatedFavorites));
       setSpotCardStorage('favoriteCoins', updatedFavorites);
     } else {
-      const updatedFavorites = [...favoritedCoins, symbol];
-      setFavoritedCoins(updatedFavorites);
+      const updatedFavorites = [...favoriteCoins, symbol];
+      dispatch(setFavoriteCoins(updatedFavorites));
       setSpotCardStorage('favoriteCoins', updatedFavorites);
     }
   };
@@ -50,7 +52,6 @@ const SpotMarketCard = () => {
             'symbolAsc';
     }
     setSortOrder(nextOrder);
-    setSpotCardStorage('sortOrder', nextOrder);
   };
 
   const sortedAllCoins = () => {
@@ -65,7 +66,7 @@ const SpotMarketCard = () => {
 
     }
     else if (selectedTab === 'favorite') {
-      coins = favoritedCoins.map(symbol => {
+      coins = favoriteCoins.map(symbol => {
         return priceData.find(data => data.symbol === symbol);
       });
     }
@@ -133,7 +134,7 @@ const SpotMarketCard = () => {
             </button>
           </li>
         </ul>
-        <SpotTable content={sortedAllCoins} favoritedCoins={favoritedCoins} sortOrder={sortOrder} toggleFavorite={toggleFavorite} toggleSortOrder={toggleSortOrder} />
+        <SpotTable content={sortedAllCoins} favoriteCoins={favoriteCoins} sortOrder={sortOrder} toggleFavorite={toggleFavorite} toggleSortOrder={toggleSortOrder} />
       </div>
     </div>
   );

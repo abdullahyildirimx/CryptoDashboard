@@ -1,7 +1,6 @@
 import MenuHeader from './components/MenuHeader';
 import useDocumentTitle from './hooks/useDocumentTitle';
 import HomePage from './pages/HomePage';
-import './components/components.css';
 
 const App = () => {
   

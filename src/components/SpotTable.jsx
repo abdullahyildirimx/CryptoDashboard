@@ -1,6 +1,6 @@
 import { useIsMobile } from '../hooks/useScreenSize';
 
-const SpotTable = ({ content, favoritedCoins, toggleFavorite, sortOrder, toggleSortOrder }) => {
+const SpotTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSortOrder }) => {
   const isMobile = useIsMobile();
 
   const handleToggleFavorite = (symbol) => {
@@ -52,11 +52,11 @@ const SpotTable = ({ content, favoritedCoins, toggleFavorite, sortOrder, toggleS
 								className="icon-button"
 								onClick={() => handleToggleFavorite(item.symbol)}
 								>
-								{favoritedCoins.includes(item.symbol) ? <i className="fa-solid fa-star" style={{ color: 'gold'}}></i>
+								{favoriteCoins.includes(item.symbol) ? <i className="fa-solid fa-star" style={{ color: 'gold'}}></i>
 								: <i className="fa-regular fa-star" style={{ color: 'white'}}></i>}
 								</button>
 						</td>
-						<td><img className='mx-1 rounded-circle' src={`/logos/${item.symbol}.png`} width={16}></img></td>
+						<td><img className='mx-1 rounded-circle' src={`/logos/${item.symbol}.png`} width={20}></img></td>
 						<td>{item.symbol}</td>
 						<td>
 								<span>{item.currency}{item.price}</span>

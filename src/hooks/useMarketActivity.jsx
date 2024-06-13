@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMarketActivity } from '../utils/reduxStorage';
 
-const bigCoinList = ['BTC', 'ETH'];
+const bigCoinList = ['BTC', 'ETH', 'USDT'];
 
 const useMarketActivity = () => {
 
@@ -39,7 +39,8 @@ const useMarketActivity = () => {
 									symbol: i,
 									oldPrice: prevPrice,
 									newPrice: currentPrice,
-									change: parseFloat(((rate - 1) * 100).toFixed(2))
+									change: parseFloat(((rate - 1) * 100).toFixed(2)),
+									time: new Date().toLocaleTimeString(),
 								}
 								resultArray.push(result);
 								newPriceData[counter] = Array(30).fill(0);
@@ -49,7 +50,8 @@ const useMarketActivity = () => {
 									symbol: i,
 									oldPrice: prevPrice,
 									newPrice: currentPrice,
-									change: parseFloat(((rate - 1) * 100).toFixed(2))
+									change: parseFloat(((rate - 1) * 100).toFixed(2)),
+									time: new Date().toLocaleTimeString(),
 								}
 								resultArray.push(result);
 								newPriceData[counter] = Array(30).fill(0);
@@ -61,7 +63,8 @@ const useMarketActivity = () => {
 									symbol: i,
 									oldPrice: prevPrice,
 									newPrice: currentPrice,
-									change: parseFloat(((rate - 1) * 100).toFixed(2))
+									change: parseFloat(((rate - 1) * 100).toFixed(2)),
+									time: new Date().toLocaleTimeString(),
 								}
 								resultArray.push(result);
 								newPriceData[counter] = Array(30).fill(0);
@@ -71,7 +74,8 @@ const useMarketActivity = () => {
 									symbol: i,
 									oldPrice: prevPrice,
 									newPrice: currentPrice,
-									change: parseFloat(((rate - 1) * 100).toFixed(2))
+									change: parseFloat(((rate - 1) * 100).toFixed(2)),
+									time: new Date().toLocaleTimeString(),
 								}
 								resultArray.push(result);
 								newPriceData[counter] = Array(30).fill(0);
@@ -99,8 +103,6 @@ const useMarketActivity = () => {
 
 		return () => clearInterval(intervalId);
 	}, []);
-
-	return null;
 };
 
 export default useMarketActivity;
