@@ -1,8 +1,17 @@
-# React + Vite
+## Intro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The dashboard uses Binance APIs to track the spot market data and getting the unusual price movements. It is written using React + Vite.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Install packages
+
+```js
+npm install
+```
+
+Start application
+
+```js
+npm run dev
+```

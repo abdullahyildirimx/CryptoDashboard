@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setPriceData, setCoinList, setLoading } from '../utils/reduxStorage';
+import { setPriceData, setCoinList } from '../utils/reduxStorage';
 
 const useSpotData = () => {
   const [tickSizeData, setTickSizeData] = useState(null);
@@ -65,8 +65,6 @@ const useSpotData = () => {
 
       } catch (error) {
         console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
       }
     };
 

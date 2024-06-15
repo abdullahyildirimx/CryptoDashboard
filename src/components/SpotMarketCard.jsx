@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 import SpotTable from './SpotTable';
 import { getSpotCardStorage, setSpotCardStorage } from '../utils/localStorageUtils';
 import { setFavoriteCoins } from '../utils/reduxStorage';
-
+import { useIsMobile } from '../hooks/useScreenSize';
 
 const SpotMarketCard = () => {
   const localStorageData = getSpotCardStorage();
@@ -13,6 +13,7 @@ const SpotMarketCard = () => {
   const [searchedCoins, setSearchedCoins] = useState([]);
   const { priceData, coinList, favoriteCoins } = useSelector((state) => state.dataStore);
   const dispatch = useDispatch();
+  const isMobile = useIsMobile();
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
@@ -134,7 +135,12 @@ const SpotMarketCard = () => {
             </button>
           </li>
         </ul>
-        <SpotTable content={sortedAllCoins} favoriteCoins={favoriteCoins} sortOrder={sortOrder} toggleFavorite={toggleFavorite} toggleSortOrder={toggleSortOrder} />
+        <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${!priceData ? 'd-flex justify-content-center align-items-center' : ''}`}>
+          {priceData 
+            ? <SpotTable content={sortedAllCoins} favoriteCoins={favoriteCoins} sortOrder={sortOrder} toggleFavorite={toggleFavorite} toggleSortOrder={toggleSortOrder} />
+            : <div className="spinner-border text-primary" role="status"></div>
+          }
+        </div>
       </div>
     </div>
   );

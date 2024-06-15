@@ -24,10 +24,10 @@
   background-color: #3a2434;
   color: #c74242;
 }
+
 .positive {
   background-color: #1c3238;
   color: #0ec56b;
-  
 }
 
 .table-container {
@@ -46,7 +46,7 @@
 }
 
 .activity-container {
-  height: 480px;
+  height: 490px;
   overflow-y: auto;
   overflow-x: auto;
   font-weight: 500;

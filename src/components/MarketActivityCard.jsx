@@ -8,12 +8,12 @@ import MarketActivity from './MarketActivity';
 const MarketActivityCard = () => {
   const localStorageActivity = getMarketActivityStorage();
   const isMobile = useIsMobile();
-  const [showFavorites, setShowFavorites] = useState(localStorageActivity ? localStorageActivity.showFavorites : true);
+  const [showFavorites, setShowFavorites] = useState(localStorageActivity?.showFavorites || false);
   const { marketActivity, favoriteCoins } = useSelector((state) => state.dataStore);
 
-  const filteredMarketActivity = showFavorites
+  const activity = marketActivity ? (showFavorites
   ? marketActivity.filter(item => favoriteCoins.includes(item.symbol))
-  : marketActivity;
+  : marketActivity) : [];
 
   const handleToggleFavorites = (newValue) => {
     setShowFavorites(newValue)
@@ -37,7 +37,6 @@ const MarketActivityCard = () => {
             <i className="fa-regular fa-circle-question" data-tooltip-id="infoTooltip2"></i>
           </div>
         </div>
-        <MarketActivity activity={filteredMarketActivity} showFavorites={showFavorites} />
         <Tooltip
           style={{width: '180px'}}
           id="infoTooltip1"
@@ -52,6 +51,20 @@ const MarketActivityCard = () => {
           variant="dark"
           content="You may see too much notifications when it is not checked."
         />
+        <div className={`${isMobile ? 'activity-container-mobile' : 'activity-container'} ${!activity.length ? 'd-flex justify-content-center align-items-center' : ''}`}>
+          {marketActivity ?
+            <>
+              <MarketActivity activity={activity} />
+              {!activity.length &&
+                (showFavorites 
+                  ? <p>There is no market activity for your favorite coins.</p> 
+                  : <p>There is no market activity.</p>
+                )
+              }
+            </>
+            : <div className="spinner-border text-primary" role="status"></div>
+          }
+        </div>
       </div>
     </div>
   );
