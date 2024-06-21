@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setPriceData, setCoinList } from '../utils/reduxStorage';
+import { spotPriceUrl, coinListUrl } from '../utils/urls';
 
 const useSpotData = () => {
   const [tickSizeData, setTickSizeData] = useState(null);
@@ -18,7 +19,7 @@ const useSpotData = () => {
   useEffect(() => {
     const fetchPriceData = async () => {
       try {
-        const response = await fetch('https://api.binance.com/api/v3/ticker/24hr');
+        const response = await fetch(spotPriceUrl);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -77,7 +78,7 @@ const useSpotData = () => {
   useEffect(() => {
     const fetchListAndTickSizeData = async () => {
       try {
-        const response = await fetch('https://api.binance.com/api/v3/exchangeInfo');
+        const response = await fetch(coinListUrl);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

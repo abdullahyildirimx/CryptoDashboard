@@ -8,7 +8,7 @@ const ReduxSlice = createSlice({
   initialState: {
     priceData: null,
     coinList: null,
-    marketActivity: [],
+    marketActivity: null,
     favoriteCoins: localStorageData?.favoriteCoins || [],
   },
   reducers: {
@@ -19,7 +19,7 @@ const ReduxSlice = createSlice({
       state.coinList = action.payload;
     },
     setMarketActivity(state, action) {
-      state.marketActivity = [...action.payload, ...state.marketActivity];
+      state.marketActivity = action.payload;
     },
     setFavoriteCoins(state, action) {
       state.favoriteCoins = action.payload;

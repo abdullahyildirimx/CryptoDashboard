@@ -13,7 +13,7 @@ const purgeDelta = 86400000
 
 const bigcoinTriggerLow = 0.99
 const bigcoinTriggerHigh = 1.01
-const altcoinTriggerLow = 0.999
+const altcoinTriggerLow = 0.97
 const altcoinTriggerHigh = 1.03
 const bigCoinList = ["BTC", "ETH", "USDT"]
 
@@ -128,9 +128,11 @@ setInterval(fetchMarketActivity, activityDelta)
 setInterval(purgeData, purgeControlDelta)
 
 app.get("/api", function (req, res) {
-  res.send(activityData)
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Methods", "GET")
+  res.setHeader("Access-Control-Allow-Headers", "*")
+  res.status(200).send(activityData)
 })
 
 app.listen(5000, function () {
-  console.log("Express App running at http://127.0.0.1:5000/")
 })
