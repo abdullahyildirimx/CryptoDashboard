@@ -19,7 +19,7 @@ const MarketActivity = ({ activity }) => {
 					</div>
 					<span className ={`change ${item.change < 0 ? 'negative' : 'positive'}`}>
 						<span className="icon">{item.change > 0 ? '↑' : '↓'}</span>
-						{Math.abs(item.change)}%
+						{item.change}%
 					</span>
 				</div>
 			</div>
