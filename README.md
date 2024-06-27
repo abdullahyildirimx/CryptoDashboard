@@ -15,3 +15,15 @@ Start application
 ```js
 npm run dev
 ```
+
+To start backend,
+
+```js
+npm install
+```
+
+```js
+npm start
+```
+
+
