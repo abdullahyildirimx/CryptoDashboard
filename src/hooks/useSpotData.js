@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setPriceData, setCoinList } from '../utils/reduxStorage';
-import { spotPriceUrl, coinListUrl } from '../utils/urls';
+import { spotPriceUrl, coinListUrl, coinLogosUrl } from '../utils/urls';
 
 const useSpotData = () => {
-  const [tickSizeData, setTickSizeData] = useState(null);
+  const [coinMetadata, setCoinMetadata] = useState(null);
   const dispatch = useDispatch();
 
   const countDecimalPlaces = (num) => {
@@ -35,6 +35,7 @@ const useSpotData = () => {
           let volume = parseFloat(coin.quoteVolume).toFixed(2);
           const change = parseFloat(coin.priceChangePercent).toFixed(2);
           let currency = '$';
+          let logo = '';
 
           if (symbol !== "USDTTRY") {
             symbol = symbol.slice(0, -"USDT".length);
@@ -44,11 +45,12 @@ const useSpotData = () => {
             currency = '₺';
           }
 
-          if (tickSizeData) {
-            let tickData = tickSizeData.find(coin => coin.symbol === symbol);
-            if (tickData) {
-              const tickSizeDecimals = tickData.tickSize;
+          if (coinMetadata) {
+            let metadata = coinMetadata.find(coin => coin.symbol === symbol);
+            if (metadata) {
+              const tickSizeDecimals = metadata.tickSize;
               price = parseFloat(price).toFixed(tickSizeDecimals);
+              logo = metadata.logo;
             }
           } else {
             price = parseFloat(price);
@@ -59,7 +61,8 @@ const useSpotData = () => {
             price: price,
             volume: volume,
             change: change,
-            currency: currency
+            currency: currency,
+            logo: logo
           };
         });
         dispatch(setPriceData(priceList));
@@ -73,52 +76,63 @@ const useSpotData = () => {
     const intervalId = setInterval(fetchPriceData, 5000);
     return () => clearInterval(intervalId);
     
-  }, [tickSizeData, dispatch]);
+  }, [coinMetadata, dispatch]);
 
   useEffect(() => {
-    const fetchListAndTickSizeData = async () => {
+    const fetchCoinMetadata = async () => {
       try {
         const response = await fetch(coinListUrl);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const jsonData = await response.json();
-    
+
+        const response2 = await fetch(coinLogosUrl);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const jsonData2 = await response2.json();
+        const logoData = jsonData2.data;
+
         const filteredCoins = jsonData.symbols.filter(coin => {
           return (coin.symbol.endsWith('USDT') || coin.symbol === 'USDTTRY') && coin.status !== 'BREAK';
         });
-    
-        const tickSizeList = filteredCoins.map(item => {
+        const coinMetadata = filteredCoins.map(item => {
           let symbol = item.symbol;
           let tickSize = countDecimalPlaces(item.filters[0].tickSize);
+          let logo = '';
+
           if (symbol !== "USDTTRY") {
             symbol = symbol.slice(0, -"USDT".length);
           } else {
             symbol = symbol.slice(0, -"TRY".length);
+          }
+
+          if (symbol !== "EUR") {
+            logo = logoData.find(coin => coin.name === symbol).logo;
+          } else {
+            logo = "https://public.bnbstatic.com/image/currencies/EUR.png";
           }
           return {
             symbol: symbol,
-            tickSize: tickSize
+            tickSize: tickSize,
+            logo: logo
           };
-        });
+        }).slice().sort((a, b) => { return (a.symbol).localeCompare(b.symbol) });
 
-        const coinSymbolList = filteredCoins.map(item => {
+        const coinSymbolList = coinMetadata.map(item => {
           let symbol = item.symbol;
-          if (symbol !== "USDTTRY") {
-            symbol = symbol.slice(0, -"USDT".length);
-          } else {
-            symbol = symbol.slice(0, -"TRY".length);
-          }
           return symbol;
-        }).slice().sort((a, b) => { return a.localeCompare(b) });
-        setTickSizeData(tickSizeList);
+        });
+        
+        setCoinMetadata(coinMetadata);
         dispatch(setCoinList(coinSymbolList));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     
-    fetchListAndTickSizeData();
+    fetchCoinMetadata();
   }, [dispatch]);
 };
 
