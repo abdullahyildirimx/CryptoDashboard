@@ -6,14 +6,14 @@ const localStorageData = getSpotCardStorage();
 const ReduxSlice = createSlice({
   name: 'dataStore',
   initialState: {
-    priceData: null,
+    coinData: null,
     coinList: null,
     marketActivity: null,
     favoriteCoins: localStorageData?.favoriteCoins || [],
   },
   reducers: {
-    setPriceData(state, action) {
-      state.priceData = action.payload;
+    setCoinData(state, action) {
+      state.coinData = action.payload;
     },
     setCoinList(state, action) {
       state.coinList = action.payload;
@@ -27,5 +27,5 @@ const ReduxSlice = createSlice({
   },
 });
 
-export const { setPriceData, setCoinList, setMarketActivity, setFavoriteCoins } = ReduxSlice.actions;
+export const { setCoinData, setCoinList, setMarketActivity, setFavoriteCoins } = ReduxSlice.actions;
 export default ReduxSlice.reducer;

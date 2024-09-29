@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setPriceData, setCoinList } from '../utils/reduxStorage';
-import { spotPriceUrl, coinListUrl, coinLogosUrl } from '../utils/urls';
+import { setCoinData, setCoinList } from '../utils/reduxStorage';
+import { spotPriceUrl, coinListUrl, coinLogosUrl, getLogoLink } from '../utils/urls';
 
 const useSpotData = () => {
   const [coinMetadata, setCoinMetadata] = useState(null);
@@ -65,7 +65,7 @@ const useSpotData = () => {
             logo: logo
           };
         });
-        dispatch(setPriceData(priceList));
+        dispatch(setCoinData(priceList));
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -100,6 +100,7 @@ const useSpotData = () => {
         const coinMetadata = filteredCoins.map(item => {
           let symbol = item.symbol;
           let tickSize = countDecimalPlaces(item.filters[0].tickSize);
+          let logoNumber = 1;
           let logo = '';
 
           if (symbol !== "USDTTRY") {
@@ -109,10 +110,12 @@ const useSpotData = () => {
           }
 
           if (symbol !== "EUR") {
-            logo = logoData.find(coin => coin.name === symbol).logo;
+            logoNumber = logoData.find(coin => coin.name === symbol).cmcUniqueId;
           } else {
-            logo = "https://public.bnbstatic.com/image/currencies/EUR.png";
+            logoNumber = 2989;
           }
+          logo = getLogoLink(logoNumber);
+
           return {
             symbol: symbol,
             tickSize: tickSize,

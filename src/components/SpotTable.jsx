@@ -52,7 +52,8 @@ const SpotTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 						: <i className="fa-regular fa-star" style={{ color: 'white'}}></i>}
 						</button>
 				</td>
-				<td><img className='mx-1 rounded-circle' src={item.logo} width={20}></img></td>
+				<td><img className='mx-1 rounded-circle' src={item.logo} width={20} />
+				</td>
 				<td>{item.symbol}</td>
 				<td>
 						<span>{item.currency}{item.price}</span>

@@ -11,7 +11,7 @@ const SpotMarketCard = () => {
   const [selectedTab, setSelectedTab] = useState(localStorageData?.selectedTab || 'all');
   const [sortOrder, setSortOrder] = useState('default');
   const [searchedCoins, setSearchedCoins] = useState([]);
-  const { priceData, coinList, favoriteCoins } = useSelector((state) => state.dataStore);
+  const { coinData, coinList, favoriteCoins } = useSelector((state) => state.dataStore);
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
 
@@ -56,23 +56,23 @@ const SpotMarketCard = () => {
   };
 
   const sortedAllCoins = () => {
-    if (!priceData) {
+    if (!coinData) {
       return [];
     }
     let coins = [];
     if (searchedCoins.length > 0) {
       coins = searchedCoins.map(symbol => {
-        return priceData.find(data => data.symbol === symbol);
+        return coinData.find(data => data.symbol === symbol);
       });
 
     }
     else if (selectedTab === 'favorite') {
       coins = favoriteCoins.map(symbol => {
-        return priceData.find(data => data.symbol === symbol);
+        return coinData.find(data => data.symbol === symbol);
       });
     }
     else {
-      coins = priceData;
+      coins = coinData;
     }
     
     return coins.slice().sort((a, b) => {
@@ -96,7 +96,7 @@ const SpotMarketCard = () => {
   };
 
   const handleSearch = (result) => {
-    if (!priceData) {
+    if (!coinData) {
       return [];
     }
     if (result) {
@@ -135,8 +135,8 @@ const SpotMarketCard = () => {
             </button>
           </li>
         </ul>
-        <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${!priceData ? 'd-flex justify-content-center align-items-center' : ''}`}>
-          {priceData 
+        <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${!coinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
+          {coinData 
             ? <SpotTable content={sortedAllCoins} favoriteCoins={favoriteCoins} sortOrder={sortOrder} toggleFavorite={toggleFavorite} toggleSortOrder={toggleSortOrder} />
             : <div className="spinner-border text-primary" role="status"></div>
           }
