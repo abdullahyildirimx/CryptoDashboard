@@ -1,6 +1,6 @@
 "use strict"
+import express from "express"
 
-const express = require("express")
 const app = express()
 
 let priceData = []
@@ -54,7 +54,8 @@ const fetchCoinList = async () => {
       }
     })
   } 
-  catch (err) {
+  catch (error) {
+    console.error("Error fetching data:", error);
   }
 }
 
@@ -121,7 +122,8 @@ const fetchMarketActivity = async () => {
     }
     priceData = newPriceData
   } 
-  catch (err) {
+  catch (error) {
+    console.error("Error fetching data:", error);
   }
 }
 
