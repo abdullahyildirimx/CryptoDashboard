@@ -46,7 +46,7 @@
 }
 
 .activity-container {
-  height: 490px;
+  height: 200px;
   overflow-y: auto;
   overflow-x: auto;
   font-weight: 500;

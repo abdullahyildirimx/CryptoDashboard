@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getSpotCardStorage } from './localStorageUtils';
+import { getMarketBuySellStorage, getSpotCardStorage } from './localStorageUtils';
 
 const localStorageData = getSpotCardStorage();
+const localStorageData2 = getMarketBuySellStorage();
 
 const ReduxSlice = createSlice({
   name: 'dataStore',
@@ -10,6 +11,8 @@ const ReduxSlice = createSlice({
     coinList: null,
     marketActivity: null,
     favoriteCoins: localStorageData?.favoriteCoins || [],
+    apiKey: localStorageData2?.binanceApiKey || "",
+    apiSecret: localStorageData2?.binanceApiSecret || "",
   },
   reducers: {
     setCoinData(state, action) {
@@ -24,8 +27,14 @@ const ReduxSlice = createSlice({
     setFavoriteCoins(state, action) {
       state.favoriteCoins = action.payload;
     },
+    setApiKey(state, action) {
+      state.apiKey = action.payload;
+    },
+    setApiSecret(state, action) {
+      state.apiSecret = action.payload;
+    },
   },
 });
 
-export const { setCoinData, setCoinList, setMarketActivity, setFavoriteCoins } = ReduxSlice.actions;
+export const { setCoinData, setCoinList, setMarketActivity, setFavoriteCoins, setApiKey, setApiSecret } = ReduxSlice.actions;
 export default ReduxSlice.reducer;
