@@ -88,7 +88,7 @@ const useSpotData = () => {
         const jsonData = await response.json();
 
         const response2 = await fetch(coinLogosUrl);
-        if (!response.ok) {
+        if (!response2.ok) {
           throw new Error('Network response was not ok');
         }
         const jsonData2 = await response2.json();

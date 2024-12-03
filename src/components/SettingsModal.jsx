@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getMarketBuySellStorage, setMarketBuySellStorage } from '../utils/localStorageUtils';
-import { setApiKey, setApiSecret } from "../utils/reduxStorage";
+import { setApiEnabled, setApiKey, setApiSecret } from "../utils/reduxStorage";
 
 const SettingsModal = () => {
   const dispatch = useDispatch();
@@ -10,17 +10,22 @@ const SettingsModal = () => {
   const [binanceApiSecret, setBinanceApiSecret] = useState(localStorageData?.binanceApiSecret || "");
 
   const saveSettings = () => {
-    setMarketBuySellStorage('binanceApiKey', binanceApiKey.trim());
-    setMarketBuySellStorage("binanceApiSecret", binanceApiSecret.trim());
-    dispatch(setApiKey(binanceApiKey));
-    dispatch(setApiSecret(binanceApiSecret));
+    const key = binanceApiKey.trim();
+    const secret = binanceApiSecret.trim();
+    const enabled = (key && secret) ? true : false;
+    setMarketBuySellStorage("apiEnabled", enabled);
+    setMarketBuySellStorage('binanceApiKey', key);
+    setMarketBuySellStorage("binanceApiSecret", secret);
+    dispatch(setApiEnabled(enabled));
+    dispatch(setApiKey(key));
+    dispatch(setApiSecret(secret));
   };
 
   return (
-    <div>
+    <div className="d-flex align-items-center">
 			<div>
 				<button className="icon-button" data-bs-toggle="modal" data-bs-target="#settingsModal">
-					<i className="fa-solid fa-gear text-white" style={{ fontSize: "20px" }}></i>
+					<i className="fa-solid fa-gear text-white" style={{ fontSize: "30px" }}></i>
 				</button>
 			</div>
 
@@ -46,6 +51,7 @@ const SettingsModal = () => {
                     value={binanceApiKey}
                     onChange={(e) => setBinanceApiKey(e.target.value)}
                     placeholder="Enter your Binance API key"
+                    autoComplete="off"
                     required
                   />
                 </div>
@@ -60,6 +66,7 @@ const SettingsModal = () => {
                     value={binanceApiSecret}
                     onChange={(e) => setBinanceApiSecret(e.target.value)}
                     placeholder="Enter your Binance API Secret"
+                    autoComplete="off"
                     required
                   />
                 </div>

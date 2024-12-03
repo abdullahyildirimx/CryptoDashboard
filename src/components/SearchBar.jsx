@@ -17,6 +17,7 @@ const SearchBar = ({ handleSearch }) => {
         id="searchBar"
         placeholder='Search'
         value={searchTerm}
+        autoComplete="off"
         onChange={handleChange}
       />
     </div>

@@ -1,4 +1,5 @@
 import { useIsMobile } from '../hooks/useScreenSize';
+import SettingsModal from './SettingsModal';
 
 const MenuHeader = () => {
   const isMobile = useIsMobile();
@@ -10,6 +11,7 @@ const MenuHeader = () => {
           <img className='mx-1' src='/logo192.png' width={40}></img>
           {!isMobile && <div>Crypto Dashboard</div>}
         </a>
+        <SettingsModal />
       </div>
     </div>
   );

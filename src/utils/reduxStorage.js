@@ -11,6 +11,7 @@ const ReduxSlice = createSlice({
     coinList: null,
     marketActivity: null,
     favoriteCoins: localStorageData?.favoriteCoins || [],
+    apiEnabled: localStorageData2?.apiEnabled || false,
     apiKey: localStorageData2?.binanceApiKey || "",
     apiSecret: localStorageData2?.binanceApiSecret || "",
   },
@@ -27,6 +28,9 @@ const ReduxSlice = createSlice({
     setFavoriteCoins(state, action) {
       state.favoriteCoins = action.payload;
     },
+    setApiEnabled(state, action) {
+      state.apiEnabled = action.payload;
+    },
     setApiKey(state, action) {
       state.apiKey = action.payload;
     },
@@ -36,5 +40,5 @@ const ReduxSlice = createSlice({
   },
 });
 
-export const { setCoinData, setCoinList, setMarketActivity, setFavoriteCoins, setApiKey, setApiSecret } = ReduxSlice.actions;
+export const { setCoinData, setCoinList, setMarketActivity, setFavoriteCoins, setApiEnabled, setApiKey, setApiSecret } = ReduxSlice.actions;
 export default ReduxSlice.reducer;

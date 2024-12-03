@@ -7,7 +7,7 @@ const MarketActivity = ({ activity }) => {
 			return '';
 		}
 		const coin = coinData.find(data => data.symbol === symbol);
-		return coin.logo;
+		return coin?.logo;
 	}
 	return (
 		activity.map((item, index) => (

@@ -9,7 +9,7 @@ const MarketActivityCard = () => {
   const localStorageActivity = getMarketActivityStorage();
   const isMobile = useIsMobile();
   const [showFavorites, setShowFavorites] = useState(localStorageActivity?.showFavorites || false);
-  const { marketActivity, favoriteCoins } = useSelector((state) => state.dataStore);
+  const { apiEnabled, marketActivity, favoriteCoins } = useSelector((state) => state.dataStore);
 
   const activity = marketActivity ? (showFavorites
   ? marketActivity.filter(item => favoriteCoins.includes(item.symbol))
@@ -51,7 +51,7 @@ const MarketActivityCard = () => {
           variant="dark"
           content="You may see too much notifications when it is not checked."
         />
-        <div className={`${isMobile ? 'activity-container-mobile' : 'activity-container'} ${!activity.length ? 'd-flex justify-content-center align-items-center' : ''}`}>
+        <div className={`${isMobile ? 'activity-container-mobile' : apiEnabled ? 'activity-container-short' : 'activity-container-long'} ${!activity.length ? 'd-flex justify-content-center align-items-center' : ''}`}>
           {marketActivity ?
             <>
               <MarketActivity activity={activity} />
