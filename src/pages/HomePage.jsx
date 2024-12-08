@@ -10,17 +10,32 @@ const HomePage = () => {
   useSpotData();
   useMarketActivity();
   return (
-    <>
-      <div className='row p-2 g-0'>
-        <div className={`${isMobile ? 'col-12 mb-3 p-2' : 'col-6 p-2'}`}>
+    <div className='row p-2 g-0'>
+      { isMobile ? 
+        <>
+        <div className='col-12 mb-2 p-2'>
           <SpotMarketCard />
         </div>
-        <div className={`${isMobile ? 'col-12 mb-3 p-2' : 'col-6 p-2'}`}>
+        <div className='col-12 mb-2 p-2'>
           <MarketBuySellCard />
+        </div>
+        <div className='col-12 mb-2 p-2'>
+          <MarketActivityCard />
+        </div>
+        </> 
+        : <>
+        <div className='col-6 p-2'>
+          <SpotMarketCard />
+        </div>
+        <div className='col-6 p-2'>
+          <div className='mb-3'>
+            <MarketBuySellCard />
+          </div>
           <MarketActivityCard /> 
         </div>
-      </div>
-    </>
+        </>
+      }
+    </div>
   );
 }
   

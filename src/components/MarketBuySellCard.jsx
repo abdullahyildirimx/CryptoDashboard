@@ -132,12 +132,12 @@ const MarketBuySellCard = () => {
 
   return (
     <>
-    {apiEnabled ?
-      <div className="card mb-3">
+    {apiEnabled &&
+      <div className="card">
         <div className="card-body">
           <div className="d-flex align-items-center justify-content-between mb-4">
             <h5 className="card-title mb-0">Market Buy/Sell</h5>
-            <SearchDropdown options={coinList} handleSelect={handleChangeCoin} />
+            <SearchDropdown options={coinList} handleSelect={handleChangeCoin} currentSelection={baseCurrency} />
           </div>
 
           <div className="d-flex justify-content-center align-items-center mb-4">
@@ -146,7 +146,7 @@ const MarketBuySellCard = () => {
           </div>
 
           <div className={`d-flex ${isMobile ? 'font-size-10' : 'font-size-12'} text-secondary`}>
-            <div className="col-6 px-2">
+            <div className="col-6 d-flex flex-column px-2">
               <div className="d-flex justify-content-end">
                 <div>Avlbl:</div>
                 <div>&nbsp;{quoteBalance.toFixed(8)} {quoteCurrency}</div>
@@ -155,7 +155,7 @@ const MarketBuySellCard = () => {
               <div className="mb-4">
                 <input 
                   type="range"
-                  className="form-range mb-0"
+                  className="form-range"
                   id="buySlider"
                   min="0"
                   max="100"
@@ -168,12 +168,12 @@ const MarketBuySellCard = () => {
                 </div>
               </div>
 
-              <button className="btn btn-success w-100" onClick={executeBuy}>
+              <button className="btn btn-success" onClick={executeBuy}>
                 Buy
               </button>
             </div>
 
-            <div className="col-6 px-2">
+            <div className="col-6 d-flex flex-column px-2">
               <div className="d-flex justify-content-end">
                 <div>Avlbl:</div>
                 <div>&nbsp;{baseBalance.toFixed(8)} {baseCurrency}</div>
@@ -193,14 +193,14 @@ const MarketBuySellCard = () => {
                   {sellSliderValue}% - {(baseBalance * sellSliderValue / 100).toFixed(8)} {baseCurrency}
                 </div>
               </div>
-              <button className="btn btn-danger w-100" onClick={executeSell}>
+              <button className="btn btn-danger" onClick={executeSell}>
                 Sell
               </button>
             </div>
           </div>
         </div>
       </div>
-    : null}
+    }
     </>
   );
 };
