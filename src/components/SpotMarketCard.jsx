@@ -135,11 +135,23 @@ const SpotMarketCard = () => {
             </button>
           </li>
         </ul>
-        <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${!coinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
-          {coinData 
-            ? <SpotTable content={sortedAllCoins} favoriteCoins={favoriteCoins} sortOrder={sortOrder} toggleFavorite={toggleFavorite} toggleSortOrder={toggleSortOrder} />
-            : <div className="spinner-border text-primary" role="status"></div>
-          }
+        <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${ !coinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
+          {coinData ? ((selectedTab === 'favorite' && !favoriteCoins.length) ? (
+              <div className='h-100 d-flex justify-content-center align-items-center'>
+                You don't have any favorite coins.
+              </div>
+            ) : (
+              <SpotTable
+                content={sortedAllCoins}
+                favoriteCoins={favoriteCoins}
+                sortOrder={sortOrder}
+                toggleFavorite={toggleFavorite}
+                toggleSortOrder={toggleSortOrder}
+              />
+            )
+          ) : (
+            <div className="spinner-border text-primary" role="status"></div>
+          )}
         </div>
       </div>
     </div>

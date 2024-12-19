@@ -13,13 +13,13 @@ const HomePage = () => {
     <div className='row p-2 g-0'>
       { isMobile ? 
         <>
-        <div className='col-12 mb-2 p-2'>
+        <div className='col-12 p-2'>
           <SpotMarketCard />
         </div>
-        <div className='col-12 mb-2 p-2'>
+        <div className='col-12 p-2'>
           <MarketBuySellCard />
         </div>
-        <div className='col-12 mb-2 p-2'>
+        <div className='col-12 p-2'>
           <MarketActivityCard />
         </div>
         </> 
@@ -28,9 +28,7 @@ const HomePage = () => {
           <SpotMarketCard />
         </div>
         <div className='col-6 p-2'>
-          <div className='mb-3'>
-            <MarketBuySellCard />
-          </div>
+          <MarketBuySellCard />
           <MarketActivityCard /> 
         </div>
         </>

@@ -133,7 +133,7 @@ const MarketBuySellCard = () => {
   return (
     <>
     {apiEnabled &&
-      <div className="card">
+      <div className={`card ${!isMobile && 'mb-3'}`}>
         <div className="card-body">
           <div className="d-flex align-items-center justify-content-between mb-4">
             <h5 className="card-title mb-0">Market Buy/Sell</h5>
