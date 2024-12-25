@@ -61,7 +61,7 @@ const SpotMarketCard = () => {
     }
     let coins = [];
     if (searchedCoins.length > 0) {
-      coins = searchedCoins.map(symbol => {
+      coins = searchedCoins .map(symbol => {
         return coinData.find(data => data.symbol === symbol) || null;
       }).filter(coin => coin !== null);
     }
@@ -135,7 +135,7 @@ const SpotMarketCard = () => {
           </li>
         </ul>
         <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${ !coinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
-          {coinData ? ((selectedTab === 'favorite' && !favoriteCoins.length) ? (
+          {coinData ? ((selectedTab === 'favorite' && !favoriteCoins.length && !searchedCoins.length) ? (
               <div className='h-100 d-flex justify-content-center align-items-center'>
                 You don't have any favorite coins.
               </div>
