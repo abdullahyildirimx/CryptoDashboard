@@ -61,7 +61,7 @@ const SpotMarketCard = () => {
     }
     let coins = [];
     if (searchedCoins.length > 0) {
-      coins = favoriteCoins.map(symbol => {
+      coins = searchedCoins.map(symbol => {
         return coinData.find(data => data.symbol === symbol) || null;
       }).filter(coin => coin !== null);
     }
