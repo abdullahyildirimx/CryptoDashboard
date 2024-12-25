@@ -118,16 +118,16 @@ const MarketBuySellCard = () => {
 		if (!coinData) {
 			return '';
 		}
-		const coin = coinData.find(data => data.symbol === symbol);
-		return coin?.logo;
+		const logo = coinData.find(data => data.symbol === symbol)?.logo || '';
+		return logo;
 	}
 
   const getPrice = (symbol) => {
 		if (!coinData) {
 			return '';
 		}
-		const coin = coinData.find(data => data.symbol === symbol);
-		return coin?.price;
+		const price = coinData.find(data => data.symbol === symbol)?.price || '';
+		return price;
 	}
 
   return (

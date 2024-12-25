@@ -61,15 +61,14 @@ const SpotMarketCard = () => {
     }
     let coins = [];
     if (searchedCoins.length > 0) {
-      coins = searchedCoins.map(symbol => {
-        return coinData.find(data => data.symbol === symbol);
-      });
-
+      coins = favoriteCoins.map(symbol => {
+        return coinData.find(data => data.symbol === symbol) || null;
+      }).filter(coin => coin !== null);
     }
     else if (selectedTab === 'favorite') {
       coins = favoriteCoins.map(symbol => {
-        return coinData.find(data => data.symbol === symbol);
-      });
+        return coinData.find(data => data.symbol === symbol) || null;
+      }).filter(coin => coin !== null);
     }
     else {
       coins = coinData;
