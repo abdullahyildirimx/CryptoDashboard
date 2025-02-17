@@ -44,6 +44,26 @@
   overflow-x: auto;
 }
 
+.news-container {
+  height: 530px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.news-container-mobile {
+  height: 330px;
+  font-size: 12px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.table-container-mobile {
+  height: 250px;
+  font-size: 12px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
 .activity-container-long {
   height: 490px;
   overflow-y: auto;

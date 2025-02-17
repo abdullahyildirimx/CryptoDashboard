@@ -39,27 +39,6 @@ const MenuHeader = () => {
       <div className="col-4 d-flex justify-content-end">
         <SettingsModal />
       </div>
-
-      {isMobile && (
-        <footer className="fixed-bottom bg-dark text-white py-2">
-          <div className="d-flex justify-content-around">
-            <Link
-              className={`nav-link ${location.pathname === '/home' ? 'active fw-bold' : 'text-secondary'}`}
-              to="/home"
-            >
-              <i className="mx-1 fa-solid fa-house"></i>
-              Home
-            </Link>
-            <Link
-              className={`nav-link ${location.pathname === '/news' ? 'active fw-bold' : 'text-secondary'}`}
-              to="/news"
-            >
-              <i className="mx-1 fa-solid fa-newspaper"></i>
-              News
-            </Link>
-          </div>
-        </footer>
-      )}
     </nav>
   );
 };
