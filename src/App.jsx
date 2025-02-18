@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import MenuHeader from './components/MenuHeader';
 import MenuFooter from './components/MenuFooter';
 import useDocumentTitle from './hooks/useDocumentTitle';
