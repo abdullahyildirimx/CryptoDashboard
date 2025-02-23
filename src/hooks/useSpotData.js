@@ -35,7 +35,8 @@ const useSpotData = () => {
           let volume = parseFloat(coin.quoteVolume).toFixed(2);
           const change = parseFloat(coin.priceChangePercent).toFixed(2);
           let currency = '$';
-          let logo = '';
+          let logo = null;
+          let tickSize = null;
 
           if (symbol !== "USDTTRY") {
             symbol = symbol.slice(0, -"USDT".length);
@@ -51,6 +52,7 @@ const useSpotData = () => {
               const tickSizeDecimals = metadata.tickSize;
               price = parseFloat(price).toFixed(tickSizeDecimals);
               logo = metadata.logo;
+              tickSize = metadata.tickSize;
             }
           } else {
             price = parseFloat(price);
@@ -62,11 +64,11 @@ const useSpotData = () => {
             volume: volume,
             change: change,
             currency: currency,
-            logo: logo
+            logo: logo,
+            tickSize: tickSize
           };
         });
         dispatch(setCoinData(priceList));
-
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -101,7 +103,7 @@ const useSpotData = () => {
           let symbol = item.symbol;
           let tickSize = countDecimalPlaces(item.filters[0].tickSize);
           let logoNumber = 1;
-          let logo = '';
+          let logo = null;
 
           if (symbol !== "USDTTRY") {
             symbol = symbol.slice(0, -"USDT".length);

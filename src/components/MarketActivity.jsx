@@ -3,12 +3,14 @@ import { useSelector } from 'react-redux';
 const MarketActivity = ({ activity }) => {
 	const { coinData } = useSelector((state) => state.dataStore);
 	const getLogo = (symbol) => {
-		if (!coinData) {
-			return '';
-		}
-		const logo = coinData.find(data => data.symbol === symbol)?.logo || '';
-		return logo;
+		return coinData?.find(data => data.symbol === symbol)?.logo;
 	}
+
+	const formatPrice = (symbol, price) => {
+		const tickSize = coinData?.find(data => data.symbol === symbol)?.tickSize;
+		return tickSize ? parseFloat(price).toFixed(tickSize) : price;
+	}
+
 	return (
 		activity.map((item, index) => (
 			<div key={index} className="d-flex justify-content-between align-items-center mb-3 me-2">
@@ -25,7 +27,7 @@ const MarketActivity = ({ activity }) => {
 				</div>
 				<div className='text-end'>
 					<div className={`change ${item.change < 0 ? 'negative' : 'positive'} mb-1`}>
-						{item.oldPrice} → {item.newPrice} 
+						{formatPrice(item.symbol, item.oldPrice)} → {formatPrice(item.symbol, item.newPrice)} 
 					</div>
 					<span className ={`change ${item.change < 0 ? 'negative' : 'positive'}`}>
 						<span className="icon">{item.change > 0 ? '↑' : '↓'}</span>

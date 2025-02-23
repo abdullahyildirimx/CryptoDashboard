@@ -5,7 +5,7 @@ const useDocumentTitle = () => {
 
   useEffect(() => {
 
-    const btcPriceUsd = coinData && coinData.find(item => item.symbol === "BTC").price;
+    const btcPriceUsd = coinData?.find(item => item.symbol === "BTC").price;
     const title =
       btcPriceUsd
         ? `Dashboard - $${btcPriceUsd}`
