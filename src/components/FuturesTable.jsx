@@ -8,6 +8,10 @@ const FuturesTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggl
 		toggleSortOrder(column);
 	};
 
+	const getLogo = (item) => {
+		return item?.logo || '/genericicon.png';
+	}
+
   const getPercent = (percent) => {
     const parsedPercent = parseFloat(percent);
     const formattedPercent = parsedPercent.toFixed(2);
@@ -52,11 +56,12 @@ const FuturesTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggl
 						: <i className="fa-regular fa-star" style={{ color: 'white'}}></i>}
 						</button>
 				</td>
-				<td><img className='mx-1 rounded-circle' src={item.logo} width={20} />
+				<td>
+					<img className="mx-1 rounded-circle" src={getLogo(item)} width={20} onError={(e) => {e.target.src = '/genericicon.png';}}/>
 				</td>
 				<td>{item.symbol}</td>
 				<td>
-						<span>{item.currency}{item.price}</span>
+					<span>{item.currency}{item.price}</span>
 				</td>
 				<td>
 					<span className={`change ${parseFloat(item.change) < 0 ? 'negative' : 'positive'}`}>

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 const FuturesMarketActivity = ({ activity }) => {
 	const { futuresCoinData } = useSelector((state) => state.dataStore);
 	const getLogo = (symbol) => {
-		return futuresCoinData?.find(data => data.symbol === symbol)?.logo;
+		return futuresCoinData?.find(data => data.symbol === symbol)?.logo || '/genericicon.png';
 	}
 
 	const formatPrice = (symbol, price) => {
@@ -15,7 +15,7 @@ const FuturesMarketActivity = ({ activity }) => {
 		activity.map((item, index) => (
 			<div key={index} className="d-flex justify-content-between align-items-center mb-3 me-2">
 				<div className='d-flex justify-content-between align-items-center'>
-					<img className='mx-1 rounded-circle' src={getLogo(item.symbol)} width={30}></img>
+					<img className='mx-1 rounded-circle' src={getLogo(item.symbol)} width={30} onError={(e) => {e.target.src = '/genericicon.png';}}/>
 					<div className='d-flex flex-column'>
 						<div className='align-items-center'>
 							{item.symbol}
