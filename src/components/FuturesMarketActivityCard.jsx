@@ -2,22 +2,22 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 import { useIsMobile } from '../hooks/useScreenSize';
-import { getMarketActivityStorage, setMarketActivityStorage } from '../utils/localStorageUtils';
-import MarketActivity from './MarketActivity';
+import { getFuturesMarketActivityStorage, setFuturesMarketActivityStorage } from '../utils/localStorageUtils';
+import FuturesMarketActivity from './FuturesMarketActivity';
 
-const MarketActivityCard = () => {
-  const localStorageActivity = getMarketActivityStorage();
+const FuturesMarketActivityCard = () => {
+  const localStorageActivity = getFuturesMarketActivityStorage();
   const isMobile = useIsMobile();
   const [showFavorites, setShowFavorites] = useState(localStorageActivity?.showFavorites || false);
-  const { apiEnabled, marketActivity, favoriteCoins } = useSelector((state) => state.dataStore);
+  const { apiEnabled, futuresMarketActivity, futuresFavoriteCoins } = useSelector((state) => state.dataStore);
 
-  const activity = marketActivity ? (showFavorites
-  ? marketActivity.filter(item => favoriteCoins.includes(item.symbol))
-  : marketActivity) : [];
+  const activity = futuresMarketActivity ? (showFavorites
+  ? futuresMarketActivity.filter(item => futuresFavoriteCoins.includes(item.symbol))
+  : futuresMarketActivity) : [];
 
   const handleToggleFavorites = (newValue) => {
     setShowFavorites(newValue)
-    setMarketActivityStorage('showFavorites', newValue);
+    setFuturesMarketActivityStorage('showFavorites', newValue);
   };
   
   return (
@@ -25,7 +25,7 @@ const MarketActivityCard = () => {
       <div className="card-body">
         <div className={`d-flex ${isMobile ? 'flex-column' : ''} justify-content-between`}>
           <div className='d-flex align-items-center mb-3'>
-            <h5 className="card-title mb-0 me-1">Market Activity</h5>
+            <h5 className="card-title mb-0 me-1">Futures Market Activity</h5>
             <i className="fa-regular fa-circle-question" data-tooltip-id="infoTooltip1"></i>
           </div>
           <div className='d-flex align-items-center mb-3'>
@@ -42,7 +42,7 @@ const MarketActivityCard = () => {
           id="infoTooltip1"
           place="bottom"
           variant="dark"
-          content="5 minutes unusual price activity. For BTC, ETH and USDT, it is triggered when price is changed over 1%, for other coins it is 3%."
+          content="5 minutes unusual price activity. For BTC and ETH, it is triggered when price is changed over 1%, for other coins it is 3%."
         />
         <Tooltip
           style={{width: '180px'}}
@@ -52,9 +52,9 @@ const MarketActivityCard = () => {
           content="You may see too much notifications when it is not checked."
         />
         <div className={`${isMobile ? 'activity-container-mobile' : apiEnabled ? 'activity-container-short' : 'activity-container-long'} ${!activity.length ? 'd-flex justify-content-center align-items-center' : ''}`}>
-          {marketActivity ?
+          {futuresMarketActivity ?
             <>
-              <MarketActivity activity={activity} />
+              <FuturesMarketActivity activity={activity} />
               {!activity.length &&
                 (showFavorites 
                   ? <p>There is no market activity for your favorite coins.</p> 
@@ -70,4 +70,4 @@ const MarketActivityCard = () => {
   );
 };
 
-export default MarketActivityCard;
+export default FuturesMarketActivityCard;

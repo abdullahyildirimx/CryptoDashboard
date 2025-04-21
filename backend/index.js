@@ -3,10 +3,16 @@ import express from "express"
 
 const app = express()
 
-let priceData = []
-let activityData = []
+let spotPriceData = []
+let spotActivityData = []
+let futuresPriceData = []
+let futuresActivityData = []
+let futuresFullSymbols = []
 
-const url = "https://api.binance.com/api/v3/ticker/24hr"
+const spotPriceUrl = 'https://api.binance.com/api/v3/ticker/24hr'
+const spotExchangeInfoUrl = 'https://api.binance.com/api/v3/exchangeInfo'
+const futuresPriceUrl = 'https://fapi.binance.com/fapi/v1/ticker/24hr'
+const futuresExchangeInfoUrl = 'https://fapi.binance.com/fapi/v1/exchangeInfo'
 
 const coinListDelta = 3600000
 const activityDelta = 10000
@@ -19,17 +25,17 @@ const altcoinTriggerLow = 0.97
 const altcoinTriggerHigh = 1.03
 const bigCoinList = ["BTC", "ETH", "USDT"]
 
-const fetchCoinList = async () => {
+const fetchSpotCoinList = async () => {
   try {
-    const response = await fetch(url)
+    const response = await fetch(spotExchangeInfoUrl)
     if (!response.ok) {
       throw new Error("Network response was not ok")
     }
     const jsonData = await response.json()
 
-    const filteredCoins = jsonData.filter((coin) => {
-      return (coin.symbol.endsWith("USDT") || coin.symbol === "USDTTRY") && coin.bidPrice !== "0.00000000"
-    })
+    const filteredCoins = jsonData.symbols.filter(coin => {
+      return (coin.symbol.endsWith('USDT') || coin.symbol === 'USDTTRY') && coin.status === 'TRADING';
+    });
 
     const coinSymbolList = filteredCoins
       .map((item) => {
@@ -46,8 +52,8 @@ const fetchCoinList = async () => {
         return a.localeCompare(b)
       })
 
-    priceData = coinSymbolList.map((item) => {
-      const data = priceData?.find((coin) => coin.symbol === item)?.data || Array(30).fill(0)
+    spotPriceData = coinSymbolList.map((item) => {
+      const data = spotPriceData?.find((coin) => coin.symbol === item)?.data || Array(30).fill(0)
       return {
         symbol: item,
         data: data,
@@ -59,12 +65,59 @@ const fetchCoinList = async () => {
   }
 }
 
-const fetchMarketActivity = async () => {
+const fetchFuturesCoinList = async () => {
   try {
-    if (!priceData) {
+    const response = await fetch(futuresExchangeInfoUrl)
+    if (!response.ok) {
+      throw new Error("Network response was not ok")
+    }
+    const jsonData = await response.json()
+
+    const filteredCoins = jsonData.symbols.filter(coin => {
+      return coin.symbol.endsWith('USDT') && coin.status === 'TRADING';
+    });
+
+    const coinSymbolList = filteredCoins
+      .map((item) => {
+        let symbol = item.symbol
+        symbol = symbol.slice(0, -"USDT".length)
+        return symbol
+      })
+      .slice()
+      .sort((a, b) => {
+        return a.localeCompare(b)
+      })
+
+    const coinFullSymbols = filteredCoins
+      .map((item) => {
+        let symbol = item.symbol
+        return symbol
+      })
+      .slice()
+      .sort((a, b) => {
+        return a.localeCompare(b)
+      })
+
+    futuresFullSymbols = coinFullSymbols
+    futuresPriceData = coinSymbolList.map((item) => {
+      const data = futuresPriceData?.find((coin) => coin.symbol === item)?.data || Array(30).fill(0)
+      return {
+        symbol: item,
+        data: data,
+      }
+    })
+  } 
+  catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+const fetchSpotMarketActivity = async () => {
+  try {
+    if (!spotPriceData) {
       return
     }
-    const response = await fetch(url)
+    const response = await fetch(spotPriceUrl)
     if (!response.ok) {
       throw new Error("Network response was not ok")
     }
@@ -88,7 +141,7 @@ const fetchMarketActivity = async () => {
       }
     })
     let resultArray = []
-    const newPriceData = priceData.slice()
+    const newPriceData = spotPriceData.slice()
     newPriceData.forEach((coin, i) => {
       const currentCoinData = prices.find((item) => item.symbol === coin.symbol)
       if (!currentCoinData) {
@@ -118,9 +171,73 @@ const fetchMarketActivity = async () => {
       newPriceData[i]["data"].push(currentPrice)
     })
     if (resultArray.length > 0) {
-      activityData = [...resultArray, ...activityData]
+      spotActivityData = [...resultArray, ...spotActivityData]
     }
-    priceData = newPriceData
+    spotPriceData = newPriceData
+  } 
+  catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+const fetchFuturesMarketActivity = async () => {
+  try {
+    if (!futuresPriceData) {
+      return
+    }
+    const response = await fetch(futuresPriceUrl)
+    if (!response.ok) {
+      throw new Error("Network response was not ok")
+    }
+    const jsonData = await response.json()
+
+    const filteredCoins = jsonData.filter((coin) => {
+      return coin.symbol.endsWith("USDT") && futuresFullSymbols.includes(coin.symbol)
+    })
+
+    const prices = filteredCoins.map((item) => {
+      let symbol = item.symbol
+      const price = parseFloat(item.lastPrice)
+      symbol = symbol.slice(0, -"USDT".length)
+      return {
+        symbol: symbol,
+        price: price,
+      }
+    })
+    let resultArray = []
+    const newPriceData = futuresPriceData.slice()
+    newPriceData.forEach((coin, i) => {
+      const currentCoinData = prices.find((item) => item.symbol === coin.symbol)
+      if (!currentCoinData) {
+        return
+      }
+      const currentPrice = parseFloat(currentCoinData.price)
+      for (let k = 0; k < newPriceData[i]["data"].length; k++) {
+        const prevPrice = newPriceData[i]["data"][k]
+        if (prevPrice !== 0) {
+          const rate = currentPrice / prevPrice
+          const currentTime = new Date().getTime()
+          if ((bigCoinList.includes(coin.symbol) && (rate <= bigcoinTriggerLow || rate >= bigcoinTriggerHigh)) || rate <= altcoinTriggerLow || rate >= altcoinTriggerHigh) {
+            let result = {
+              symbol: coin.symbol,
+              oldPrice: prevPrice,
+              newPrice: currentPrice,
+              change: parseFloat(((rate - 1) * 100).toFixed(2)),
+              time: currentTime,
+            }
+            resultArray.push(result)
+            newPriceData[i]["data"] = Array(30).fill(0)
+            break
+          }
+        }
+      }
+      newPriceData[i]["data"].shift()
+      newPriceData[i]["data"].push(currentPrice)
+    })
+    if (resultArray.length > 0) {
+      futuresActivityData = [...resultArray, ...futuresActivityData]
+    }
+    futuresPriceData = newPriceData
   } 
   catch (error) {
     console.error("Error fetching data:", error);
@@ -129,21 +246,34 @@ const fetchMarketActivity = async () => {
 
 const purgeData = () => {
   const currentTime = new Date().getTime()
-  activityData = activityData.filter((activity) => {
+  spotActivityData = spotActivityData.filter((activity) => {
+    return activity.time > currentTime - purgeDelta
+  })
+  futuresActivityData = futuresActivityData.filter((activity) => {
     return activity.time > currentTime - purgeDelta
   })
 }
 
-fetchCoinList()
-setInterval(fetchCoinList, coinListDelta)
-setInterval(fetchMarketActivity, activityDelta)
+fetchSpotCoinList()
+fetchFuturesCoinList()
+setInterval(fetchSpotCoinList, coinListDelta)
+setInterval(fetchFuturesCoinList, coinListDelta)
+setInterval(fetchSpotMarketActivity, activityDelta)
+setInterval(fetchFuturesMarketActivity, activityDelta)
 setInterval(purgeData, purgeControlDelta)
 
-app.get("/api", function (req, res) {
+app.get("/spot", function (req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*")
   res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS")
   res.setHeader("Access-Control-Allow-Headers", "*")
-  res.status(200).send(activityData)
+  res.status(200).send(spotActivityData)
+})
+
+app.get("/futures", function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS")
+  res.setHeader("Access-Control-Allow-Headers", "*")
+  res.status(200).send(futuresActivityData)
 })
 
 app.listen(5000, function () {

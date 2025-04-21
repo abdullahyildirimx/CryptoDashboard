@@ -1,34 +1,34 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchBar from './SearchBar';
-import SpotTable from './SpotTable';
-import { getSpotCardStorage, setSpotCardStorage } from '../utils/localStorageUtils';
-import { setSpotFavoriteCoins } from '../utils/reduxStorage';
+import FuturesTable from './FuturesTable';
+import { getFuturesCardStorage, setFuturesCardStorage } from '../utils/localStorageUtils';
+import { setFuturesFavoriteCoins } from '../utils/reduxStorage';
 import { useIsMobile } from '../hooks/useScreenSize';
 
-const SpotMarketCard = () => {
-  const localStorageData = getSpotCardStorage();
+const FuturesMarketCard = () => {
+  const localStorageData = getFuturesCardStorage();
   const [selectedTab, setSelectedTab] = useState(localStorageData?.selectedTab || 'all');
   const [sortOrder, setSortOrder] = useState('default');
   const [searchedCoins, setSearchedCoins] = useState([]);
-  const { spotCoinData, spotCoinList, spotFavoriteCoins } = useSelector((state) => state.dataStore);
+  const { futuresCoinData, futuresCoinList, futuresFavoriteCoins } = useSelector((state) => state.dataStore);
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
-    setSpotCardStorage('selectedTab', tab);
+    setFuturesCardStorage('selectedTab', tab);
   };
 
   const toggleFavorite = (symbol) => {
-    if (spotFavoriteCoins.includes(symbol)) {
-      const updatedFavorites = spotFavoriteCoins.filter((coin) => coin !== symbol);
-      dispatch(setSpotFavoriteCoins(updatedFavorites));
-      setSpotCardStorage('favoriteCoins', updatedFavorites);
+    if (futuresFavoriteCoins.includes(symbol)) {
+      const updatedFavorites = futuresFavoriteCoins.filter((coin) => coin !== symbol);
+      dispatch(setFuturesFavoriteCoins(updatedFavorites));
+      setFuturesCardStorage('favoriteCoins', updatedFavorites);
     } else {
-      const updatedFavorites = [...spotFavoriteCoins, symbol];
-      dispatch(setSpotFavoriteCoins(updatedFavorites));
-      setSpotCardStorage('favoriteCoins', updatedFavorites);
+      const updatedFavorites = [...futuresFavoriteCoins, symbol];
+      dispatch(setFuturesFavoriteCoins(updatedFavorites));
+      setFuturesCardStorage('favoriteCoins', updatedFavorites);
     }
   };
 
@@ -56,22 +56,22 @@ const SpotMarketCard = () => {
   };
 
   const sortedAllCoins = () => {
-    if (!spotCoinData) {
+    if (!futuresCoinData) {
       return [];
     }
     let coins = [];
     if (searchedCoins.length > 0) {
       coins = searchedCoins .map(symbol => {
-        return spotCoinData.find(data => data.symbol === symbol) || null;
+        return futuresCoinData.find(data => data.symbol === symbol) || null;
       }).filter(coin => coin !== null);
     }
     else if (selectedTab === 'favorite') {
-      coins = spotFavoriteCoins.map(symbol => {
-        return spotCoinData.find(data => data.symbol === symbol) || null;
+      coins = futuresFavoriteCoins.map(symbol => {
+        return futuresCoinData.find(data => data.symbol === symbol) || null;
       }).filter(coin => coin !== null);
     }
     else {
-      coins = spotCoinData;
+      coins = futuresCoinData;
     }
     
     return coins.slice().sort((a, b) => {
@@ -95,11 +95,11 @@ const SpotMarketCard = () => {
   };
 
   const handleSearch = (result) => {
-    if (!spotCoinData) {
+    if (!futuresCoinData) {
       return [];
     }
     if (result) {
-			const filteredResults = spotCoinList.filter(item =>
+			const filteredResults = futuresCoinList.filter(item =>
 				item.toLowerCase().includes(result.toLowerCase())
 			);
 			setSearchedCoins(filteredResults);
@@ -113,7 +113,7 @@ const SpotMarketCard = () => {
     <div className="card">
       <div className="card-body">
         <div className='d-flex justify-content-between'>
-          <h5 className="card-title mb-3">Spot Market</h5>
+          <h5 className="card-title mb-3">Futures Market</h5>
           <SearchBar handleSearch={handleSearch} />
         </div>
         <ul className="nav nav-tabs">
@@ -134,15 +134,15 @@ const SpotMarketCard = () => {
             </button>
           </li>
         </ul>
-        <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${ !spotCoinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
-          {spotCoinData ? ((selectedTab === 'favorite' && !spotFavoriteCoins.length && !searchedCoins.length) ? (
+        <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${ !futuresCoinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
+          {futuresCoinData ? ((selectedTab === 'favorite' && !futuresFavoriteCoins.length && !searchedCoins.length) ? (
               <div className='h-100 d-flex justify-content-center align-items-center'>
                 You don't have any favorite coins.
               </div>
             ) : (
-              <SpotTable
+              <FuturesTable
                 content={sortedAllCoins}
-                favoriteCoins={spotFavoriteCoins}
+                favoriteCoins={futuresFavoriteCoins}
                 sortOrder={sortOrder}
                 toggleFavorite={toggleFavorite}
                 toggleSortOrder={toggleSortOrder}
@@ -157,4 +157,4 @@ const SpotMarketCard = () => {
   );
 };
 
-export default SpotMarketCard;
+export default FuturesMarketCard;

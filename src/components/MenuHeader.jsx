@@ -17,20 +17,20 @@ const MenuHeader = () => {
         <ul className="navbar-nav">
           <li className="nav-item">
             <Link
-              className={`nav-link ${location.pathname === '/home' && 'active fw-bold'}`}
-              to="/home"
+              className={`nav-link ${location.pathname === '/spot' && 'active fw-bold'}`}
+              to="/spot"
             >
-              <i className="mx-1 fa-solid fa-house"></i>
-              Home
+              <i className="mx-1 fa-solid fa-chart-simple"></i>
+              Spot
             </Link>
           </li>
           <li className="nav-item">
             <Link
-              className={`nav-link ${location.pathname === '/news' && 'active fw-bold'}`}
-              to="/news"
+              className={`nav-link ${location.pathname === '/futures' && 'active fw-bold'}`}
+              to="/futures"
             >
-              <i className="mx-1 fa-solid fa-newspaper"></i>
-              News
+              <i className="mx-1 fa-solid fa-scroll"></i>
+              Futures
             </Link>
           </li>
         </ul>

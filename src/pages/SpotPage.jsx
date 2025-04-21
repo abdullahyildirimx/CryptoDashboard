@@ -1,14 +1,14 @@
 import { useIsMobile } from '../hooks/useScreenSize';
 import SpotMarketCard from '../components/SpotMarketCard';
-import MarketActivityCard from '../components/MarketActivityCard';
+import SpotMarketActivityCard from '../components/SpotMarketActivityCard';
 import useSpotData from '../hooks/useSpotData';
-import useMarketActivity from '../hooks/useMarketActivity';
+import useSpotMarketActivity from '../hooks/useSpotMarketActivity';
 import MarketBuySellCard from '../components/MarketBuySellCard';
 
-const HomePage = () => {
+const SpotPage = () => {
   const isMobile = useIsMobile();
   useSpotData();
-  useMarketActivity();
+  useSpotMarketActivity();
   return (
     <div className='row p-2 g-0'>
       { isMobile ? 
@@ -20,7 +20,7 @@ const HomePage = () => {
           <MarketBuySellCard />
         </div>
         <div className='col-12 p-2'>
-          <MarketActivityCard />
+          <SpotMarketActivityCard />
         </div>
         </> 
         : <>
@@ -29,7 +29,7 @@ const HomePage = () => {
         </div>
         <div className='col-6 p-2'>
           <MarketBuySellCard />
-          <MarketActivityCard /> 
+          <SpotMarketActivityCard /> 
         </div>
         </>
       }
@@ -37,4 +37,4 @@ const HomePage = () => {
   );
 }
   
-export default HomePage;
+export default SpotPage;

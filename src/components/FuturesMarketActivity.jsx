@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux';
 
-const MarketActivity = ({ activity }) => {
-	const { coinData } = useSelector((state) => state.dataStore);
+const FuturesMarketActivity = ({ activity }) => {
+	const { futuresCoinData } = useSelector((state) => state.dataStore);
 	const getLogo = (symbol) => {
-		return coinData?.find(data => data.symbol === symbol)?.logo;
+		return futuresCoinData?.find(data => data.symbol === symbol)?.logo;
 	}
 
 	const formatPrice = (symbol, price) => {
-		const tickSize = coinData?.find(data => data.symbol === symbol)?.tickSize;
+		const tickSize = futuresCoinData?.find(data => data.symbol === symbol)?.tickSize;
 		return tickSize ? parseFloat(price).toFixed(tickSize) : price;
 	}
 
@@ -39,4 +39,4 @@ const MarketActivity = ({ activity }) => {
 	);
 };
 
-export default MarketActivity;
+export default FuturesMarketActivity;

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setSpotCoinData, setSpotCoinList } from '../utils/reduxStorage';
-import { spotPriceUrl, spotExchangeInfoUrl, coinLogosUrl, getLogoLink } from '../utils/urls';
+import { setFuturesCoinData, setFuturesCoinList } from '../utils/reduxStorage';
+import { futuresPriceUrl, futuresExchangeInfoUrl, coinLogosUrl, getLogoLink } from '../utils/urls';
 
-const useSpotData = () => {
+const useFuturesData = () => {
   const [coinMetadata, setCoinMetadata] = useState(null);
+  const [activeSymbols, setActiveSymbols] = useState(null);
   const dispatch = useDispatch();
 
   const countDecimalPlaces = (num) => {
@@ -19,32 +20,32 @@ const useSpotData = () => {
   useEffect(() => {
     const fetchPriceData = async () => {
       try {
-        const response = await fetch(spotPriceUrl);
+        const response = await fetch(futuresPriceUrl);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const jsonData = await response.json();
     
-        const filteredCoins = jsonData.filter(coin => {
-          return (coin.symbol.endsWith('USDT') || coin.symbol === 'USDTTRY') && coin.bidPrice !== '0.00000000';
+        let filteredCoins = jsonData.filter(coin => {
+          return coin.symbol.endsWith('USDT');
         });
+
+        if (activeSymbols) {
+          filteredCoins = filteredCoins.filter(coin => {
+            return activeSymbols.includes(coin.symbol);
+          });
+        }
     
         const priceList = filteredCoins.map(coin => {
           let symbol = coin.symbol;
           let price = coin.lastPrice;
-          let volume = parseFloat(coin.quoteVolume).toFixed(2);
+          const volume = parseFloat(coin.quoteVolume).toFixed(2);
           const change = parseFloat(coin.priceChangePercent).toFixed(2);
-          let currency = '$';
+          const currency = '$';
           let logo = null;
           let tickSize = null;
 
-          if (symbol !== "USDTTRY") {
-            symbol = symbol.slice(0, -"USDT".length);
-          } else {
-            symbol = symbol.slice(0, -"TRY".length);
-            volume = parseFloat(coin.volume).toFixed(2);
-            currency = '₺';
-          }
+          symbol = symbol.slice(0, -"USDT".length);
 
           if (coinMetadata) {
             let metadata = coinMetadata.find(coin => coin.symbol === symbol);
@@ -68,7 +69,7 @@ const useSpotData = () => {
             tickSize: tickSize
           };
         });
-        dispatch(setSpotCoinData(priceList));
+        dispatch(setFuturesCoinData(priceList));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -83,7 +84,7 @@ const useSpotData = () => {
   useEffect(() => {
     const fetchCoinMetadata = async () => {
       try {
-        const response = await fetch(spotExchangeInfoUrl);
+        const response = await fetch(futuresExchangeInfoUrl);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -97,27 +98,18 @@ const useSpotData = () => {
         const logoData = jsonData2.data;
 
         const filteredCoins = jsonData.symbols.filter(coin => {
-          return (coin.symbol.endsWith('USDT') || coin.symbol === 'USDTTRY') && coin.status === 'TRADING';
+          return coin.symbol.endsWith('USDT') && coin.status === 'TRADING';
         });
+
         const coinMetadata = filteredCoins.map(item => {
           let symbol = item.symbol;
           let tickSize = countDecimalPlaces(item.filters[0].tickSize);
           let logoNumber = 1;
           let logo = null;
+          symbol = symbol.slice(0, -"USDT".length);
 
-          if (symbol !== "USDTTRY") {
-            symbol = symbol.slice(0, -"USDT".length);
-          } else {
-            symbol = symbol.slice(0, -"TRY".length);
-          }
-
-          if (symbol !== "EUR") {
-            logoNumber = logoData.find(coin => coin.name === symbol)?.cmcUniqueId;
-          } else {
-            logoNumber = 2989;
-          }
-          logo = getLogoLink(logoNumber);
-
+          logoNumber = logoData.find(coin => coin.name === symbol)?.cmcUniqueId;
+          logo = logoNumber && getLogoLink(logoNumber);
           return {
             symbol: symbol,
             tickSize: tickSize,
@@ -125,13 +117,19 @@ const useSpotData = () => {
           };
         }).slice().sort((a, b) => { return (a.symbol).localeCompare(b.symbol) });
 
+        const coinFullSymbols = filteredCoins.map(item => {
+          let symbol = item.symbol;
+          return symbol;
+        }).slice().sort();
+
         const coinSymbolList = coinMetadata.map(item => {
           let symbol = item.symbol;
           return symbol;
         });
         
         setCoinMetadata(coinMetadata);
-        dispatch(setSpotCoinList(coinSymbolList));
+        setActiveSymbols(coinFullSymbols);
+        dispatch(setFuturesCoinList(coinSymbolList));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -141,4 +139,4 @@ const useSpotData = () => {
   }, [dispatch]);
 };
 
-export default useSpotData;
+export default useFuturesData;

@@ -1,14 +1,14 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { setMarketActivity } from "../utils/reduxStorage"
-import { marketActivityUrl } from "../utils/urls"
+import { setSpotMarketActivity } from "../utils/reduxStorage"
+import { spotMarketActivityUrl } from "../utils/urls"
 
-const useMarketActivity = () => {
+const useSpotMarketActivity = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     const fetchMarketActivity = async () => {
       try {
-        const response = await fetch(marketActivityUrl)
+        const response = await fetch(spotMarketActivityUrl)
         if (!response.ok) {
           throw new Error("Network response was not ok")
         }
@@ -28,7 +28,7 @@ const useMarketActivity = () => {
             time: time,
           }
         })
-        dispatch(setMarketActivity(activityList))
+        dispatch(setSpotMarketActivity(activityList))
       } catch (error) {
         console.error("Error fetching data:", error)
       }
@@ -40,4 +40,4 @@ const useMarketActivity = () => {
   }, [dispatch])
 }
 
-export default useMarketActivity
+export default useSpotMarketActivity
