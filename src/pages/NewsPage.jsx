@@ -1,14 +1,14 @@
 import { useIsMobile } from '../hooks/useScreenSize';
-import MarketActivityCard from '../components/SpotMarketActivityCard';
 import NewsCard from '../components/NewsCard';
 import useSpotData from '../hooks/useSpotData';
-import useMarketActivity from '../hooks/useSpotMarketActivity';
+import useSpotMarketActivity from '../hooks/useSpotMarketActivity';
 import MarketBuySellCard from '../components/MarketBuySellCard';
+import SpotMarketActivityCard from '../components/SpotMarketActivityCard';
 
 const NewsPage = () => {
   const isMobile = useIsMobile();
   useSpotData();
-  useMarketActivity();
+  useSpotMarketActivity();
   return (
     <div className='row p-2 g-0'>
       { isMobile ? 
@@ -20,7 +20,7 @@ const NewsPage = () => {
           <MarketBuySellCard />
         </div>
         <div className='col-12 p-2'>
-          <MarketActivityCard />
+          <SpotMarketActivityCard />
         </div>
         </> 
         : <>
@@ -29,7 +29,7 @@ const NewsPage = () => {
         </div>
         <div className='col-6 p-2'>
           <MarketBuySellCard />
-          <MarketActivityCard /> 
+          <SpotMarketActivityCard /> 
         </div>
         </>
       }

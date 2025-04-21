@@ -37,7 +37,7 @@ const MenuHeader = () => {
       </div>
 
       <div className="col-4 d-flex justify-content-end">
-        <SettingsModal />
+        {/*<SettingsModal />*/}
       </div>
     </nav>
   );
