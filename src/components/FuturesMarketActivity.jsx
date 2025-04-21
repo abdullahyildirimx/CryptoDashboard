@@ -31,7 +31,7 @@ const FuturesMarketActivity = ({ activity }) => {
 					</div>
 					<span className ={`change ${item.change < 0 ? 'negative' : 'positive'}`}>
 						<span className="icon">{item.change > 0 ? '↑' : '↓'}</span>
-						{item.change}%
+						{parseFloat(item.change).toFixed(2)}%
 					</span>
 				</div>
 			</div>
