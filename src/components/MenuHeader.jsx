@@ -8,7 +8,7 @@ const MenuHeader = () => {
 
   return (
     <nav className="navbar navbar-expand-md p-3">
-      <a className="col-4 icon-button d-flex align-items-center" style={{ color: 'white', textDecoration: 'none' }} href="/">
+      <a className="col-4 btn-link icon-button d-flex align-items-center text-decoration-none text-white" href="/">
         <img className="mx-1" src="/logo192.png" width={40} alt="logo" />
         {!isMobile && <div>Crypto Dashboard</div>}
       </a>

@@ -14,6 +14,19 @@
   cursor: pointer;
 }
 
+.btn-pos {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 6px;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .change {
   border-radius: 5px;
   padding: 2px 8px;
