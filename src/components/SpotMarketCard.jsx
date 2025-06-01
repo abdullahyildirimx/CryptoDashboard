@@ -137,7 +137,7 @@ const SpotMarketCard = () => {
         <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${ !spotCoinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
           {spotCoinData ? ((selectedTab === 'favorite' && !spotFavoriteCoins.length && !searchedCoins.length) ? (
               <div className='h-100 d-flex justify-content-center align-items-center'>
-                You don't have any favorite coins.
+                You don&apos;t have any favorite coins.
               </div>
             ) : (
               <SpotTable

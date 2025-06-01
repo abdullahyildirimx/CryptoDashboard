@@ -79,7 +79,7 @@ const useFuturesData = () => {
     const intervalId = setInterval(fetchPriceData, 5000);
     return () => clearInterval(intervalId);
     
-  }, [coinMetadata, dispatch]);
+  }, [activeSymbols, coinMetadata, dispatch]);
 
   useEffect(() => {
     const fetchCoinMetadata = async () => {

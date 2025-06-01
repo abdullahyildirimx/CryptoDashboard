@@ -137,7 +137,7 @@ const FuturesMarketCard = () => {
         <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${ !futuresCoinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
           {futuresCoinData ? ((selectedTab === 'favorite' && !futuresFavoriteCoins.length && !searchedCoins.length) ? (
               <div className='h-100 d-flex justify-content-center align-items-center'>
-                You don't have any favorite coins.
+                You don&apos;t have any favorite coins.
               </div>
             ) : (
               <FuturesTable

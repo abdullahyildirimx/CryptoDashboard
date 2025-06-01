@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import CryptoJS from "crypto-js";
 import SearchDropdown from './SearchDropdown';
@@ -19,7 +19,7 @@ const MarketBuySellCard = () => {
   const isMobile = useIsMobile();
   
 
-  const fetchBalances = async () => {
+  const fetchBalances = useCallback(async () => {
     const timestamp = Date.now();
 
     const queryString = `timestamp=${timestamp}`;
@@ -50,7 +50,7 @@ const MarketBuySellCard = () => {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  };
+  }, [apiKey, apiSecret]);
 
   const putOrder = async (side, amount) => {
     const timestamp = Date.now();
@@ -82,7 +82,7 @@ const MarketBuySellCard = () => {
     if (apiKey && apiSecret) {
       fetchBalances();
     }
-  }, [apiKey, apiSecret]);
+  }, [apiKey, apiSecret, fetchBalances]);
 
   useEffect(() => {
     setBaseBalance(parseFloat(balances?.find((b) => b.asset === baseCurrency)?.free || 0));

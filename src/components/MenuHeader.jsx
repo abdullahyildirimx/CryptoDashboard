@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useIsMobile } from '../hooks/useScreenSize';
-import SettingsModal from './SettingsModal';
+{/*import SettingsModal from './SettingsModal';*/}
 
 const MenuHeader = () => {
   const location = useLocation();
