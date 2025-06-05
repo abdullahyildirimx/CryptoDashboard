@@ -64,11 +64,9 @@ const FuturesTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggl
 					<span>{item.currency}{item.price}</span>
 				</td>
 				<td>
-					<span className={`change ${parseFloat(item.change) < 0 ? 'negative' : 'positive'}`}>
-						<span>
+					<div className={`d-flex justify-content-center change ${parseFloat(item.change) < 0 ? 'negative' : 'positive'}`} style={{ width: '75px'}}>
 						{getPercent(item.change)}
-						</span>
-					</span>
+					</div>
 				</td>
 				</tr>
 			))}
