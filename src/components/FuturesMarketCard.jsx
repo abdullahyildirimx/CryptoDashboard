@@ -36,21 +36,19 @@ const FuturesMarketCard = () => {
     let nextOrder = 'default';
     if (column === 'price') {
       nextOrder =
-          sortOrder === 'priceDesc' ? 'default' :
-          sortOrder === 'priceAsc' ? 'priceDesc' :
-          'priceAsc';
-    } 
-    else if (column === 'change') {
-        nextOrder =
-            sortOrder === 'changeDesc' ? 'default' :
-            sortOrder === 'changeAsc' ? 'changeDesc' :
-            'changeAsc';
+          sortOrder === 'changeDesc' ? 'changeAsc' :
+          sortOrder === 'changeAsc' ? 'priceDesc' :
+          sortOrder === 'priceDesc' ? 'priceAsc' :
+          sortOrder === 'priceAsc' ? 'default' :
+          'changeDesc';
     } 
     else {
-        nextOrder =
-            sortOrder === 'symbolDesc' ? 'default' :
-            sortOrder === 'symbolAsc' ? 'symbolDesc' :
-            'symbolAsc';
+      nextOrder =
+          sortOrder === 'volumeDesc' ? 'volumeAsc' :
+          sortOrder === 'volumeAsc' ? 'symbolDesc' :
+          sortOrder === 'symbolDesc' ? 'symbolAsc' :
+          sortOrder === 'symbolAsc' ? 'default' :
+          'volumeDesc';
     }
     setSortOrder(nextOrder);
   };
@@ -90,6 +88,8 @@ const FuturesMarketCard = () => {
              sortOrder === 'symbolDesc' ? symbolB.localeCompare(symbolA) :
              sortOrder === 'changeAsc' ? changeA - changeB :
              sortOrder === 'changeDesc' ? changeB - changeA :
+             sortOrder === 'volumeAsc' ? volumeA - volumeB :
+             sortOrder === 'volumeDesc' ? volumeB - volumeA :
              volumeB - volumeA;
     });
   };
@@ -134,7 +134,7 @@ const FuturesMarketCard = () => {
             </button>
           </li>
         </ul>
-        <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${ !futuresCoinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
+        <div className={`${isMobile ? 'no-favorite-mobile' : 'no-favorite'} ${ !futuresCoinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
           {futuresCoinData ? ((selectedTab === 'favorite' && !futuresFavoriteCoins.length && !searchedCoins.length) ? (
               <div className='h-100 d-flex justify-content-center align-items-center'>
                 You don&apos;t have any favorite coins.
@@ -146,6 +146,7 @@ const FuturesMarketCard = () => {
                 sortOrder={sortOrder}
                 toggleFavorite={toggleFavorite}
                 toggleSortOrder={toggleSortOrder}
+                isMobile={isMobile}
               />
             )
           ) : (

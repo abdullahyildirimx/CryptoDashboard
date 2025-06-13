@@ -32,8 +32,8 @@ const useSpotData = () => {
         const priceList = filteredCoins.map(coin => {
           let symbol = coin.symbol;
           let price = coin.lastPrice;
-          let volume = parseFloat(coin.quoteVolume).toFixed(2);
-          const change = parseFloat(coin.priceChangePercent).toFixed(2);
+          let volume = coin.quoteVolume;
+          const change = coin.priceChangePercent;
           let currency = '$';
           let logo = null;
           let tickSize = null;
@@ -42,7 +42,7 @@ const useSpotData = () => {
             symbol = symbol.slice(0, -"USDT".length);
           } else {
             symbol = symbol.slice(0, -"TRY".length);
-            volume = parseFloat(coin.volume).toFixed(2);
+            volume = coin.volume;
             currency = '₺';
           }
 

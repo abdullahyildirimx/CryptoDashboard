@@ -39,8 +39,8 @@ const useFuturesData = () => {
         const priceList = filteredCoins.map(coin => {
           let symbol = coin.symbol;
           let price = coin.lastPrice;
-          const volume = parseFloat(coin.quoteVolume).toFixed(2);
-          const change = parseFloat(coin.priceChangePercent).toFixed(2);
+          const volume = coin.quoteVolume;
+          const change = coin.priceChangePercent;
           const currency = '$';
           let logo = null;
           let tickSize = null;

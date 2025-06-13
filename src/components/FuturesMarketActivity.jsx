@@ -30,7 +30,7 @@ const FuturesMarketActivity = ({ activity }) => {
 						{formatPrice(item.symbol, item.oldPrice)} → {formatPrice(item.symbol, item.newPrice)} 
 					</div>
 					<span className ={`change ${item.change < 0 ? 'negative' : 'positive'}`}>
-						<span className="icon">{item.change > 0 ? '↑' : '↓'}</span>
+						<span>{item.change > 0 ? '↑' : '↓'}</span>
 						{parseFloat(item.change).toFixed(2)}%
 					</span>
 				</div>

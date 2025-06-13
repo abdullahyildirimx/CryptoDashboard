@@ -36,21 +36,19 @@ const SpotMarketCard = () => {
     let nextOrder = 'default';
     if (column === 'price') {
       nextOrder =
-          sortOrder === 'priceDesc' ? 'default' :
-          sortOrder === 'priceAsc' ? 'priceDesc' :
-          'priceAsc';
-    } 
-    else if (column === 'change') {
-        nextOrder =
-            sortOrder === 'changeDesc' ? 'default' :
-            sortOrder === 'changeAsc' ? 'changeDesc' :
-            'changeAsc';
+          sortOrder === 'changeDesc' ? 'changeAsc' :
+          sortOrder === 'changeAsc' ? 'priceDesc' :
+          sortOrder === 'priceDesc' ? 'priceAsc' :
+          sortOrder === 'priceAsc' ? 'default' :
+          'changeDesc';
     } 
     else {
-        nextOrder =
-            sortOrder === 'symbolDesc' ? 'default' :
-            sortOrder === 'symbolAsc' ? 'symbolDesc' :
-            'symbolAsc';
+      nextOrder =
+          sortOrder === 'volumeDesc' ? 'volumeAsc' :
+          sortOrder === 'volumeAsc' ? 'symbolDesc' :
+          sortOrder === 'symbolDesc' ? 'symbolAsc' :
+          sortOrder === 'symbolAsc' ? 'default' :
+          'volumeDesc';
     }
     setSortOrder(nextOrder);
   };
@@ -90,6 +88,8 @@ const SpotMarketCard = () => {
              sortOrder === 'symbolDesc' ? symbolB.localeCompare(symbolA) :
              sortOrder === 'changeAsc' ? changeA - changeB :
              sortOrder === 'changeDesc' ? changeB - changeA :
+             sortOrder === 'volumeAsc' ? volumeA - volumeB :
+             sortOrder === 'volumeDesc' ? volumeB - volumeA :
              volumeB - volumeA;
     });
   };
@@ -134,7 +134,7 @@ const SpotMarketCard = () => {
             </button>
           </li>
         </ul>
-        <div className={`${isMobile ? 'table-container-mobile' : 'table-container'} ${ !spotCoinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
+        <div className={`${isMobile ? 'no-favorite-mobile' : 'no-favorite'} ${ !spotCoinData ? 'd-flex justify-content-center align-items-center' : ''}`}>
           {spotCoinData ? ((selectedTab === 'favorite' && !spotFavoriteCoins.length && !searchedCoins.length) ? (
               <div className='h-100 d-flex justify-content-center align-items-center'>
                 You don&apos;t have any favorite coins.
@@ -146,6 +146,7 @@ const SpotMarketCard = () => {
                 sortOrder={sortOrder}
                 toggleFavorite={toggleFavorite}
                 toggleSortOrder={toggleSortOrder}
+                isMobile={isMobile}
               />
             )
           ) : (
