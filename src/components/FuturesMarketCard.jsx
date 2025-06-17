@@ -34,20 +34,28 @@ const FuturesMarketCard = () => {
 
   const toggleSortOrder = (column) => {
     let nextOrder = 'default';
-    if (column === 'price') {
+    if (column === 'symbol') {
       nextOrder =
-          sortOrder === 'changeDesc' ? 'changeAsc' :
-          sortOrder === 'changeAsc' ? 'priceDesc' :
+          sortOrder === 'symbolDesc' ? 'symbolAsc' :
+          sortOrder === 'symbolAsc' ? 'default' :
+          'symbolDesc';
+    }
+    else if (column === 'price') {
+      nextOrder =
           sortOrder === 'priceDesc' ? 'priceAsc' :
           sortOrder === 'priceAsc' ? 'default' :
+          'priceDesc';
+    }
+    else if (column === 'change') {
+      nextOrder =
+          sortOrder === 'changeDesc' ? 'changeAsc' :
+          sortOrder === 'changeAsc' ? 'default' :
           'changeDesc';
-    } 
+    }
     else {
       nextOrder =
           sortOrder === 'volumeDesc' ? 'volumeAsc' :
-          sortOrder === 'volumeAsc' ? 'symbolDesc' :
-          sortOrder === 'symbolDesc' ? 'symbolAsc' :
-          sortOrder === 'symbolAsc' ? 'default' :
+          sortOrder === 'volumeAsc' ? 'default' :
           'volumeDesc';
     }
     setSortOrder(nextOrder);
