@@ -1,4 +1,4 @@
-const FuturesTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSortOrder, isMobile }) => {
+const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSortOrder, isMobile }) => {
 
   const handleToggleFavorite = (symbol) => {
 		toggleFavorite(symbol);
@@ -102,4 +102,4 @@ function formatVolume(volume) {
   );
 };
 
-export default FuturesTable;
+export default CoinTable;

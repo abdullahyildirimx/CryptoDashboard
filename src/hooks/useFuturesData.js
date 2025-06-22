@@ -5,7 +5,6 @@ import { futuresPriceUrl, futuresExchangeInfoUrl, futuresCoinLogosUrl } from '..
 
 const useFuturesData = () => {
   const [coinMetadata, setCoinMetadata] = useState(null);
-  const [activeSymbols, setActiveSymbols] = useState(null);
   const dispatch = useDispatch();
 
   const countDecimalPlaces = (num) => {
@@ -25,16 +24,10 @@ const useFuturesData = () => {
           throw new Error('Network response was not ok');
         }
         const jsonData = await response.json();
-    
-        let filteredCoins = jsonData.filter(coin => {
-          return coin.symbol.endsWith('USDT');
+        const currentTime = new Date().getTime();
+        const filteredCoins = jsonData.filter(coin => {
+          return coin.symbol.endsWith('USDT') && currentTime <= coin.closeTime + 1800000;
         });
-
-        if (activeSymbols) {
-          filteredCoins = filteredCoins.filter(coin => {
-            return activeSymbols.includes(coin.symbol);
-          });
-        }
     
         const priceList = filteredCoins.map(coin => {
           let symbol = coin.symbol;
@@ -79,7 +72,7 @@ const useFuturesData = () => {
     const intervalId = setInterval(fetchPriceData, 5000);
     return () => clearInterval(intervalId);
     
-  }, [activeSymbols, coinMetadata, dispatch]);
+  }, [coinMetadata, dispatch]);
 
   useEffect(() => {
     const fetchCoinMetadata = async () => {
@@ -118,18 +111,12 @@ const useFuturesData = () => {
           };
         }).slice().sort((a, b) => { return (a.symbol).localeCompare(b.symbol) });
 
-        const coinFullSymbols = filteredCoins.map(item => {
-          let symbol = item.symbol;
-          return symbol;
-        }).slice().sort();
-
         const coinSymbolList = coinMetadata.map(item => {
           let symbol = item.symbol;
           return symbol;
         });
         
         setCoinMetadata(coinMetadata);
-        setActiveSymbols(coinFullSymbols);
         dispatch(setFuturesCoinList(coinSymbolList));
       } catch (error) {
         console.error('Error fetching data:', error);

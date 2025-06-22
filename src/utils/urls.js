@@ -8,6 +8,3 @@ export const spotCoinLogosUrl = 'https://www.binance.com/bapi/composite/v1/publi
 export const futuresCoinLogosUrl = 'https://www.binance.com/bapi/asset/v1/public/asset/asset/get-asset-logo'
 export const spotMarketActivityUrl = 'https://api.cryptodashboard.tech/spot'
 export const futuresMarketActivityUrl = 'https://api.cryptodashboard.tech/futures'
-export const getLogoLink = (number) => {
-    return `https://s2.coinmarketcap.com/static/img/coins/64x64/${number}.png`;
-}

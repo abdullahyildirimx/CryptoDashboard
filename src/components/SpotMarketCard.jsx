@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchBar from './SearchBar';
-import SpotTable from './SpotTable';
+import CoinTable from './CoinTable';
 import { getSpotCardStorage, setSpotCardStorage } from '../utils/localStorageUtils';
 import { setSpotFavoriteCoins } from '../utils/reduxStorage';
 import { useIsMobile } from '../hooks/useScreenSize';
@@ -148,7 +148,7 @@ const SpotMarketCard = () => {
                 You don&apos;t have any favorite coins.
               </div>
             ) : (
-              <SpotTable
+              <CoinTable
                 content={sortedAllCoins}
                 favoriteCoins={spotFavoriteCoins}
                 sortOrder={sortOrder}

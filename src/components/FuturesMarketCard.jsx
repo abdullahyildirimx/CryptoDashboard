@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchBar from './SearchBar';
-import FuturesTable from './FuturesTable';
+import CoinTable from './CoinTable';
 import { getFuturesCardStorage, setFuturesCardStorage } from '../utils/localStorageUtils';
 import { setFuturesFavoriteCoins } from '../utils/reduxStorage';
 import { useIsMobile } from '../hooks/useScreenSize';
@@ -148,7 +148,7 @@ const FuturesMarketCard = () => {
                 You don&apos;t have any favorite coins.
               </div>
             ) : (
-              <FuturesTable
+              <CoinTable
                 content={sortedAllCoins}
                 favoriteCoins={futuresFavoriteCoins}
                 sortOrder={sortOrder}

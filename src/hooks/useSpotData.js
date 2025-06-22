@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setSpotCoinData, setSpotCoinList } from '../utils/reduxStorage';
-import { spotPriceUrl, spotExchangeInfoUrl, spotCoinLogosUrl, getLogoLink } from '../utils/urls';
+import { spotPriceUrl, spotExchangeInfoUrl, spotCoinLogosUrl } from '../utils/urls';
 
 const useSpotData = () => {
   const [coinMetadata, setCoinMetadata] = useState(null);
@@ -102,7 +102,6 @@ const useSpotData = () => {
         const coinMetadata = filteredCoins.map(item => {
           let symbol = item.symbol;
           let tickSize = countDecimalPlaces(item.filters[0].tickSize);
-          let logoNumber = 1;
           let logo = null;
 
           if (symbol !== "USDTTRY") {
@@ -112,11 +111,10 @@ const useSpotData = () => {
           }
 
           if (symbol !== "EUR") {
-            logoNumber = logoData.find(coin => coin.name === symbol)?.cmcUniqueId;
+            logo = logoData.find(coin => coin.name === symbol)?.logo;
           } else {
-            logoNumber = 2989;
+            logo = logoData.find(coin => coin.name === "EURI")?.logo;
           }
-          logo = getLogoLink(logoNumber);
 
           return {
             symbol: symbol,

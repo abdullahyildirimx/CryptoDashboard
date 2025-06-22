@@ -1,15 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import MenuHeader from './components/MenuHeader';
-import MenuFooter from './components/MenuFooter';
 import useDocumentTitle from './hooks/useDocumentTitle';
-import { useIsMobile } from './hooks/useScreenSize';
 import SpotPage from './pages/SpotPage';
 import FuturesPage from './pages/FuturesPage';
 import NewsPage from './pages/NewsPage';
 
 const App = () => {
   useDocumentTitle();
-  const isMobile = useIsMobile();
 
   return (
     <Router>
@@ -23,11 +20,6 @@ const App = () => {
           <Route path="*" element={<Navigate to="/spot" replace />} />
         </Routes>
       </div>
-        {isMobile &&
-          <div style={{ paddingTop: '56px'}}>
-            <MenuFooter />
-          </div>
-        }
     </Router>
   );
 }
