@@ -67,7 +67,7 @@ function formatVolume(volume) {
 			</div>
 		</div>
 		<div className={`${isMobile ? 'table-container-mobile' : 'table-container'}`}>
-			{content().map((item) => (
+			{content.map((item) => (
 				<div key={item.symbol} className="coin-row d-flex justify-content-between align-items-center">
 					<div className='d-flex justify-content-between align-items-center'>
 						<button

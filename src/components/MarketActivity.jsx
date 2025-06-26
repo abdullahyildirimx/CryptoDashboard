@@ -1,21 +1,10 @@
-import { useSelector } from 'react-redux';
-
-const SpotMarketActivity = ({ activity }) => {
-	const { spotCoinData } = useSelector((state) => state.dataStore);
-	const getLogo = (symbol) => {
-		return spotCoinData?.find(data => data.symbol === symbol)?.logo || '/genericicon.png';
-	}
-
-	const formatPrice = (symbol, price) => {
-		const tickSize = spotCoinData?.find(data => data.symbol === symbol)?.tickSize;
-		return tickSize ? parseFloat(price).toFixed(tickSize) : price;
-	}
+const MarketActivity = ({ activity }) => {
 
 	return (
 		activity.map((item, index) => (
 			<div key={index} className="d-flex justify-content-between align-items-center mb-3 me-2">
 				<div className='d-flex justify-content-between align-items-center'>
-					<img className='mx-1 rounded-circle' src={getLogo(item.symbol)} width={30} onError={(e) => {e.target.src = '/genericicon.png';}}/>
+					<img className='mx-1 rounded-circle' src={item.logo} width={30} onError={(e) => {e.target.src = '/genericicon.png';}}/>
 					<div className='d-flex flex-column'>
 						<div className='align-items-center'>
 							{item.symbol}
@@ -27,7 +16,7 @@ const SpotMarketActivity = ({ activity }) => {
 				</div>
 				<div className='text-end'>
 					<div className={`change ${item.change < 0 ? 'negative' : 'positive'} mb-1`}>
-						{formatPrice(item.symbol, item.oldPrice)} → {formatPrice(item.symbol, item.newPrice)} 
+						{item.oldPrice} → {item.newPrice} 
 					</div>
 					<span className ={`change ${item.change < 0 ? 'negative' : 'positive'}`}>
 						<span>{item.change > 0 ? '↑' : '↓'}</span>
@@ -39,4 +28,4 @@ const SpotMarketActivity = ({ activity }) => {
 	);
 };
 
-export default SpotMarketActivity;
+export default MarketActivity;

@@ -117,6 +117,8 @@ const SpotMarketCard = () => {
     }
   };
 
+  const content = sortedAllCoins();
+
   return (
     <div className="card">
       <div className="card-body">
@@ -149,7 +151,7 @@ const SpotMarketCard = () => {
               </div>
             ) : (
               <CoinTable
-                content={sortedAllCoins}
+                content={content}
                 favoriteCoins={spotFavoriteCoins}
                 sortOrder={sortOrder}
                 toggleFavorite={toggleFavorite}

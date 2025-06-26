@@ -3,23 +3,40 @@ import { useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 import { useIsMobile } from '../hooks/useScreenSize';
 import { getSpotMarketActivityStorage, setSpotMarketActivityStorage } from '../utils/localStorageUtils';
-import SpotMarketActivity from './SpotMarketActivity';
+import MarketActivity from './MarketActivity';
 
 const SpotMarketActivityCard = () => {
   const localStorageActivity = getSpotMarketActivityStorage();
   const isMobile = useIsMobile();
   const [showFavorites, setShowFavorites] = useState(localStorageActivity?.showFavorites || false);
-  const { apiEnabled, spotMarketActivity, spotFavoriteCoins } = useSelector((state) => state.dataStore);
-
-  const activity = spotMarketActivity ? (showFavorites
-  ? spotMarketActivity.filter(item => spotFavoriteCoins.includes(item.symbol))
-  : spotMarketActivity) : [];
+  const { apiEnabled, spotCoinData, spotMarketActivity, spotFavoriteCoins } = useSelector((state) => state.dataStore);
 
   const handleToggleFavorites = (newValue) => {
     setShowFavorites(newValue)
     setSpotMarketActivityStorage('showFavorites', newValue);
   };
+
+	const getLogo = (symbol) => {
+		return spotCoinData?.find(data => data.symbol === symbol)?.logo || '/genericicon.png';
+	}
+
+  const formatPrice = (symbol, price) => {
+    const tickSize = spotCoinData?.find(data => data.symbol === symbol)?.tickSize;
+    return tickSize ? parseFloat(price).toFixed(tickSize) : price;
+  };
   
+  const activity = spotMarketActivity
+  ? (showFavorites
+      ? spotMarketActivity.filter(item => spotFavoriteCoins.includes(item.symbol))
+      : spotMarketActivity
+    ).map(item => ({
+      ...item,
+      oldPrice: formatPrice(item.symbol, item.oldPrice),
+      newPrice: formatPrice(item.symbol, item.newPrice),
+      logo: getLogo(item.symbol)
+    }))
+  : [];
+
   return (
     <div className="card">
       <div className="card-body">
@@ -54,7 +71,7 @@ const SpotMarketActivityCard = () => {
         <div className={`${isMobile ? 'activity-container-mobile' : apiEnabled ? 'activity-container-short' : 'activity-container-long'} ${!activity.length ? 'd-flex justify-content-center align-items-center' : ''}`}>
           {spotMarketActivity ?
             <>
-              <SpotMarketActivity activity={activity} />
+              <MarketActivity activity={activity} />
               {!activity.length &&
                 (showFavorites 
                   ? <p>There is no market activity for your favorite coins.</p> 

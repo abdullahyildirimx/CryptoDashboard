@@ -117,6 +117,8 @@ const FuturesMarketCard = () => {
     }
   };
 
+  const content = sortedAllCoins();
+
   return (
     <div className="card">
       <div className="card-body">
@@ -149,7 +151,7 @@ const FuturesMarketCard = () => {
               </div>
             ) : (
               <CoinTable
-                content={sortedAllCoins}
+                content={content}
                 favoriteCoins={futuresFavoriteCoins}
                 sortOrder={sortOrder}
                 toggleFavorite={toggleFavorite}

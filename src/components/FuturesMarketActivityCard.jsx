@@ -3,22 +3,39 @@ import { useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 import { useIsMobile } from '../hooks/useScreenSize';
 import { getFuturesMarketActivityStorage, setFuturesMarketActivityStorage } from '../utils/localStorageUtils';
-import FuturesMarketActivity from './FuturesMarketActivity';
+import MarketActivity from './MarketActivity';
 
 const FuturesMarketActivityCard = () => {
   const localStorageActivity = getFuturesMarketActivityStorage();
   const isMobile = useIsMobile();
   const [showFavorites, setShowFavorites] = useState(localStorageActivity?.showFavorites || false);
-  const { apiEnabled, futuresMarketActivity, futuresFavoriteCoins } = useSelector((state) => state.dataStore);
-
-  const activity = futuresMarketActivity ? (showFavorites
-  ? futuresMarketActivity.filter(item => futuresFavoriteCoins.includes(item.symbol))
-  : futuresMarketActivity) : [];
+  const { apiEnabled, futuresCoinData, futuresMarketActivity, futuresFavoriteCoins } = useSelector((state) => state.dataStore);
 
   const handleToggleFavorites = (newValue) => {
     setShowFavorites(newValue)
     setFuturesMarketActivityStorage('showFavorites', newValue);
   };
+
+  const getLogo = (symbol) => {
+		return futuresCoinData?.find(data => data.symbol === symbol)?.logo || '/genericicon.png';
+	}
+
+  const formatPrice = (symbol, price) => {
+    const tickSize = futuresCoinData?.find(data => data.symbol === symbol)?.tickSize;
+    return tickSize ? parseFloat(price).toFixed(tickSize) : price;
+  };
+  
+  const activity = futuresMarketActivity
+  ? (showFavorites
+      ? futuresMarketActivity.filter(item => futuresFavoriteCoins.includes(item.symbol))
+      : futuresMarketActivity
+    ).map(item => ({
+      ...item,
+      oldPrice: formatPrice(item.symbol, item.oldPrice),
+      newPrice: formatPrice(item.symbol, item.newPrice),
+      logo: getLogo(item.symbol)
+    }))
+  : [];
   
   return (
     <div className="card">
@@ -54,7 +71,7 @@ const FuturesMarketActivityCard = () => {
         <div className={`${isMobile ? 'activity-container-mobile' : apiEnabled ? 'activity-container-short' : 'activity-container-long'} ${!activity.length ? 'd-flex justify-content-center align-items-center' : ''}`}>
           {futuresMarketActivity ?
             <>
-              <FuturesMarketActivity activity={activity} />
+              <MarketActivity activity={activity} />
               {!activity.length &&
                 (showFavorites 
                   ? <p>There is no market activity for your favorite coins.</p> 
