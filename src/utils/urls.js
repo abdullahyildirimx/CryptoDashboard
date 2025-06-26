@@ -5,6 +5,6 @@ export const futuresExchangeInfoUrl = 'https://fapi.binance.com/fapi/v1/exchange
 export const balancesUrl = 'https://api.binance.com/api/v3/account'
 export const orderUrl = 'https://api.binance.com/api/v3/order'
 export const spotCoinLogosUrl = 'https://www.binance.com/bapi/composite/v1/public/marketing/symbol/list'
-export const futuresCoinLogosUrl = 'https://www.binance.com/bapi/asset/v1/public/asset/asset/get-asset-logo'
+export const futuresCoinLogosUrl = 'https://www.binance.com/bapi/asset/v2/public/asset/asset/get-all-asset'
 export const spotMarketActivityUrl = 'https://api.cryptodashboard.tech/spot'
 export const futuresMarketActivityUrl = 'https://api.cryptodashboard.tech/futures'

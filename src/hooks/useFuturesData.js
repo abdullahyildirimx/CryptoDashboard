@@ -99,10 +99,10 @@ const useFuturesData = () => {
           let tickSize = countDecimalPlaces(item.filters[0].tickSize);
           let logo = null;
           symbol = symbol.slice(0, -"USDT".length);
-          logo = logoData.find(coin => coin.asset === symbol)?.pic;
+          logo = logoData.find(coin => coin.assetCode === symbol)?.logoUrl;
           if (!logo) {
             const strippedSymbol = symbol.replace(/^\d+/, '');
-            logo = logoData.find(coin => coin.asset === strippedSymbol)?.pic;
+            logo = logoData.find(coin => coin.assetCode === strippedSymbol)?.logoUrl;
           }
           return {
             symbol: symbol,
