@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setFuturesCoinData, setFuturesCoinList } from '../utils/reduxStorage';
-import { futuresPriceUrl, futuresExchangeInfoUrl, futuresCoinLogosUrl } from '../utils/urls';
+import { futuresPriceUrl, futuresExchangeInfoUrl, futuresCoinLogosUrl, futuresCoinLogosUrl2 } from '../utils/urls';
 
 const useFuturesData = () => {
   const [coinMetadata, setCoinMetadata] = useState(null);
@@ -30,15 +30,13 @@ const useFuturesData = () => {
         });
     
         const priceList = filteredCoins.map(coin => {
-          let symbol = coin.symbol;
+          const symbol = coin.symbol.slice(0, -"USDT".length);
           let price = coin.lastPrice;
           const volume = coin.quoteVolume;
           const change = coin.priceChangePercent;
           const currency = '$';
           let logo = null;
           let tickSize = null;
-
-          symbol = symbol.slice(0, -"USDT".length);
 
           if (coinMetadata) {
             let metadata = coinMetadata.find(coin => coin.symbol === symbol);
@@ -90,19 +88,25 @@ const useFuturesData = () => {
         const jsonData2 = await response2.json();
         const logoData = jsonData2.data;
 
+        const response3 = await fetch(futuresCoinLogosUrl2);
+        if (!response3.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const jsonData3 = await response3.json();
+        const logoData2 = jsonData3.data;
+
         const filteredCoins = jsonData.symbols.filter(coin => {
           return coin.symbol.endsWith('USDT') && coin.status === 'TRADING';
         });
 
         const coinMetadata = filteredCoins.map(item => {
-          let symbol = item.symbol;
+          const symbol = item.symbol.slice(0, -"USDT".length);
           let tickSize = countDecimalPlaces(item.filters[0].tickSize);
           let logo = null;
-          symbol = symbol.slice(0, -"USDT".length);
-          logo = logoData.find(coin => coin.assetCode === symbol)?.logoUrl;
+          logo = logoData.find(coin => coin.asset.toUpperCase() === symbol)?.pic || logoData2.find(coin => coin.symbol.toUpperCase() === symbol)?.iconUrl;
           if (!logo) {
             const strippedSymbol = symbol.replace(/^\d+/, '');
-            logo = logoData.find(coin => coin.assetCode === strippedSymbol)?.logoUrl;
+            logo = logoData.find(coin => coin.asset.toUpperCase() === strippedSymbol)?.pic || logoData2.find(coin => coin.symbol.toUpperCase() === strippedSymbol)?.iconUrl;
           }
           return {
             symbol: symbol,
