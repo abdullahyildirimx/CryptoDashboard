@@ -38,14 +38,14 @@ function formatVolume(volume) {
 					<span className={sortOrder.includes('symbol') ? 'text-white' : 'text-secondary'}>
 						Coin
 					</span>
-					<button className="mx-1 icon-button" onClick={() => handleToggleSort('symbol')}>
+					<button className="icon-button" onClick={() => handleToggleSort('symbol')}>
 						{sortOrder === 'symbolAsc' ? <i className="fa-solid fa-sort-up text-white"></i> : sortOrder === 'symbolDesc' ? <i className="fa-solid fa-sort-down text-white"></i> : <i className="fa-solid fa-sort text-secondary"></i>}
 					</button>
 					<span className='text-secondary'>/</span>
 					<span className={sortOrder.includes('volume') ? 'text-white' : 'text-secondary'}>
 						Volume
 					</span>
-					<button className="mx-1 icon-button" onClick={() => handleToggleSort('volume')}>
+					<button className="icon-button" onClick={() => handleToggleSort('volume')}>
 						{sortOrder === 'volumeAsc' ? <i className="fa-solid fa-sort-up text-white"></i> : sortOrder === 'volumeDesc' ? <i className="fa-solid fa-sort-down text-white"></i> : <i className="fa-solid fa-sort text-secondary"></i>}
 					</button>
 				</div>
@@ -54,14 +54,14 @@ function formatVolume(volume) {
 				<span className={sortOrder.includes('price') ? 'text-white' : 'text-secondary'}>
 					Price
 				</span>
-				<button className="mx-1 icon-button" onClick={() => handleToggleSort('price')}>
+				<button className="icon-button" onClick={() => handleToggleSort('price')}>
 					{sortOrder === 'priceAsc' ? <i className="fa-solid fa-sort-up text-white"></i> : sortOrder === 'priceDesc' ? <i className="fa-solid fa-sort-down text-white"></i> : <i className="fa-solid fa-sort text-secondary"></i>}
 				</button>
 				<span className='text-secondary'>/</span>
 				<span className={sortOrder.includes('change') ? 'text-white' : 'text-secondary'}>
 					Change
 				</span>
-				<button className="mx-1 icon-button" onClick={() => handleToggleSort('change')}>
+				<button className="icon-button" onClick={() => handleToggleSort('change')}>
 					{sortOrder === 'changeAsc' ? <i className="fa-solid fa-sort-up text-white"></i> : sortOrder === 'changeDesc' ? <i className="fa-solid fa-sort-down text-white"></i> : <i className="fa-solid fa-sort text-secondary"></i>}
 				</button>
 			</div>
@@ -74,8 +74,8 @@ function formatVolume(volume) {
 							className="icon-button"
 							onClick={() => handleToggleFavorite(item.symbol)}
 							>
-							{favoriteCoins.includes(item.symbol) ? <i className="fa-solid fa-star" style={{ color: 'gold', width: '20px'}}></i>
-							: <i className="fa-regular fa-star" style={{ color: 'white', width: '20px'}}></i>}
+							{favoriteCoins.includes(item.symbol) ? <i className="align-middle fa-solid fa-star" style={{ color: 'gold', width: '20px'}}></i>
+							: <i className="align-middle fa-regular fa-star" style={{ color: 'white', width: '20px'}}></i>}
 						</button>
 						<img className='mx-2 rounded-circle' src={getLogo(item)} width={24} onError={(e) => {e.target.src = '/genericicon.png';}}/>
 						<div className='d-flex flex-column'>
