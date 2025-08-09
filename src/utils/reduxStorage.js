@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getMarketBuySellStorage, getSpotCardStorage, getFuturesCardStorage } from './localStorageUtils';
+import { getSpotCardStorage, getFuturesCardStorage } from './localStorageUtils';
 
 const spotStorage = getSpotCardStorage();
 const futuresStorage = getFuturesCardStorage();
-const buySellStorage = getMarketBuySellStorage();
 
 const ReduxSlice = createSlice({
   name: 'dataStore',
@@ -16,9 +15,6 @@ const ReduxSlice = createSlice({
     futuresMarketActivity: null,
     spotFavoriteCoins: spotStorage?.favoriteCoins || [],
     futuresFavoriteCoins: futuresStorage?.favoriteCoins || [],
-    apiEnabled: buySellStorage?.apiEnabled || false,
-    apiKey: buySellStorage?.binanceApiKey || "",
-    apiSecret: buySellStorage?.binanceApiSecret || "",
   },
   reducers: {
     setSpotCoinData(state, action) {
@@ -45,17 +41,8 @@ const ReduxSlice = createSlice({
     setFuturesFavoriteCoins(state, action) {
       state.futuresFavoriteCoins = action.payload;
     },
-    setApiEnabled(state, action) {
-      state.apiEnabled = action.payload;
-    },
-    setApiKey(state, action) {
-      state.apiKey = action.payload;
-    },
-    setApiSecret(state, action) {
-      state.apiSecret = action.payload;
-    },
   },
 });
 
-export const { setSpotCoinData, setSpotCoinList, setFuturesCoinData, setFuturesCoinList, setSpotMarketActivity, setFuturesMarketActivity, setSpotFavoriteCoins, setFuturesFavoriteCoins, setApiEnabled, setApiKey, setApiSecret } = ReduxSlice.actions;
+export const { setSpotCoinData, setSpotCoinList, setFuturesCoinData, setFuturesCoinList, setSpotMarketActivity, setFuturesMarketActivity, setSpotFavoriteCoins, setFuturesFavoriteCoins } = ReduxSlice.actions;
 export default ReduxSlice.reducer;

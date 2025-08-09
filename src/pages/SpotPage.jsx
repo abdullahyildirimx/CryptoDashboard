@@ -3,7 +3,6 @@ import SpotMarketCard from '../components/SpotMarketCard';
 import SpotMarketActivityCard from '../components/SpotMarketActivityCard';
 import useSpotData from '../hooks/useSpotData';
 import useSpotMarketActivity from '../hooks/useSpotMarketActivity';
-import MarketBuySellCard from '../components/MarketBuySellCard';
 
 const SpotPage = () => {
   const isMobile = useIsMobile();
@@ -17,9 +16,6 @@ const SpotPage = () => {
           <SpotMarketCard />
         </div>
         <div className='col-12 p-2'>
-          <MarketBuySellCard />
-        </div>
-        <div className='col-12 p-2'>
           <SpotMarketActivityCard />
         </div>
         </> 
@@ -28,7 +24,6 @@ const SpotPage = () => {
           <SpotMarketCard />
         </div>
         <div className='col-6 p-2'>
-          <MarketBuySellCard />
           <SpotMarketActivityCard /> 
         </div>
         </>

@@ -3,7 +3,6 @@ import MenuHeader from './components/MenuHeader';
 import useDocumentTitle from './hooks/useDocumentTitle';
 import SpotPage from './pages/SpotPage';
 import FuturesPage from './pages/FuturesPage';
-import NewsPage from './pages/NewsPage';
 
 const App = () => {
   useDocumentTitle();
@@ -15,7 +14,6 @@ const App = () => {
         <Routes>
           <Route path="/spot" element={<SpotPage />} />
           <Route path="/futures" element={<FuturesPage />} />
-          <Route path="/news" element={<NewsPage />} />
           <Route path="/" element={<Navigate to="/spot" replace />} />
           <Route path="*" element={<Navigate to="/spot" replace />} />
         </Routes>

@@ -14,10 +14,6 @@ export const getFuturesMarketActivityStorage = () => {
 	return JSON.parse(localStorage.getItem('futuresMarketActivity'));
 };
 
-export const getMarketBuySellStorage = () => {
-	return JSON.parse(localStorage.getItem('marketBuySell'));
-};
-
 export const setSpotCardStorage = (key, value) => {
 	const spotCard = JSON.parse(localStorage.getItem('spotCard')) || {};
 	spotCard[key] = value;
@@ -40,10 +36,4 @@ export const setFuturesMarketActivityStorage = (key, value) => {
 	const marketActivity = JSON.parse(localStorage.getItem('futuresMarketActivity')) || {};
 	marketActivity[key] = value;
 	localStorage.setItem('futuresMarketActivity', JSON.stringify(marketActivity));
-};
-
-export const setMarketBuySellStorage = (key, value) => {
-	const marketBuySell = JSON.parse(localStorage.getItem('marketBuySell')) || {};
-	marketBuySell[key] = value;
-	localStorage.setItem('marketBuySell', JSON.stringify(marketBuySell));
 };
