@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import MenuHeader from './components/MenuHeader';
+import Header from './components/Header';
 import useDocumentTitle from './hooks/useDocumentTitle';
 import SpotPage from './pages/SpotPage';
 import FuturesPage from './pages/FuturesPage';
@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Router>
       <div style={{ margin: '0 auto', minHeight: '100vh', maxWidth: '1400px' }} data-bs-theme="dark">
-        <MenuHeader />
+        <Header />
         <Routes>
           <Route path="/spot" element={<SpotPage />} />
           <Route path="/futures" element={<FuturesPage />} />

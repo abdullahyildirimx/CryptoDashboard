@@ -1,14 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useIsMobile } from '../hooks/useScreenSize';
 
-const MenuHeader = () => {
+const Header = () => {
   const location = useLocation();
   const isMobile = useIsMobile();
 
   return (
     <nav className="navbar navbar-expand-md p-3">
       <a className={`${isMobile ? 'col-2' : 'col-4'} btn-link icon-button d-flex align-items-center text-decoration-none text-white`} href="/">
-        <img className="me-2" src="/logo192.png" width={40} alt="logo" />
+        <img className="me-2" src="/android-chrome-192x192.png" width={40} alt="logo" />
         {!isMobile && <div>Crypto Dashboard</div>}
       </a>
 
@@ -42,4 +42,4 @@ const MenuHeader = () => {
   );
 };
 
-export default MenuHeader;
+export default Header;
