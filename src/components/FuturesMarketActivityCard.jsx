@@ -9,7 +9,7 @@ const FuturesMarketActivityCard = () => {
   const localStorageActivity = getFuturesMarketActivityStorage();
   const isMobile = useIsMobile();
   const [showFavorites, setShowFavorites] = useState(localStorageActivity?.showFavorites || false);
-  const { apiEnabled, futuresCoinData, futuresMarketActivity, futuresFavoriteCoins } = useSelector((state) => state.dataStore);
+  const { futuresCoinData, futuresMarketActivity, futuresFavoriteCoins } = useSelector((state) => state.dataStore);
 
   const handleToggleFavorites = (newValue) => {
     setShowFavorites(newValue)
@@ -68,7 +68,7 @@ const FuturesMarketActivityCard = () => {
           variant="dark"
           content="You may see too much notifications when it is not checked."
         />
-        <div className={`${isMobile ? 'activity-container-mobile' : apiEnabled ? 'activity-container-short' : 'activity-container-long'} ${!activity.length ? 'd-flex justify-content-center align-items-center' : ''}`}>
+        <div className={`${isMobile ? 'activity-container-mobile' : 'activity-container'} ${!activity.length ? 'd-flex justify-content-center align-items-center' : ''}`}>
           {futuresMarketActivity ?
             <>
               <MarketActivity activity={activity} />

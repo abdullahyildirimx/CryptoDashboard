@@ -6,7 +6,7 @@ const Header = () => {
   const isMobile = useIsMobile();
 
   return (
-    <nav className="navbar navbar-expand-md p-3">
+    <nav className="navbar p-3 justify-content-start">
       <a className={`${isMobile ? 'col-2' : 'col-4'} btn-link icon-button d-flex align-items-center text-decoration-none text-white`} href="/">
         <img className="me-2" src="/android-chrome-192x192.png" width={40} alt="logo" />
         {!isMobile && <div>Crypto Dashboard</div>}
@@ -33,10 +33,6 @@ const Header = () => {
             </Link>
           </li>
         </ul>
-      </div>
-
-      <div className={`${isMobile ? 'col-2' : 'col-4'} d-flex justify-content-end`}>
-        {/*<SettingsModal />*/}
       </div>
     </nav>
   );

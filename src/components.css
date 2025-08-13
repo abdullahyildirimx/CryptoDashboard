@@ -82,47 +82,14 @@
   margin-left: 60px;
 }
 
-.news-container {
-  height: 530px;
-  overflow-y: auto;
-  overflow-x: auto;
-}
-
-.news-container-mobile {
-  height: 330px;
-  font-size: 12px;
-  overflow-y: auto;
-  overflow-x: auto;
-}
-
-.activity-container-long {
+.activity-container {
   height: 490px;
-  overflow-y: auto;
-  overflow-x: auto;
-}
-
-.activity-container-short {
-  height: 200px;
   overflow-y: auto;
   overflow-x: auto;
 }
 
 .activity-container-mobile {
   height: 280px;
-  font-size: 12px;
-  overflow-y: auto;
-  overflow-x: auto;
-}
-
-.dropdown-button {
-  width: 200px;
-  border-color: rgba(255, 255, 255, 0.15);
-  font-size: 14px;
-}
-
-.dropdown-menu {
-  position: absolute;
-  max-height: 200px;
   font-size: 12px;
   overflow-y: auto;
   overflow-x: auto;
