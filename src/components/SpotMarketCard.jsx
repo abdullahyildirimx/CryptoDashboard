@@ -107,9 +107,9 @@ const SpotMarketCard = () => {
       return [];
     }
     if (result) {
-			const filteredResults = spotCoinList.filter(item =>
+			const filteredResults = spotCoinList ? spotCoinList?.filter(item =>
 				item.toLowerCase().includes(result.toLowerCase())
-			);
+			) : [];
 			setSearchedCoins(filteredResults);
 		}
     else {

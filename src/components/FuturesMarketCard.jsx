@@ -107,9 +107,9 @@ const FuturesMarketCard = () => {
       return [];
     }
     if (result) {
-			const filteredResults = futuresCoinList.filter(item =>
+			const filteredResults = futuresCoinList ? futuresCoinList.filter(item =>
 				item.toLowerCase().includes(result.toLowerCase())
-			);
+			) : [];
 			setSearchedCoins(filteredResults);
 		}
     else {

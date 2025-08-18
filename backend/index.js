@@ -13,6 +13,8 @@ const spotPriceUrl = 'https://api.binance.com/api/v3/ticker/24hr'
 const spotExchangeInfoUrl = 'https://api.binance.com/api/v3/exchangeInfo'
 const futuresPriceUrl = 'https://fapi.binance.com/fapi/v1/ticker/24hr'
 const futuresExchangeInfoUrl = 'https://fapi.binance.com/fapi/v1/exchangeInfo'
+const spotCoinLogosUrl = 'https://www.binance.com/bapi/composite/v1/public/marketing/symbol/list'
+const futuresCoinLogosUrl = 'https://www.binance.com/bapi/futures/v1/public/future/common/get-symbol-logo'
 
 const coinListDelta = 3600000
 const activityDelta = 10000
@@ -275,6 +277,43 @@ app.get("/futures", function (req, res) {
   res.setHeader("Access-Control-Allow-Headers", "*")
   res.status(200).send(futuresActivityData)
 })
+
+app.get("/spot-logos", async function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+
+  try {
+    const response = await fetch(spotCoinLogosUrl);
+    const data = await response.json();
+    res.status(200).send(data);
+  } catch (error) {
+    console.error("Error fetching Binance spot logos:", error);
+    res.status(500).send({ error: "Failed to fetch Binance spot logos" });
+  }
+});
+
+app.get("/futures-logos", async function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+
+  try {
+    const response = await fetch(
+      futuresCoinLogosUrl,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: "{}"
+      }
+    );
+    const data = await response.json();
+    res.status(200).send(data);
+  } catch (error) {
+    console.error("Error fetching Binance futures logos:", error);
+    res.status(500).send({ error: "Failed to fetch Binance futures logos" });
+  }
+});
 
 app.listen(5000, function () {
 })
