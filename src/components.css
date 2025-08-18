@@ -95,7 +95,7 @@
   overflow-x: auto;
 }
 
-.form-control {
+.font-size-14 {
   font-size: 14px;
 }
 
@@ -103,8 +103,8 @@
   font-size: 12px;
 }
 
-.font-size-10 {
-  font-size: 10px;
+.font-size-11 {
+  font-size: 11px;
 }
 
 ::-webkit-scrollbar {

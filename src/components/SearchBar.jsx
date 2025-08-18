@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useIsMobile } from '../hooks/useScreenSize';
 
 const SearchBar = ({ handleSearch }) => {
+  const isMobile = useIsMobile();
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
@@ -17,7 +19,7 @@ const SearchBar = ({ handleSearch }) => {
   return (
     <div className="position-relative d-flex align-items-center">
       <input
-        className="form-control"
+        className={`form-control ${isMobile ? 'font-size-12' : 'font-size-14'}`}
         type="text"
         id="searchBar"
         placeholder="Search"
@@ -31,7 +33,7 @@ const SearchBar = ({ handleSearch }) => {
           type="button"
           onClick={handleClear}
         >
-          <i className="fa-solid fa-xmark text-gray-400" style={{ fontSize: "14px" }}></i>
+          <i className={`fa-solid fa-xmark text-gray-400 ${isMobile ? 'font-size-12' : 'font-size-14'}`}></i>
         </button>
       )}
     </div>

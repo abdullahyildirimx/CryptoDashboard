@@ -32,7 +32,7 @@ function formatVolume(volume) {
 
   return (
 	<>
-		<div className={`${isMobile && 'font-size-10'} info-row d-flex justify-content-between align-items-center`}>
+		<div className={`${isMobile && 'font-size-11'} info-row d-flex justify-content-between align-items-center`}>
 			<div className='d-flex flex-column'>
 				<div className='align-items-center'>
 					<span className={sortOrder.includes('symbol') ? 'text-white' : 'text-secondary'}>

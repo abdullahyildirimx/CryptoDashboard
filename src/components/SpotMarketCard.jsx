@@ -123,7 +123,7 @@ const SpotMarketCard = () => {
     <div className="card">
       <div className="card-body">
         <div className='d-flex align-items-center justify-content-between mb-3'>
-          <h5 className="card-title mb-0">Spot Market</h5>
+          <h5 className="card-title mb-0 me-2">Spot Market</h5>
           <SearchBar handleSearch={handleSearch} />
         </div>
         <ul className="nav nav-tabs">
