@@ -81,7 +81,16 @@ const useFuturesData = () => {
         }
         const jsonData = await response.json();
 
-        const response2 = await fetch(futuresCoinLogosUrl);
+        const response2 = await fetch(
+          futuresExchangeInfoUrl,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({})
+          }
+        );
         if (!response2.ok) {
           throw new Error('Network response was not ok');
         }
@@ -103,10 +112,10 @@ const useFuturesData = () => {
           const symbol = item.symbol.slice(0, -"USDT".length);
           let tickSize = countDecimalPlaces(item.filters[0].tickSize);
           let logo = null;
-          logo = logoData.find(coin => coin.asset.toUpperCase() === symbol)?.pic || logoData2.find(coin => coin.symbol.toUpperCase() === symbol)?.iconUrl;
+          logo = logoData.find(coin => coin.asset.toUpperCase() === symbol)?.pic || logoData2.find(coin => coin.baseAsset.toUpperCase() === symbol)?.logo;
           if (!logo) {
             const strippedSymbol = symbol.replace(/^\d+/, '');
-            logo = logoData.find(coin => coin.asset.toUpperCase() === strippedSymbol)?.pic || logoData2.find(coin => coin.symbol.toUpperCase() === strippedSymbol)?.iconUrl;
+            logo = logoData.find(coin => coin.asset.toUpperCase() === strippedSymbol)?.pic || logoData2.find(coin => coin.baseAsset.toUpperCase() === strippedSymbol)?.logo;
           }
           return {
             symbol: symbol,

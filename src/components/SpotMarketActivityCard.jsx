@@ -40,12 +40,12 @@ const SpotMarketActivityCard = () => {
   return (
     <div className="card">
       <div className="card-body">
-        <div className={`d-flex ${isMobile ? 'flex-column' : ''} justify-content-between`}>
-          <div className='d-flex align-items-center mb-3'>
+        <div className={`d-flex ${isMobile ? 'flex-column' : ''} justify-content-between mt-1 mb-3`}>
+          <div className='d-flex align-items-center'>
             <h5 className="card-title mb-0 me-1">Spot Market Activity</h5>
             <i className="fa-regular fa-circle-question" data-tooltip-id="infoTooltip1"></i>
           </div>
-          <div className='d-flex align-items-center mb-3'>
+          <div className='d-flex align-items-center'>
 
             <div className="d-flex align-items-center me-1">
               <input className="form-check-input mt-0 me-1" type="checkbox" id="inlineCheckbox1" checked={showFavorites} onChange={() => handleToggleFavorites(!showFavorites)} />

@@ -122,8 +122,8 @@ const FuturesMarketCard = () => {
   return (
     <div className="card">
       <div className="card-body">
-        <div className='d-flex justify-content-between'>
-          <h5 className="card-title mb-3">Futures Market</h5>
+        <div className='d-flex align-items-center justify-content-between mb-3'>
+          <h5 className="card-title mb-0">Futures Market</h5>
           <SearchBar handleSearch={handleSearch} />
         </div>
         <ul className="nav nav-tabs">
