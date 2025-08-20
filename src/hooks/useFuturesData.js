@@ -103,7 +103,7 @@ const useFuturesData = () => {
           const symbol = item.symbol.slice(0, -"USDT".length);
           let tickSize = countDecimalPlaces(item.filters[0].tickSize);
           let logo = null;
-          logo = logoData.find(coin => coin.name === symbol)?.logo || logoData2.find(coin => coin.baseAsset === symbol)?.logo;
+          logo = logoData.find(coin => coin?.asset === symbol)?.pic || logoData2.find(coin => coin?.baseAsset === symbol)?.logo;
           return {
             symbol: symbol,
             tickSize: tickSize,

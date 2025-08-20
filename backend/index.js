@@ -13,7 +13,7 @@ const spotPriceUrl = 'https://api.binance.com/api/v3/ticker/24hr'
 const spotExchangeInfoUrl = 'https://api.binance.com/api/v3/exchangeInfo'
 const futuresPriceUrl = 'https://fapi.binance.com/fapi/v1/ticker/24hr'
 const futuresExchangeInfoUrl = 'https://fapi.binance.com/fapi/v1/exchangeInfo'
-const spotCoinLogosUrl = 'https://www.binance.com/bapi/composite/v1/public/marketing/symbol/list'
+const spotCoinLogosUrl = 'https://www.binance.com/bapi/asset/v1/public/asset/asset/get-asset-logo'
 const futuresCoinLogosUrl = 'https://www.binance.com/bapi/futures/v1/public/future/common/get-symbol-logo'
 
 const coinListDelta = 3600000

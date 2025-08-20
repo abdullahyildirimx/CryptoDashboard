@@ -111,9 +111,9 @@ const useSpotData = () => {
           }
 
           if (symbol !== "EUR") {
-            logo = logoData.find(coin => coin.name === symbol)?.logo;
+            logo = logoData.find(coin => coin?.asset === symbol)?.pic;
           } else {
-            logo = logoData.find(coin => coin.name === "EURI")?.logo;
+            logo = logoData.find(coin => coin?.asset === "EURI")?.pic;
           }
 
           return {
