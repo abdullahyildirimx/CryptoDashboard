@@ -1,33 +1,19 @@
-import { useIsMobile } from '../hooks/useScreenSize';
-import FuturesMarketCard from '../components/FuturesMarketCard';
-import FuturesMarketActivityCard from '../components/FuturesMarketActivityCard';
+import MarketCard from '../components/MarketPricesCard';
+import MarketActivityCard from '../components/MarketActivityCard';
 import useFuturesData from '../hooks/useFuturesData';
 import useFuturesMarketActivity from '../hooks/useFuturesMarketActivity';
 
 const FuturesPage = () => {
-  const isMobile = useIsMobile();
   useFuturesData();
   useFuturesMarketActivity();
   return (
-    <div className='row p-2 g-0'>
-      { isMobile ? 
-        <>
-        <div className='col-12 p-2'>
-          <FuturesMarketCard />
-        </div>
-        <div className='col-12 p-2'>
-          <FuturesMarketActivityCard />
-        </div>
-        </> 
-        : <>
-        <div className='col-6 p-2'>
-          <FuturesMarketCard />
-        </div>
-        <div className='col-6 p-2'>
-          <FuturesMarketActivityCard /> 
-        </div>
-        </>
-      }
+    <div className='p-2 grid grid-cols-1 md:grid-cols-2'>
+      <div className='p-2'>
+        <MarketCard />
+      </div>
+      <div className='p-2'>
+        <MarketActivityCard /> 
+      </div>
     </div>
   );
 }

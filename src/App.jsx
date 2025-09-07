@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <Router>
-      <div style={{ margin: '0 auto', minHeight: '100vh', maxWidth: '1400px' }} data-bs-theme="dark">
+      <div className="mx-auto min-h-dvh min-w-[360px] max-w-[1400px]">
         <Header />
         <Routes>
           <Route path="/spot" element={<SpotPage />} />

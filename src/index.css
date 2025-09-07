@@ -1,11 +1,53 @@
-body {
-  background-color: #181a20;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+@import "tailwindcss";
+
+:root {
+  background: #181a20;
+  font-family: 'Fustat', -apple-system, 'Segoe UI', 'Roboto', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@theme {
+  --breakpoint-md: 900px;
+  --color-white-100: #ffffff;
+  --color-white-80: rgba(255, 255, 255, 0.8);
+  --color-white-65: rgba(255, 255, 255, 0.65);
+  --color-white-15: rgba(255, 255, 255, 0.15);
+  --color-white1: #eaecef;
+  --color-white2: #dee2e6;
+  --color-grey1: #6c757d;
+  --color-black1: #1e2329;
+  --color-red1: #c74242;
+  --color-red2: #3a2434;
+  --color-red3: #f6465d;
+  --color-green1: #0ec56b;
+  --color-green2: #1c3238;
+  --color-green3: #2ebd85;
+  --color-border-grey: #495057;
+  --color-border-blue: #86b7fe;
+}
+
+button {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-corner {
+  background: #1e2329;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: #1e2329;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

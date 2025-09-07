@@ -1,40 +1,32 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useIsMobile } from '../hooks/useScreenSize';
 
 const Header = () => {
   const location = useLocation();
-  const isMobile = useIsMobile();
 
   return (
-    <nav className="navbar p-3 justify-content-start">
-      <a className={`${isMobile ? 'col-2' : 'col-4'} btn-link icon-button d-flex align-items-center text-decoration-none text-white`} href="/">
-        <img className="me-2" src="/android-chrome-192x192.png" width={40} alt="logo" />
-        {!isMobile && <div>Crypto Dashboard</div>}
+    <div className="grid grid-cols-6 p-4">
+      <a className="col-span-1 md:col-span-2 flex items-center text-white-100" href="/">
+        <img className="mr-2" src="/android-chrome-192x192.png" width={40} alt="logo" />
+        <div className='hidden md:block font-medium'>Crypto Dashboard</div>
       </a>
 
-      <div className={`${isMobile ? 'col-8' : 'col-4'} d-flex justify-content-center`}>
-        <ul className="navbar-nav d-flex flex-row">
-          <li className="nav-item">
-            <Link
-              className={`nav-link px-2 ${location.pathname === '/spot' && 'active fw-bold'}`}
-              to="/spot"
-            >
-              <i className="mx-1 fa-solid fa-chart-simple"></i>
-              Spot
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              className={`nav-link px-2 ${location.pathname === '/futures' && 'active fw-bold'}`}
-              to="/futures"
-            >
-              <i className="mx-1 fa-solid fa-scroll"></i>
-              Futures
-            </Link>
-          </li>
-        </ul>
+      <div className={`col-span-4 md:col-span-2 flex justify-center items-center`}>
+        <Link
+          className={`px-2 ${location.pathname === '/spot' ? 'text-white-100 font-bold' : 'text-white-65 hover:text-white-80 transition duration-150 ease-in-out'}`}
+          to="/spot"
+        >
+          <i className="mx-1 fa-solid fa-chart-simple"></i>
+          Spot
+        </Link>
+        <Link
+          className={`px-2 ${location.pathname === '/futures' ? 'text-white-100 font-bold' : 'text-white-65 hover:text-white-80 transition duration-150 ease-in-out'}`}
+          to="/futures"
+        >
+          <i className="mx-1 fa-solid fa-scroll"></i>
+          Futures
+        </Link>
       </div>
-    </nav>
+    </div>
   );
 };
 
