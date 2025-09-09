@@ -27,7 +27,7 @@ const SearchBar = ({ handleSearch }) => {
       />
       {searchTerm && (
         <button
-          className="absolute border-0 rounded-circle flex items-center justify-center top-1/2 -translate-y-1/2 right-[6px] h-[20px] w-[20px]"
+          className="absolute border-0 rounded-full flex items-center justify-center top-1/2 -translate-y-1/2 right-[6px] h-[20px] w-[20px]"
           type="button"
           onClick={handleClear}
         >

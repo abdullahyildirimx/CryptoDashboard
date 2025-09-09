@@ -74,7 +74,7 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 								{favoriteCoins.includes(item.symbol) ? <i className="align-middle fa-solid fa-star" style={{ color: 'gold', width: '20px'}}></i>
 								: <i className="align-middle fa-regular fa-star" style={{ color: 'white', width: '20px'}}></i>}
 							</button>
-							<img className='mx-2 rounded-circle' src={getLogo(item)} width={24} onError={(e) => {e.target.src = '/genericicon.png';}}/>
+							<img className='mx-2 rounded-full' src={getLogo(item)} width={24} onError={(e) => {e.target.src = '/genericicon.png';}}/>
 							<div className='flex flex-col'>
 								<div className='flex items-center'>
 									{item.symbol}
