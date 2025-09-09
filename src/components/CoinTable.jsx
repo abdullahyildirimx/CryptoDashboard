@@ -63,7 +63,7 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 					</button>
 				</div>
 			</div>
-			<div className="h-[205px] md:h-[405px] text-[12px] md:text-[14px] overflow-y-auto">
+			<div className="h-[205px] md:h-[405px] text-[12px] md:text-[14px] overflow-y-auto font-semibold">
 				{content.map((item) => (
 					<div key={item.symbol} className="px-1.5 py-2 flex justify-between items-center">
 						<div className='flex justify-between items-center'>
