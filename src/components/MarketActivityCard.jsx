@@ -76,7 +76,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
         variant="dark"
         content="You may see too much notifications when it is not checked."
       />
-      <div className={`h-[277px] md:h-[497px] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}>
+      <div className={`h-[280px] md:h-[calc(100vh-193px)] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}>
         {selectedMarketActivity ?
           <>
             <MarketActivity activity={activity} />

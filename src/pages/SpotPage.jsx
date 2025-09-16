@@ -1,4 +1,4 @@
-import MarketCard from '../components/MarketPricesCard';
+import MarketPricesCard from '../components/MarketPricesCard';
 import MarketActivityCard from '../components/MarketActivityCard';
 import useSpotData from '../hooks/useSpotData';
 import useSpotMarketActivity from '../hooks/useSpotMarketActivity';
@@ -9,7 +9,7 @@ const SpotPage = () => {
   return (
     <div className='p-2 grid grid-cols-1 md:grid-cols-2'>
       <div className='p-2'>
-        <MarketCard isSpot />
+        <MarketPricesCard isSpot />
       </div>
       <div className='p-2'>
         <MarketActivityCard isSpot /> 

@@ -158,7 +158,7 @@ const MarketPricesCard = ({ isSpot = false }) => {
           All
         </button>
       </div>
-      <div className="h-[250px] md:h-[450px]">
+      <div className="h-[250px] md:h-[calc(100vh-240px)]">
         {selectedCoinData ? ((selectedTab === 'favorite' && !selectedFavoriteCoins.length && !searchedCoins.length) ? (
             <div className='h-full flex justify-center items-center'>
               You don&apos;t have any favorite coins.
