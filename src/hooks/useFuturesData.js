@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setFuturesCoinData, setFuturesCoinList } from '../utils/reduxStorage';
-import { futuresPriceUrl, futuresExchangeInfoUrl, spotCoinLogosUrl, futuresCoinLogosUrl } from '../utils/urls';
+import { futuresPriceUrl, futuresExchangeInfoUrl, coinLogosUrl } from '../utils/urls';
 
 const useFuturesData = () => {
   const [coinMetadata, setCoinMetadata] = useState(null);
@@ -81,19 +81,12 @@ const useFuturesData = () => {
         }
         const jsonData = await response.json();
 
-        const response2 = await fetch(spotCoinLogosUrl);
+        const response2 = await fetch(coinLogosUrl);
         if (!response2.ok) {
           throw new Error('Network response was not ok');
         }
         const jsonData2 = await response2.json();
         const logoData = jsonData2.data;
-
-        const response3 = await fetch(futuresCoinLogosUrl);
-        if (!response3.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const jsonData3 = await response3.json();
-        const logoData2 = jsonData3.data;
 
         const filteredCoins = jsonData.symbols.filter(coin => {
           return coin.symbol.endsWith('USDT') && coin.status === 'TRADING';
@@ -103,7 +96,7 @@ const useFuturesData = () => {
           const symbol = item.symbol.slice(0, -"USDT".length);
           let tickSize = countDecimalPlaces(item.filters[0].tickSize);
           let logo = null;
-          logo = logoData.find(coin => coin?.asset === symbol)?.pic || logoData2.find(coin => coin?.baseAsset === symbol)?.logo;
+          logo = logoData.find(coin => coin?.asset === symbol)?.logo;
           return {
             symbol: symbol,
             tickSize: tickSize,

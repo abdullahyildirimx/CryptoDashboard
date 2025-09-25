@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setSpotCoinData, setSpotCoinList } from '../utils/reduxStorage';
-import { spotPriceUrl, spotExchangeInfoUrl, spotCoinLogosUrl } from '../utils/urls';
+import { spotPriceUrl, spotExchangeInfoUrl, coinLogosUrl } from '../utils/urls';
 
 const useSpotData = () => {
   const [coinMetadata, setCoinMetadata] = useState(null);
@@ -89,7 +89,7 @@ const useSpotData = () => {
         }
         const jsonData = await response.json();
 
-        const response2 = await fetch(spotCoinLogosUrl);
+        const response2 = await fetch(coinLogosUrl);
         if (!response2.ok) {
           throw new Error('Network response was not ok');
         }
@@ -111,9 +111,9 @@ const useSpotData = () => {
           }
 
           if (symbol !== "EUR") {
-            logo = logoData.find(coin => coin?.asset === symbol)?.pic;
+            logo = logoData.find(coin => coin?.asset === symbol)?.logo;
           } else {
-            logo = logoData.find(coin => coin?.asset === "EURI")?.pic;
+            logo = logoData.find(coin => coin?.asset === "EURI")?.logo;
           }
 
           return {
