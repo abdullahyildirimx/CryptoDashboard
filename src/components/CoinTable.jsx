@@ -34,7 +34,7 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 
   return (
 		<>
-			<div className="text-[11px] md:text-[14px] px-1.5 py-3 ml-15 flex justify-between items-center">
+			<div className="text-[11px] md:text-[14px] px-2 py-3 ml-15 flex justify-between items-center">
 				<div className='flex items-center'>
 					<span className={sortOrder.includes('symbol') ? 'text-white-100' : 'text-grey1'}>
 						Coin
@@ -70,9 +70,9 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 				{content.map((item) => (
 					<div
 						key={item.symbol}
-						className="rounded-lg hover:bg-gray-800"
+						className="p-2 rounded-lg hover:bg-gray-800"
 					>
-						<div className="px-1.5 py-2 flex justify-between items-center ">
+						<div className="flex justify-between items-center ">
 							<div className="flex justify-between items-center">
 								<button
 									className="icon-button"

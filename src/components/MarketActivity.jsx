@@ -2,7 +2,7 @@ const MarketActivity = ({ activity }) => {
   
 	return (
 		activity.map((item, index) => (
-			<div key={index} className="flex justify-between items-center mb-4 mr-2 font-semibold">
+			<div key={index} className="flex justify-between items-center py-2 px-1 font-semibold rounded-lg hover:bg-gray-800">
 				<div className='flex justify-between items-center'>
 					<img className='mx-1 rounded-full' src={item.logo} width={30} onError={(e) => {e.target.src = '/genericicon.png';}}/>
 					<div className='flex flex-col'>
