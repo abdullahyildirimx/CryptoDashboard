@@ -69,7 +69,6 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 					<div
 						key={item.symbol}
 						className="cursor-pointer rounded-lg hover:bg-gray-800"
-						onClick={handleClick}
 					>
 						<div className="px-1.5 py-2 flex justify-between items-center ">
 							<div className="flex justify-between items-center">
