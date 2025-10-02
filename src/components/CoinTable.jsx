@@ -90,7 +90,7 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 								</button>
 								<img
 									className="mx-2 rounded-full"
-									src={getLogo(item)}
+									src={`https://bin.bnbstatic.com/static/assets/logos/${item.symbol}.png`}
 									width={24}
 									onError={(e) => {
 										e.target.src = "/genericicon.png";
