@@ -1,5 +1,6 @@
 const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSortOrder }) => {
-  const handleToggleFavorite = (symbol) => {
+  const handleToggleFavorite = (e, symbol) => {
+		e.stopPropagation();
 		toggleFavorite(symbol);
   };
 
@@ -65,32 +66,53 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 			</div>
 			<div className="h-[205px] md:h-[calc(100vh-295px)] text-[12px] md:text-[14px] overflow-y-auto font-semibold">
 				{content.map((item) => (
-					<div key={item.symbol} className="px-1.5 py-2 flex justify-between items-center">
-						<div className='flex justify-between items-center'>
-							<button
-								className="icon-button"
-								onClick={() => handleToggleFavorite(item.symbol)}
+					<div
+						key={item.symbol}
+						className="cursor-pointer rounded-lg hover:bg-gray-800"
+						onClick={handleClick}
+					>
+						<div className="px-1.5 py-2 flex justify-between items-center ">
+							<div className="flex justify-between items-center">
+								<button
+									className="icon-button"
+									onClick={(e) => handleToggleFavorite(e, item.symbol)}
 								>
-								{favoriteCoins.includes(item.symbol) ? <i className="align-middle fa-solid fa-star" style={{ color: 'gold', width: '20px'}}></i>
-								: <i className="align-middle fa-regular fa-star" style={{ color: 'white', width: '20px'}}></i>}
-							</button>
-							<img className='mx-2 rounded-full' src={getLogo(item)} width={24} onError={(e) => {e.target.src = '/genericicon.png';}}/>
-							<div className='flex flex-col'>
-								<div className='flex items-center'>
-									{item.symbol}
-								</div>
-								<div className='flex text-grey1 items-center'>
-									{formatVolume(item.volume)}
+									{favoriteCoins.includes(item.symbol) ? (
+										<i
+											className="align-middle fa-solid fa-star"
+											style={{ color: "gold", width: "20px" }}
+										></i>
+									) : (
+										<i
+											className="align-middle fa-regular fa-star"
+											style={{ color: "white", width: "20px" }}
+										></i>
+									)}
+								</button>
+								<img
+									className="mx-2 rounded-full"
+									src={getLogo(item)}
+									width={24}
+									onError={(e) => {
+										e.target.src = "/genericicon.png";
+									}}
+								/>
+								<div className="flex flex-col">
+									<div className="flex items-center">{item.symbol}</div>
+									<div className="flex text-grey1 items-center">
+										{formatVolume(item.volume)}
+									</div>
 								</div>
 							</div>
-						</div>
-						<div className='text-end'>
-							<div>
-								{item.currency}{item.price}
+							<div className="text-end">
+								<div>
+									{item.currency}
+									{item.price}
+								</div>
+								<span className={`${item.change < 0 ? "text-red3" : "text-green3"}`}>
+									{formatChange(item.change)}
+								</span>
 							</div>
-							<span className ={`${item.change < 0 ? 'text-red3' : 'text-green3'}`}>
-								{formatChange(item.change)}
-							</span>
 						</div>
 					</div>
 				))}

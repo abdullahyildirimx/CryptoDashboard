@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@custom-variant hover (&:hover);
 :root {
   background: #181a20;
   font-family: 'Fustat', -apple-system, 'Segoe UI', 'Roboto', sans-serif;
