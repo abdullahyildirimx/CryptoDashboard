@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 import { getFuturesMarketActivityStorage, setFuturesMarketActivityStorage, getSpotMarketActivityStorage, setSpotMarketActivityStorage } from '../utils/localStorageUtils';
 import MarketActivity from './MarketActivity';
+import { getLogoFromUrl } from '../utils/urls';
 
 const MarketActivityCard = ({ isSpot = false }) => {
   const localStorageActivity = isSpot ? getSpotMarketActivityStorage() : getFuturesMarketActivityStorage(); 
@@ -23,7 +24,8 @@ const MarketActivityCard = ({ isSpot = false }) => {
   };
 
 	const getLogo = (symbol) => {
-		return selectedCoinData?.find(data => data.symbol === symbol)?.logo || '/genericicon.png';
+    const url = selectedCoinData?.find(data => data.symbol === symbol)?.logo;
+		return url ? getLogoFromUrl(url) : '/genericicon.png';
 	}
 
   const formatPrice = (symbol, price) => {

@@ -276,5 +276,24 @@ app.get("/futures", function (req, res) {
   res.status(200).send(futuresActivityData)
 })
 
+app.get("/logo", async (req, res) => {
+  const { url } = req.query;
+  if (!url) return res.status(400).send("Missing url param");
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) return res.status(500).send("Failed to fetch image");
+
+    const contentType = response.headers.get("content-type");
+    const buffer = Buffer.from(await response.arrayBuffer());
+
+    res.set("Content-Type", contentType);
+    res.send(buffer);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching image");
+  }
+});
+
 app.listen(5000, function () {
 })

@@ -1,3 +1,5 @@
+import { getLogoFromUrl } from "../utils/urls";
+
 const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSortOrder }) => {
   const handleToggleFavorite = (e, symbol) => {
 		e.stopPropagation();
@@ -9,7 +11,7 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 	};
 
 	const getLogo = (item) => {
-		return item?.logo || '/genericicon.png';
+		return item?.logo ? getLogoFromUrl(item.logo) : '/genericicon.png';
 	}
 
   const formatChange = (change) => {
@@ -68,7 +70,7 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 				{content.map((item) => (
 					<div
 						key={item.symbol}
-						className="cursor-pointer rounded-lg hover:bg-gray-800"
+						className="rounded-lg hover:bg-gray-800"
 					>
 						<div className="px-1.5 py-2 flex justify-between items-center ">
 							<div className="flex justify-between items-center">
@@ -90,7 +92,7 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 								</button>
 								<img
 									className="mx-2 rounded-full"
-									src={`https://bin.bnbstatic.com/static/assets/logos/${item.symbol}.png`}
+									src={getLogo(item)}
 									width={24}
 									onError={(e) => {
 										e.target.src = "/genericicon.png";
