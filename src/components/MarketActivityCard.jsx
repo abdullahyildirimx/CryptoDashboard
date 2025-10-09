@@ -81,7 +81,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
       <div className={`h-[280px] md:h-[calc(100vh-193px)] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}>
         {selectedMarketActivity ?
           <>
-            <MarketActivity activity={activity} />
+            <MarketActivity activity={activity} isSpot={isSpot} />
             {!activity.length &&
               (showFavorites 
                 ? <p>There is no market activity for your favorite coins.</p> 

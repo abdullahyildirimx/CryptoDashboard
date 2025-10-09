@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin '../hero.js';
+@source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant hover (&:hover);
 :root {
   background: #181a20;

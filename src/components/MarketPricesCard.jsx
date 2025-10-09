@@ -166,6 +166,7 @@ const MarketPricesCard = ({ isSpot = false }) => {
           ) : (
             <CoinTable
               content={content}
+              isSpot={isSpot}
               favoriteCoins={selectedFavoriteCoins}
               sortOrder={sortOrder}
               toggleFavorite={toggleFavorite}

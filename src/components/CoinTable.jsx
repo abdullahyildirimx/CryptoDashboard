@@ -1,9 +1,24 @@
+import { useState } from "react";
 import { getLogoFromUrl } from "../utils/urls";
+import ChartModal from "./ChartModal";
 
-const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSortOrder }) => {
+const CoinTable = ({ content, isSpot, favoriteCoins, toggleFavorite, sortOrder, toggleSortOrder }) => {
+	const [selectedCoin, setSelectedCoin] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleToggleFavorite = (e, symbol) => {
 		e.stopPropagation();
 		toggleFavorite(symbol);
+  };
+
+  const handleOpenChart = (symbol) => {
+    setSelectedCoin(symbol);
+    setIsOpen(true);
+  };
+
+	const handleCloseChart = () => {
+    setIsOpen(false);
+    setSelectedCoin(null);
   };
 
 	const handleToggleSort = (column) => {
@@ -70,7 +85,7 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 				{content.map((item) => (
 					<div
 						key={item.symbol}
-						className="p-2 rounded-lg hover:bg-gray-800"
+						className="p-2 rounded-lg hover:bg-gray-800 hover:cursor-pointer" onClick={() => handleOpenChart(item.symbol)}
 					>
 						<div className="flex justify-between items-center ">
 							<div className="flex justify-between items-center">
@@ -118,6 +133,7 @@ const CoinTable = ({ content, favoriteCoins, toggleFavorite, sortOrder, toggleSo
 					</div>
 				))}
 			</div>
+			<ChartModal isOpen={isOpen} onOpenChange={handleCloseChart} selectedCoin={selectedCoin} isSpot={isSpot} />
 		</>
   );
 };
