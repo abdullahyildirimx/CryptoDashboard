@@ -1,5 +1,6 @@
 "use strict"
 import express from "express"
+import { Buffer } from "buffer"
 
 const app = express()
 

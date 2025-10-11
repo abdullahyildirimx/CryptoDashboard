@@ -95,13 +95,11 @@ const CoinTable = ({ content, isSpot, favoriteCoins, toggleFavorite, sortOrder, 
 								>
 									{favoriteCoins.includes(item.symbol) ? (
 										<i
-											className="align-middle fa-solid fa-star"
-											style={{ color: "gold", width: "20px" }}
+											className="align-middle fa-solid fa-star w-[20px] text-gold"
 										></i>
 									) : (
 										<i
-											className="align-middle fa-regular fa-star"
-											style={{ color: "white", width: "20px" }}
+											className="align-middle fa-regular fa-star w-[20px] text-white"
 										></i>
 									)}
 								</button>

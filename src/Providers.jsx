@@ -5,8 +5,12 @@ import { HeroUIProvider } from "@heroui/react";
 
 const store = configureStore({
   reducer: {
-    dataStore: ReduxReducer
-  }
+    dataStore: ReduxReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+  }),
 });
 
 const Providers = ({children}) => {

@@ -36,7 +36,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
   const activity = selectedMarketActivity
   ? (showFavorites
       ? selectedMarketActivity.filter(item => selectedFavoriteCoins.includes(item.symbol))
-      : selectedMarketActivity
+      : selectedMarketActivity.slice(0, 1000)
     ).map(item => ({
       ...item,
       oldPrice: formatPrice(item.symbol, item.oldPrice),
@@ -65,18 +65,18 @@ const MarketActivityCard = ({ isSpot = false }) => {
         </div>
       </div>
       <Tooltip
-        style={{width: '180px'}}
+        className="!w-50 !opacity-100"
         id="infoTooltip1"
         place="bottom"
         variant="dark"
         content="5 minutes unusual price activity. For BTC, ETH and USDT, it is triggered when price is changed over 1%, for other coins it is 3%."
       />
       <Tooltip
-        style={{width: '180px'}}
+        className="!w-50 !opacity-100"
         id="infoTooltip2"
         place="bottom"
         variant="dark"
-        content="You may see too much notifications when it is not checked."
+        content="If 'Show only favorites' is unchecked, you may see many activities. The latest maximum of 1000 activities is displayed at once."
       />
       <div className={`h-[280px] md:h-[calc(100vh-193px)] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}>
         {selectedMarketActivity ?
