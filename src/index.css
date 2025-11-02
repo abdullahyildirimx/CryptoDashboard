@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@plugin '../hero.js';
-@source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant hover (&:hover);
 :root {
   background: #181a20;
@@ -25,7 +23,6 @@
   --color-green2: #1c3238;
   --color-green3: #2ebd85;
   --color-border-grey: #495057;
-  --color-border-blue: #86b7fe;
 }
 
 button {

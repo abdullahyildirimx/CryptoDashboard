@@ -144,15 +144,15 @@ const MarketPricesCard = ({ isSpot = false }) => {
         <h1 className="text-[20px] leading-[1.2] mt-1 mr-2">{isSpot ? 'Spot' : 'Futures'} Market</h1>
         <SearchBar handleSearch={handleSearch} />
       </div>
-      <div className="flex border-b-1 border-border-grey">
+      <div className="flex border-b border-border-grey">
         <button
-          className={`${selectedTab === 'favorite' ? 'mb-[-1px] border-b-[2px] border-border-grey border-b-black1' : 'border-transparent hover:border-border-grey hover:border-b-transparent'} px-4 py-2 text-white border rounded-t-[6px]`}
+          className={`${selectedTab === 'favorite' ? '-mb-px border-b-2 border-border-grey border-b-black1' : 'border-transparent hover:border-border-grey hover:border-b-transparent'} px-4 py-2 text-white border rounded-t-[6px]`}
           onClick={() => handleTabChange('favorite')}
         >
           Favorite
         </button>
         <button
-          className={`${selectedTab === 'all' ? 'mb-[-1px] border-b-[2px] border-border-grey border-b-black1' : 'border-transparent hover:border-border-grey hover:border-b-transparent'} px-4 py-2 text-white border rounded-t-[6px]`}
+          className={`${selectedTab === 'all' ? '-mb-px border-b-2 border-border-grey border-b-black1' : 'border-transparent hover:border-border-grey hover:border-b-transparent'} px-4 py-2 text-white border rounded-t-[6px]`}
           onClick={() => handleTabChange('all')}
         >
           All

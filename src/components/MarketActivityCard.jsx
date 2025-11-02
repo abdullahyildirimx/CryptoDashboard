@@ -4,6 +4,7 @@ import { Tooltip } from 'react-tooltip';
 import { getFuturesMarketActivityStorage, setFuturesMarketActivityStorage, getSpotMarketActivityStorage, setSpotMarketActivityStorage } from '../utils/localStorageUtils';
 import MarketActivity from './MarketActivity';
 import { getLogoFromUrl } from '../utils/urls';
+import { Checkbox } from '@base-ui-components/react';
 
 const MarketActivityCard = ({ isSpot = false }) => {
   const localStorageActivity = isSpot ? getSpotMarketActivityStorage() : getFuturesMarketActivityStorage(); 
@@ -54,25 +55,38 @@ const MarketActivityCard = ({ isSpot = false }) => {
         </div>
         <div className='flex items-center mb-4'>
           <div className="flex items-center mr-1">
-            <input   className="relative mr-1 w-[14px] h-[14px] rounded-[4px] border-[1px] border-border-grey appearance-none
-             focus:outline-none focus:shadow-[0_0_0_0.25rem_#0d6efd40] focus:border-border-blue focus:checked:border-blue-500 checked:bg-blue-500 checked:border-blue-500
-             checked:after:content-[''] checked:after:absolute checked:after:top-[5px] checked:after:left-1/2
-             checked:after:w-[4px] checked:after:h-[8px] checked:after:border-white checked:after:border-[0_2px_2px_0]
-             checked:after:rotate-[45deg] checked:after:-translate-x-1/2 checked:after:-translate-y-1/2" type="checkbox" id="inlineCheckbox1" checked={showFavorites} onChange={() => handleToggleFavorites(!showFavorites)} />
-            <label htmlFor="inlineCheckbox1">Show only favorites</label>
+            <label className="flex items-center gap-1">
+              <Checkbox.Root
+                className="
+                  size-[14px] rounded-sm border border-border-grey 
+                  data-checked:border-blue-500 data-checked:bg-blue-500
+                  flex items-center justify-center
+                  transition-all
+                  hover:border-blue-500
+                   focus-visible:border-blue-500 focus-visible:outline-none
+                "
+                checked={showFavorites}
+                onCheckedChange={(value) => handleToggleFavorites(value)}
+              >
+                <Checkbox.Indicator>
+                  <i className="fa-solid fa-check text-[10px]" />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
+              Show only favorites
+            </label>
           </div>
           <i className="fa-regular fa-circle-question" data-tooltip-id="infoTooltip2"></i>
         </div>
       </div>
       <Tooltip
-        className="!w-50 !opacity-100"
+        className="w-50! opacity-100!"
         id="infoTooltip1"
         place="bottom"
         variant="dark"
         content="5 minutes unusual price activity. For BTC, ETH and USDT, it is triggered when price is changed over 1%, for other coins it is 3%."
       />
       <Tooltip
-        className="!w-50 !opacity-100"
+        className="w-50! opacity-100!"
         id="infoTooltip2"
         place="bottom"
         variant="dark"

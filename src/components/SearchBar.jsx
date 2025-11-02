@@ -1,10 +1,10 @@
+import { Input } from '@base-ui-components/react';
 import { useState } from 'react';
 
 const SearchBar = ({ handleSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleChange = (event) => {
-    const value = event.target.value;
+  const handleChange = (value) => {
 		setSearchTerm(value);
     handleSearch(value);
   };
@@ -16,22 +16,36 @@ const SearchBar = ({ handleSearch }) => {
 
   return (
     <div className="relative">
-      <input
-        className="w-50 text-[12px] md:text-[14px] border-[1px] rounded-[6px] border-border-grey py-1.5 px-3 focus:border-border-blue focus:outline-none focus:shadow-[0_0_0_0.25rem_#0d6efd40]"
-        type="text"
+      <Input
         id="searchBar"
-        placeholder="Search"
         value={searchTerm}
+        onValueChange={(value) => handleChange(value)}
+        placeholder="Search"
         autoComplete="off"
-        onChange={handleChange}
+        className="
+          w-50 text-[12px] md:text-[14px]
+          border border-border-grey rounded-[6px]
+          py-1.5 pr-8 pl-3
+          placeholder:text-neutral-400
+          focus:border-blue-500
+          focus:outline-none
+          transition-all
+        "
       />
+
       {searchTerm && (
         <button
-          className="absolute border-0 rounded-full flex items-center justify-center top-1/2 -translate-y-1/2 right-[6px] h-[20px] w-[20px]"
           type="button"
           onClick={handleClear}
+          className="
+            absolute top-1/2 right-[6px] -translate-y-1/2
+            flex items-center justify-center
+            h-[20px] w-[20px]
+            rounded-full
+            text-blue-500
+          "
         >
-          <i className="fa-solid fa-xmark text-[12px] md:text-[14px] text-border-blue"></i>
+          <i className="fa-solid fa-xmark text-[12px] md:text-[14px]" />
         </button>
       )}
     </div>
