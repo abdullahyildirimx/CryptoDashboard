@@ -8,8 +8,10 @@ const ReduxSlice = createSlice({
   name: 'dataStore',
   initialState: {
     spotCoinData: null,
-    spotCoinList: null,
     futuresCoinData: null,
+    spotCoinMetadata: null,
+    futuresCoinMetadata: null,
+    spotCoinList: null,
     futuresCoinList: null,
     spotMarketActivity: null,
     futuresMarketActivity: null,
@@ -20,11 +22,17 @@ const ReduxSlice = createSlice({
     setSpotCoinData(state, action) {
       state.spotCoinData = action.payload;
     },
-    setSpotCoinList(state, action) {
-      state.spotCoinList = action.payload;
-    },
     setFuturesCoinData(state, action) {
       state.futuresCoinData = action.payload;
+    },
+    setSpotCoinMetadata(state, action) {
+      state.spotCoinMetadata = action.payload;
+    },
+    setFuturesCoinMetadata(state, action) {
+      state.futuresCoinMetadata = action.payload;
+    },
+    setSpotCoinList(state, action) {
+      state.spotCoinList = action.payload;
     },
     setFuturesCoinList(state, action) {
       state.futuresCoinList = action.payload;
@@ -44,5 +52,5 @@ const ReduxSlice = createSlice({
   },
 });
 
-export const { setSpotCoinData, setSpotCoinList, setFuturesCoinData, setFuturesCoinList, setSpotMarketActivity, setFuturesMarketActivity, setSpotFavoriteCoins, setFuturesFavoriteCoins } = ReduxSlice.actions;
+export const { setSpotCoinData, setFuturesCoinData, setSpotCoinMetadata, setFuturesCoinMetadata, setSpotCoinList, setFuturesCoinList, setSpotMarketActivity, setFuturesMarketActivity, setSpotFavoriteCoins, setFuturesFavoriteCoins } = ReduxSlice.actions;
 export default ReduxSlice.reducer;

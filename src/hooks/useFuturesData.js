@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setFuturesCoinData, setFuturesCoinList } from '../utils/reduxStorage';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFuturesCoinData, setFuturesCoinList, setFuturesCoinMetadata } from '../utils/reduxStorage';
 import { futuresPriceUrl, futuresExchangeInfoUrl, coinLogosUrl } from '../utils/urls';
 
 const useFuturesData = () => {
-  const [coinMetadata, setCoinMetadata] = useState(null);
+  const { futuresCoinMetadata } = useSelector((state) => state.dataStore);
+  const [coinMetadata, setCoinMetadata] = useState(futuresCoinMetadata || null);
   const dispatch = useDispatch();
 
   const countDecimalPlaces = (num) => {
@@ -73,6 +74,8 @@ const useFuturesData = () => {
   }, [coinMetadata, dispatch]);
 
   useEffect(() => {
+    if (futuresCoinMetadata) return;
+
     const fetchCoinMetadata = async () => {
       try {
         const response = await fetch(futuresExchangeInfoUrl);
@@ -110,6 +113,7 @@ const useFuturesData = () => {
         });
         
         setCoinMetadata(coinMetadata);
+        dispatch(setFuturesCoinMetadata(coinMetadata));
         dispatch(setFuturesCoinList(coinSymbolList));
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -117,7 +121,7 @@ const useFuturesData = () => {
     };
     
     fetchCoinMetadata();
-  }, [dispatch]);
+  }, [futuresCoinMetadata, dispatch]);
 };
 
 export default useFuturesData;

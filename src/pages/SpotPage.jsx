@@ -7,14 +7,10 @@ const SpotPage = () => {
   useSpotData();
   useSpotMarketActivity();
   return (
-    <div className='p-2 grid grid-cols-1 md:grid-cols-2'>
-      <div className='p-2'>
-        <MarketPricesCard isSpot />
-      </div>
-      <div className='p-2'>
-        <MarketActivityCard isSpot /> 
-      </div>
-    </div>
+    <main className='p-8 grid grid-cols-1 md:grid-cols-2'>
+      <MarketPricesCard isSpot />
+      <MarketActivityCard isSpot /> 
+    </main>
   );
 }
   

@@ -1,6 +1,7 @@
 "use strict"
 import express from "express"
 import { Buffer } from "buffer"
+import sharp from "sharp"
 
 const app = express()
 
@@ -279,20 +280,25 @@ app.get("/futures", function (req, res) {
 
 app.get("/logo", async (req, res) => {
   const { url } = req.query;
-  if (!url) return res.status(400).send("Missing url param");
+  if (!url) return res.status(400).send("Missing url param")
 
   try {
     const response = await fetch(url);
-    if (!response.ok) return res.status(500).send("Failed to fetch image");
+    if (!response.ok) return res.status(500).send("Failed to fetch image")
 
-    const contentType = response.headers.get("content-type");
-    const buffer = Buffer.from(await response.arrayBuffer());
+    const arrayBuffer = await response.arrayBuffer()
+    const buffer = Buffer.from(arrayBuffer);
 
-    res.set("Content-Type", contentType);
-    res.send(buffer);
+    const webpBuffer = await sharp(buffer)
+      .toFormat("webp", { quality: 90 })
+      .toBuffer()
+
+    res.set("Content-Type", "image/webp")
+    res.set("Cache-Control", "public, max-age=2592000, immutable")
+    res.send(webpBuffer)
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error fetching image");
+    res.status(500).send("Error fetching or converting image")
   }
 });
 

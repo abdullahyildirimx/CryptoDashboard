@@ -23,11 +23,11 @@ const SearchBar = ({ handleSearch }) => {
         placeholder="Search"
         autoComplete="off"
         className="
-          w-50 text-[12px] md:text-[14px]
-          border border-border-grey rounded-[6px]
-          py-1.5 pr-8 pl-3
+          w-200 text-[12px] md:text-[14px]
+          border border-border-grey rounded-md
+          py-6 pr-8 pl-12
           placeholder:text-neutral-400
-          focus:border-blue-500
+          hover:border-blue-500 focus:border-blue-500
           focus:outline-none
           transition-all
         "
@@ -38,9 +38,9 @@ const SearchBar = ({ handleSearch }) => {
           type="button"
           onClick={handleClear}
           className="
-            absolute top-1/2 right-[6px] -translate-y-1/2
+            btn absolute top-1/2 right-6 -translate-y-1/2
             flex items-center justify-center
-            h-[20px] w-[20px]
+            h-20 w-20
             rounded-full
             text-blue-500
           "

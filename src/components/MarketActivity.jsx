@@ -18,23 +18,19 @@ const MarketActivity = ({ activity, isSpot }) => {
 	return (
 		<>
 			{activity.map((item, index) => (
-				<div key={index} className="flex justify-between items-center py-2 px-1 font-semibold rounded-lg hover:bg-gray-800 hover:cursor-pointer" onClick={() => handleOpenChart(item.symbol)}>
-					<div className='flex justify-between items-center'>
-						<img className='mx-1 rounded-full' src={item.logo} width={30} onError={(e) => {e.target.src = '/genericicon.png';}}/>
+				<div key={index} className="flex justify-between items-center py-8 px-4 font-semibold rounded-lg hover:bg-gray-800 hover:cursor-pointer" onClick={() => handleOpenChart(item.symbol)}>
+					<div className='flex justify-between items-center gap-8'>
+						<img className='rounded-full' src={item.logo} alt={item.symbol} width={30} onError={(e) => {e.target.src = '/genericicon.png';}}/>
 						<div className='flex flex-col'>
-							<div className='flex items-center'>
-								{item.symbol}
-							</div>
-							<div className='flex text-grey1 items-center'>
-								{item.time}
-							</div>
+							<span>{item.symbol}</span>
+							<span className="text-grey1">{item.time}</span>
 						</div>
 					</div>
 					<div className='text-end'>
-						<div className={`text-[12px] rounded-[5px] font-semibold py-[2px] px-[8px] ${item.change < 0 ? 'text-red1 bg-red2' : 'text-green1 bg-green2'} mb-1`}>
+						<div className={`text-[12px] rounded-[5px] font-semibold py-2 px-8 ${item.change < 0 ? 'text-red1 bg-red2' : 'text-green1 bg-green2'} mb-4`}>
 							{item.oldPrice} → {item.newPrice} 
 						</div>
-						<span className ={`text-[12px] rounded-[5px] font-semibold py-[2px] px-[8px] ${item.change < 0 ? 'text-red1 bg-red2' : 'text-green1 bg-green2'}`}>
+						<span className ={`text-[12px] rounded-[5px] font-semibold py-2 px-8 ${item.change < 0 ? 'text-red1 bg-red2' : 'text-green1 bg-green2'}`}>
 							<span>{item.change > 0 ? '↑' : '↓'}</span>
 							{parseFloat(item.change).toFixed(2)}%
 						</span>

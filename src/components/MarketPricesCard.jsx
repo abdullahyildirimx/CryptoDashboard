@@ -139,45 +139,47 @@ const MarketPricesCard = ({ isSpot = false }) => {
   const content = sortedAllCoins();
 
   return (
-    <div className="bg-black1 rounded-[16px] p-4 text-white1 text-[14px] font-medium border border-white-15">
-      <div className='flex items-center justify-between mb-4'>
-        <h1 className="text-[20px] leading-[1.2] mt-1 mr-2">{isSpot ? 'Spot' : 'Futures'} Market</h1>
-        <SearchBar handleSearch={handleSearch} />
-      </div>
-      <div className="flex border-b border-border-grey">
-        <button
-          className={`${selectedTab === 'favorite' ? '-mb-px border-b-2 border-border-grey border-b-black1' : 'border-transparent hover:border-border-grey hover:border-b-transparent'} px-4 py-2 text-white border rounded-t-[6px]`}
-          onClick={() => handleTabChange('favorite')}
-        >
-          Favorite
-        </button>
-        <button
-          className={`${selectedTab === 'all' ? '-mb-px border-b-2 border-border-grey border-b-black1' : 'border-transparent hover:border-border-grey hover:border-b-transparent'} px-4 py-2 text-white border rounded-t-[6px]`}
-          onClick={() => handleTabChange('all')}
-        >
-          All
-        </button>
-      </div>
-      <div className="h-[250px] md:h-[calc(100vh-240px)]">
-        {selectedCoinData ? ((selectedTab === 'favorite' && !selectedFavoriteCoins.length && !searchedCoins.length) ? (
-            <div className='h-full flex justify-center items-center'>
-              You don&apos;t have any favorite coins.
-            </div>
+    <div className='p-8'>
+      <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-white-15">
+        <div className='flex items-center justify-between mb-16'>
+          <h1 className="text-[20px] leading-[1.2] mt-4 mr-8">{isSpot ? 'Spot' : 'Futures'} Market</h1>
+          <SearchBar handleSearch={handleSearch} />
+        </div>
+        <div className="flex border-b border-border-grey">
+          <button
+            className={`${selectedTab === 'favorite' ? '-mb-1 border-b-2 border-border-grey border-b-black1' : 'border-transparent hover:border-border-grey hover:border-b-transparent'} btn px-16 py-8 text-white border rounded-t-md`}
+            onClick={() => handleTabChange('favorite')}
+          >
+            Favorite
+          </button>
+          <button
+            className={`${selectedTab === 'all' ? '-mb-1 border-b-2 border-border-grey border-b-black1' : 'border-transparent hover:border-border-grey hover:border-b-transparent'} btn px-16 py-8 text-white border rounded-t-md`}
+            onClick={() => handleTabChange('all')}
+          >
+            All
+          </button>
+        </div>
+        <div className="h-250 md:h-[calc(100vh-240px)]">
+          {selectedCoinData ? ((selectedTab === 'favorite' && !selectedFavoriteCoins.length && !searchedCoins.length) ? (
+              <div className='h-full flex justify-center items-center'>
+                You don&apos;t have any favorite coins.
+              </div>
+            ) : (
+              <CoinTable
+                content={content}
+                isSpot={isSpot}
+                favoriteCoins={selectedFavoriteCoins}
+                sortOrder={sortOrder}
+                toggleFavorite={toggleFavorite}
+                toggleSortOrder={toggleSortOrder}
+              />
+            )
           ) : (
-            <CoinTable
-              content={content}
-              isSpot={isSpot}
-              favoriteCoins={selectedFavoriteCoins}
-              sortOrder={sortOrder}
-              toggleFavorite={toggleFavorite}
-              toggleSortOrder={toggleSortOrder}
-            />
-          )
-        ) : (
-          <div className="flex items-center justify-center h-full">
-            <div className  ="w-9 h-9 border-4 border-transparent border-t-blue-500 rounded-full animate-spin"></div>
-          </div>
-        )}
+            <div className="flex items-center justify-center h-full">
+              <div className  ="w-36 h-36 border-4 border-transparent border-t-blue-500 rounded-full animate-spin"></div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

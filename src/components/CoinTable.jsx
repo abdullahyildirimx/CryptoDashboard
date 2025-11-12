@@ -49,19 +49,19 @@ const CoinTable = ({ content, isSpot, favoriteCoins, toggleFavorite, sortOrder, 
 
   return (
 		<>
-			<div className="text-[11px] md:text-[14px] px-2 py-3 ml-15 flex justify-between items-center">
+			<div className="text-[11px] md:text-[14px] px-8 py-12 ml-60 flex justify-between items-center">
 				<div className='flex items-center'>
 					<span className={sortOrder.includes('symbol') ? 'text-white-100' : 'text-grey1'}>
 						Coin
 					</span>
-					<button className="icon-button" onClick={() => handleToggleSort('symbol')}>
+					<button aria-label="symbol-sort-button" onClick={() => handleToggleSort('symbol')}>
 						{sortOrder === 'symbolAsc' ? <i className="fa-solid fa-sort-up text-white"></i> : sortOrder === 'symbolDesc' ? <i className="fa-solid fa-sort-down text-white-100"></i> : <i className="fa-solid fa-sort text-grey1"></i>}
 					</button>
 					<span className='text-grey1'>/</span>
 					<span className={sortOrder.includes('volume') ? 'text-white-100' : 'text-grey1'}>
 						Volume
 					</span>
-					<button className="icon-button" onClick={() => handleToggleSort('volume')}>
+					<button aria-label="volume-sort-button" onClick={() => handleToggleSort('volume')}>
 						{sortOrder === 'volumeAsc' ? <i className="fa-solid fa-sort-up text-white"></i> : sortOrder === 'volumeDesc' ? <i className="fa-solid fa-sort-down text-white-100"></i> : <i className="fa-solid fa-sort text-grey1"></i>}
 					</button>
 				</div>
@@ -69,43 +69,45 @@ const CoinTable = ({ content, isSpot, favoriteCoins, toggleFavorite, sortOrder, 
 					<span className={sortOrder.includes('price') ? 'text-white-100' : 'text-grey1'}>
 						Price
 					</span>
-					<button className="icon-button" onClick={() => handleToggleSort('price')}>
+					<button aria-label="price-sort-button" onClick={() => handleToggleSort('price')}>
 						{sortOrder === 'priceAsc' ? <i className="fa-solid fa-sort-up text-white"></i> : sortOrder === 'priceDesc' ? <i className="fa-solid fa-sort-down text-white-100"></i> : <i className="fa-solid fa-sort text-grey1"></i>}
 					</button>
 					<span className='text-grey1'>/</span>
 					<span className={sortOrder.includes('change') ? 'text-white-100' : 'text-grey1'}>
 						Change
 					</span>
-					<button className="icon-button" onClick={() => handleToggleSort('change')}>
+					<button aria-label="change-sort-button" onClick={() => handleToggleSort('change')}>
 						{sortOrder === 'changeAsc' ? <i className="fa-solid fa-sort-up text-white"></i> : sortOrder === 'changeDesc' ? <i className="fa-solid fa-sort-down text-white-100"></i> : <i className="fa-solid fa-sort text-grey1"></i>}
 					</button>
 				</div>
 			</div>
-			<div className="h-[205px] md:h-[calc(100vh-295px)] text-[12px] md:text-[14px] overflow-y-auto font-semibold">
+			<div className="h-205 md:h-[calc(100vh-295px)] text-[12px] md:text-[14px] overflow-y-auto font-semibold">
 				{content.map((item) => (
 					<div
 						key={item.symbol}
-						className="p-2 rounded-lg hover:bg-gray-800 hover:cursor-pointer" onClick={() => handleOpenChart(item.symbol)}
+						className="p-8 rounded-lg hover:bg-gray-800 hover:cursor-pointer" onClick={() => handleOpenChart(item.symbol)}
 					>
 						<div className="flex justify-between items-center ">
 							<div className="flex justify-between items-center">
 								<button
-									className="icon-button"
+									className="btn w-20"
+									aria-label="favorite-button"
 									onClick={(e) => handleToggleFavorite(e, item.symbol)}
 								>
 									{favoriteCoins.includes(item.symbol) ? (
 										<i
-											className="align-middle fa-solid fa-star w-[20px] text-gold"
+											className="align-middle fa-solid fa-star text-gold"
 										></i>
 									) : (
 										<i
-											className="align-middle fa-regular fa-star w-[20px] text-white"
+											className="align-middle fa-regular fa-star text-white"
 										></i>
 									)}
 								</button>
 								<img
-									className="mx-2 rounded-full"
+									className="mx-8 rounded-full"
 									src={getLogo(item)}
+									alt={item.symbol}
 									width={24}
 									onError={(e) => {
 										e.target.src = "/genericicon.png";

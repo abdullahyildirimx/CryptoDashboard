@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setSpotCoinData, setSpotCoinList } from '../utils/reduxStorage';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSpotCoinData, setSpotCoinList, setSpotCoinMetadata } from '../utils/reduxStorage';
 import { spotPriceUrl, spotExchangeInfoUrl, coinLogosUrl } from '../utils/urls';
 
 const useSpotData = () => {
-  const [coinMetadata, setCoinMetadata] = useState(null);
+  const { spotCoinMetadata } = useSelector((state) => state.dataStore);
+  const [coinMetadata, setCoinMetadata] = useState(spotCoinMetadata || null);
   const dispatch = useDispatch();
 
   const countDecimalPlaces = (num) => {
@@ -81,6 +82,8 @@ const useSpotData = () => {
   }, [coinMetadata, dispatch]);
 
   useEffect(() => {
+    if (spotCoinMetadata) return;
+
     const fetchCoinMetadata = async () => {
       try {
         const response = await fetch(spotExchangeInfoUrl);
@@ -129,6 +132,7 @@ const useSpotData = () => {
         });
         
         setCoinMetadata(coinMetadata);
+        dispatch(setSpotCoinMetadata(coinMetadata));
         dispatch(setSpotCoinList(coinSymbolList));
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -136,7 +140,7 @@ const useSpotData = () => {
     };
     
     fetchCoinMetadata();
-  }, [dispatch]);
+  }, [spotCoinMetadata, dispatch]);
 };
 
 export default useSpotData;
