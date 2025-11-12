@@ -1,7 +1,7 @@
-"use strict"
-import express from "express"
-import { Buffer } from "buffer"
-import sharp from "sharp"
+'use strict'
+import express from 'express'
+import { Buffer } from 'buffer'
+import sharp from 'sharp'
 
 const app = express()
 
@@ -25,27 +25,30 @@ const bigcoinTriggerLow = 0.99
 const bigcoinTriggerHigh = 1.01
 const altcoinTriggerLow = 0.97
 const altcoinTriggerHigh = 1.03
-const bigCoinList = ["BTC", "ETH", "USDT"]
+const bigCoinList = ['BTC', 'ETH', 'USDT']
 
 const fetchSpotCoinList = async () => {
   try {
     const response = await fetch(spotExchangeInfoUrl)
     if (!response.ok) {
-      throw new Error("Network response was not ok")
+      throw new Error('Network response was not ok')
     }
     const jsonData = await response.json()
 
-    const filteredCoins = jsonData.symbols.filter(coin => {
-      return (coin.symbol.endsWith('USDT') || coin.symbol === 'USDTTRY') && coin.status === 'TRADING';
-    });
+    const filteredCoins = jsonData.symbols.filter((coin) => {
+      return (
+        (coin.symbol.endsWith('USDT') || coin.symbol === 'USDTTRY') &&
+        coin.status === 'TRADING'
+      )
+    })
 
     const coinSymbolList = filteredCoins
       .map((item) => {
         let symbol = item.symbol
-        if (symbol !== "USDTTRY") {
-          symbol = symbol.slice(0, -"USDT".length)
+        if (symbol !== 'USDTTRY') {
+          symbol = symbol.slice(0, -'USDT'.length)
         } else {
-          symbol = symbol.slice(0, -"TRY".length)
+          symbol = symbol.slice(0, -'TRY'.length)
         }
         return symbol
       })
@@ -55,15 +58,16 @@ const fetchSpotCoinList = async () => {
       })
 
     spotPriceData = coinSymbolList.map((item) => {
-      const data = spotPriceData?.find((coin) => coin.symbol === item)?.data || Array(30).fill(0)
+      const data =
+        spotPriceData?.find((coin) => coin.symbol === item)?.data ||
+        Array(30).fill(0)
       return {
         symbol: item,
         data: data,
       }
     })
-  } 
-  catch (error) {
-    console.error("Error fetching data:", error);
+  } catch (error) {
+    console.error('Error fetching data:', error)
   }
 }
 
@@ -71,18 +75,18 @@ const fetchFuturesCoinList = async () => {
   try {
     const response = await fetch(futuresExchangeInfoUrl)
     if (!response.ok) {
-      throw new Error("Network response was not ok")
+      throw new Error('Network response was not ok')
     }
     const jsonData = await response.json()
 
-    const filteredCoins = jsonData.symbols.filter(coin => {
-      return coin.symbol.endsWith('USDT') && coin.status === 'TRADING';
-    });
+    const filteredCoins = jsonData.symbols.filter((coin) => {
+      return coin.symbol.endsWith('USDT') && coin.status === 'TRADING'
+    })
 
     const coinSymbolList = filteredCoins
       .map((item) => {
         let symbol = item.symbol
-        symbol = symbol.slice(0, -"USDT".length)
+        symbol = symbol.slice(0, -'USDT'.length)
         return symbol
       })
       .slice()
@@ -102,15 +106,16 @@ const fetchFuturesCoinList = async () => {
 
     futuresFullSymbols = coinFullSymbols
     futuresPriceData = coinSymbolList.map((item) => {
-      const data = futuresPriceData?.find((coin) => coin.symbol === item)?.data || Array(30).fill(0)
+      const data =
+        futuresPriceData?.find((coin) => coin.symbol === item)?.data ||
+        Array(30).fill(0)
       return {
         symbol: item,
         data: data,
       }
     })
-  } 
-  catch (error) {
-    console.error("Error fetching data:", error);
+  } catch (error) {
+    console.error('Error fetching data:', error)
   }
 }
 
@@ -121,21 +126,24 @@ const fetchSpotMarketActivity = async () => {
     }
     const response = await fetch(spotPriceUrl)
     if (!response.ok) {
-      throw new Error("Network response was not ok")
+      throw new Error('Network response was not ok')
     }
     const jsonData = await response.json()
 
     const filteredCoins = jsonData.filter((coin) => {
-      return (coin.symbol.endsWith("USDT") || coin.symbol === "USDTTRY") && coin.bidPrice !== "0.00000000"
+      return (
+        (coin.symbol.endsWith('USDT') || coin.symbol === 'USDTTRY') &&
+        coin.bidPrice !== '0.00000000'
+      )
     })
 
     const prices = filteredCoins.map((item) => {
       let symbol = item.symbol
       const price = parseFloat(item.lastPrice)
-      if (symbol !== "USDTTRY") {
-        symbol = symbol.slice(0, -"USDT".length)
+      if (symbol !== 'USDTTRY') {
+        symbol = symbol.slice(0, -'USDT'.length)
       } else {
-        symbol = symbol.slice(0, -"TRY".length)
+        symbol = symbol.slice(0, -'TRY'.length)
       }
       return {
         symbol: symbol,
@@ -150,12 +158,17 @@ const fetchSpotMarketActivity = async () => {
         return
       }
       const currentPrice = parseFloat(currentCoinData.price)
-      for (let k = 0; k < newPriceData[i]["data"].length; k++) {
-        const prevPrice = newPriceData[i]["data"][k]
+      for (let k = 0; k < newPriceData[i]['data'].length; k++) {
+        const prevPrice = newPriceData[i]['data'][k]
         if (prevPrice !== 0) {
           const rate = currentPrice / prevPrice
           const currentTime = new Date().getTime()
-          if ((bigCoinList.includes(coin.symbol) && (rate <= bigcoinTriggerLow || rate >= bigcoinTriggerHigh)) || rate <= altcoinTriggerLow || rate >= altcoinTriggerHigh) {
+          if (
+            (bigCoinList.includes(coin.symbol) &&
+              (rate <= bigcoinTriggerLow || rate >= bigcoinTriggerHigh)) ||
+            rate <= altcoinTriggerLow ||
+            rate >= altcoinTriggerHigh
+          ) {
             let result = {
               symbol: coin.symbol,
               oldPrice: prevPrice,
@@ -164,21 +177,20 @@ const fetchSpotMarketActivity = async () => {
               time: currentTime,
             }
             resultArray.push(result)
-            newPriceData[i]["data"] = Array(30).fill(0)
+            newPriceData[i]['data'] = Array(30).fill(0)
             break
           }
         }
       }
-      newPriceData[i]["data"].shift()
-      newPriceData[i]["data"].push(currentPrice)
+      newPriceData[i]['data'].shift()
+      newPriceData[i]['data'].push(currentPrice)
     })
     if (resultArray.length > 0) {
       spotActivityData = [...resultArray, ...spotActivityData]
     }
     spotPriceData = newPriceData
-  } 
-  catch (error) {
-    console.error("Error fetching data:", error);
+  } catch (error) {
+    console.error('Error fetching data:', error)
   }
 }
 
@@ -189,18 +201,20 @@ const fetchFuturesMarketActivity = async () => {
     }
     const response = await fetch(futuresPriceUrl)
     if (!response.ok) {
-      throw new Error("Network response was not ok")
+      throw new Error('Network response was not ok')
     }
     const jsonData = await response.json()
 
     const filteredCoins = jsonData.filter((coin) => {
-      return coin.symbol.endsWith("USDT") && futuresFullSymbols.includes(coin.symbol)
+      return (
+        coin.symbol.endsWith('USDT') && futuresFullSymbols.includes(coin.symbol)
+      )
     })
 
     const prices = filteredCoins.map((item) => {
       let symbol = item.symbol
       const price = parseFloat(item.lastPrice)
-      symbol = symbol.slice(0, -"USDT".length)
+      symbol = symbol.slice(0, -'USDT'.length)
       return {
         symbol: symbol,
         price: price,
@@ -214,12 +228,17 @@ const fetchFuturesMarketActivity = async () => {
         return
       }
       const currentPrice = parseFloat(currentCoinData.price)
-      for (let k = 0; k < newPriceData[i]["data"].length; k++) {
-        const prevPrice = newPriceData[i]["data"][k]
+      for (let k = 0; k < newPriceData[i]['data'].length; k++) {
+        const prevPrice = newPriceData[i]['data'][k]
         if (prevPrice !== 0) {
           const rate = currentPrice / prevPrice
           const currentTime = new Date().getTime()
-          if ((bigCoinList.includes(coin.symbol) && (rate <= bigcoinTriggerLow || rate >= bigcoinTriggerHigh)) || rate <= altcoinTriggerLow || rate >= altcoinTriggerHigh) {
+          if (
+            (bigCoinList.includes(coin.symbol) &&
+              (rate <= bigcoinTriggerLow || rate >= bigcoinTriggerHigh)) ||
+            rate <= altcoinTriggerLow ||
+            rate >= altcoinTriggerHigh
+          ) {
             let result = {
               symbol: coin.symbol,
               oldPrice: prevPrice,
@@ -228,21 +247,20 @@ const fetchFuturesMarketActivity = async () => {
               time: currentTime,
             }
             resultArray.push(result)
-            newPriceData[i]["data"] = Array(30).fill(0)
+            newPriceData[i]['data'] = Array(30).fill(0)
             break
           }
         }
       }
-      newPriceData[i]["data"].shift()
-      newPriceData[i]["data"].push(currentPrice)
+      newPriceData[i]['data'].shift()
+      newPriceData[i]['data'].push(currentPrice)
     })
     if (resultArray.length > 0) {
       futuresActivityData = [...resultArray, ...futuresActivityData]
     }
     futuresPriceData = newPriceData
-  } 
-  catch (error) {
-    console.error("Error fetching data:", error);
+  } catch (error) {
+    console.error('Error fetching data:', error)
   }
 }
 
@@ -264,43 +282,42 @@ setInterval(fetchSpotMarketActivity, activityDelta)
 setInterval(fetchFuturesMarketActivity, activityDelta)
 setInterval(purgeData, purgeControlDelta)
 
-app.get("/spot", function (req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS")
-  res.setHeader("Access-Control-Allow-Headers", "*")
+app.get('/spot', function (req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', '*')
   res.status(200).send(spotActivityData)
 })
 
-app.get("/futures", function (req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS")
-  res.setHeader("Access-Control-Allow-Headers", "*")
+app.get('/futures', function (req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', '*')
   res.status(200).send(futuresActivityData)
 })
 
-app.get("/logo", async (req, res) => {
-  const { url } = req.query;
-  if (!url) return res.status(400).send("Missing url param")
+app.get('/logo', async (req, res) => {
+  const { url } = req.query
+  if (!url) return res.status(400).send('Missing url param')
 
   try {
-    const response = await fetch(url);
-    if (!response.ok) return res.status(500).send("Failed to fetch image")
+    const response = await fetch(url)
+    if (!response.ok) return res.status(500).send('Failed to fetch image')
 
     const arrayBuffer = await response.arrayBuffer()
-    const buffer = Buffer.from(arrayBuffer);
+    const buffer = Buffer.from(arrayBuffer)
 
     const webpBuffer = await sharp(buffer)
-      .toFormat("webp", { quality: 90 })
+      .toFormat('webp', { quality: 90 })
       .toBuffer()
 
-    res.set("Content-Type", "image/webp")
-    res.set("Cache-Control", "public, max-age=2592000, immutable")
+    res.set('Content-Type', 'image/webp')
+    res.set('Cache-Control', 'public, max-age=2592000, immutable')
     res.send(webpBuffer)
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Error fetching or converting image")
+    console.error(err)
+    res.status(500).send('Error fetching or converting image')
   }
-});
-
-app.listen(5000, function () {
 })
+
+app.listen(5000, function () {})

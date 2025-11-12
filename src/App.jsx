@@ -1,13 +1,18 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Header from './components/Header';
-import useDocumentTitle from './hooks/useDocumentTitle';
-import { lazy } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom'
+import Header from './components/Header'
+import useDocumentTitle from './hooks/useDocumentTitle'
+import { lazy } from 'react'
 
-const SpotPage = lazy(() => import('./pages/SpotPage'));
-const FuturesPage = lazy(() => import('./pages/FuturesPage'));
+const SpotPage = lazy(() => import('./pages/SpotPage'))
+const FuturesPage = lazy(() => import('./pages/FuturesPage'))
 
 const App = () => {
-  useDocumentTitle();
+  useDocumentTitle()
 
   return (
     <Router>
@@ -21,7 +26,7 @@ const App = () => {
         </Routes>
       </div>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

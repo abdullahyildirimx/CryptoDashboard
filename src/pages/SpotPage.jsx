@@ -1,17 +1,17 @@
-import MarketPricesCard from '../components/MarketPricesCard';
-import MarketActivityCard from '../components/MarketActivityCard';
-import useSpotData from '../hooks/useSpotData';
-import useSpotMarketActivity from '../hooks/useSpotMarketActivity';
+import MarketPricesCard from '../components/MarketPricesCard'
+import MarketActivityCard from '../components/MarketActivityCard'
+import useSpotData from '../hooks/useSpotData'
+import useSpotMarketActivity from '../hooks/useSpotMarketActivity'
 
 const SpotPage = () => {
-  useSpotData();
-  useSpotMarketActivity();
+  useSpotData()
+  useSpotMarketActivity()
   return (
-    <main className='p-8 grid grid-cols-1 md:grid-cols-2'>
+    <main className="p-8 grid grid-cols-1 md:grid-cols-2">
       <MarketPricesCard isSpot />
-      <MarketActivityCard isSpot /> 
+      <MarketActivityCard isSpot />
     </main>
-  );
+  )
 }
-  
-export default SpotPage;
+
+export default SpotPage

@@ -1,18 +1,18 @@
-import { Dialog } from "@base-ui-components/react/dialog";
-import { useState } from "react";
+import { Dialog } from '@base-ui-components/react/dialog'
+import { useState } from 'react'
 
 const ChartModal = ({ isOpen, onOpenChange, selectedCoin, isSpot }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
   const symbol = selectedCoin
     ? isSpot
       ? `BINANCE:${selectedCoin.toUpperCase()}USDT`
       : `BINANCE:${selectedCoin.toUpperCase()}USDT.P`
-    : "";
+    : ''
 
   const handleOpenChange = (open) => {
-    if (!open) setLoading(true);
-    onOpenChange(open);
-  };
+    if (!open) setLoading(true)
+    onOpenChange(open)
+  }
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
@@ -29,7 +29,7 @@ const ChartModal = ({ isOpen, onOpenChange, selectedCoin, isSpot }) => {
         >
           <div className="flex items-center justify-between px-24 py-16 border-b border-neutral-800">
             <Dialog.Title className="text-[20px] font-medium">
-              {selectedCoin ? `${selectedCoin} Chart` : "Chart"}
+              {selectedCoin ? `${selectedCoin} Chart` : 'Chart'}
             </Dialog.Title>
             <Dialog.Close className="p-8 rounded-md">
               <i className="fa-solid fa-xmark text-[16px]" />
@@ -40,7 +40,7 @@ const ChartModal = ({ isOpen, onOpenChange, selectedCoin, isSpot }) => {
               <>
                 {loading && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className  ="w-36 h-36 border-4 border-transparent border-t-blue-500 rounded-full animate-spin"></div>
+                    <div className="w-36 h-36 border-4 border-transparent border-t-blue-500 rounded-full animate-spin"></div>
                   </div>
                 )}
                 <iframe
@@ -60,7 +60,7 @@ const ChartModal = ({ isOpen, onOpenChange, selectedCoin, isSpot }) => {
         </Dialog.Popup>
       </Dialog.Portal>
     </Dialog.Root>
-  );
-};
+  )
+}
 
-export default ChartModal;
+export default ChartModal

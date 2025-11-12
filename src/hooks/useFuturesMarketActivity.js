@@ -1,7 +1,7 @@
-import { useEffect } from "react"
-import { useDispatch } from "react-redux"
-import { setFuturesMarketActivity } from "../utils/reduxStorage"
-import { futuresMarketActivityUrl } from "../utils/urls"
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setFuturesMarketActivity } from '../utils/reduxStorage'
+import { futuresMarketActivityUrl } from '../utils/urls'
 
 const useFuturesMarketActivity = () => {
   const dispatch = useDispatch()
@@ -10,7 +10,7 @@ const useFuturesMarketActivity = () => {
       try {
         const response = await fetch(futuresMarketActivityUrl)
         if (!response.ok) {
-          throw new Error("Network response was not ok")
+          throw new Error('Network response was not ok')
         }
         const jsonData = await response.json()
         const activityList = jsonData.map((coin) => {
@@ -30,7 +30,7 @@ const useFuturesMarketActivity = () => {
         })
         dispatch(setFuturesMarketActivity(activityList))
       } catch (error) {
-        console.error("Error fetching data:", error)
+        console.error('Error fetching data:', error)
       }
     }
 

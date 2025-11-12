@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { getSpotCardStorage, getFuturesCardStorage } from './localStorageUtils';
+import { createSlice } from '@reduxjs/toolkit'
+import { getSpotCardStorage, getFuturesCardStorage } from './localStorageUtils'
 
-const spotStorage = getSpotCardStorage();
-const futuresStorage = getFuturesCardStorage();
+const spotStorage = getSpotCardStorage()
+const futuresStorage = getFuturesCardStorage()
 
 const ReduxSlice = createSlice({
   name: 'dataStore',
@@ -20,37 +20,48 @@ const ReduxSlice = createSlice({
   },
   reducers: {
     setSpotCoinData(state, action) {
-      state.spotCoinData = action.payload;
+      state.spotCoinData = action.payload
     },
     setFuturesCoinData(state, action) {
-      state.futuresCoinData = action.payload;
+      state.futuresCoinData = action.payload
     },
     setSpotCoinMetadata(state, action) {
-      state.spotCoinMetadata = action.payload;
+      state.spotCoinMetadata = action.payload
     },
     setFuturesCoinMetadata(state, action) {
-      state.futuresCoinMetadata = action.payload;
+      state.futuresCoinMetadata = action.payload
     },
     setSpotCoinList(state, action) {
-      state.spotCoinList = action.payload;
+      state.spotCoinList = action.payload
     },
     setFuturesCoinList(state, action) {
-      state.futuresCoinList = action.payload;
+      state.futuresCoinList = action.payload
     },
     setSpotMarketActivity(state, action) {
-      state.spotMarketActivity = action.payload;
+      state.spotMarketActivity = action.payload
     },
     setFuturesMarketActivity(state, action) {
-      state.futuresMarketActivity = action.payload;
+      state.futuresMarketActivity = action.payload
     },
     setSpotFavoriteCoins(state, action) {
-      state.spotFavoriteCoins = action.payload;
+      state.spotFavoriteCoins = action.payload
     },
     setFuturesFavoriteCoins(state, action) {
-      state.futuresFavoriteCoins = action.payload;
+      state.futuresFavoriteCoins = action.payload
     },
   },
-});
+})
 
-export const { setSpotCoinData, setFuturesCoinData, setSpotCoinMetadata, setFuturesCoinMetadata, setSpotCoinList, setFuturesCoinList, setSpotMarketActivity, setFuturesMarketActivity, setSpotFavoriteCoins, setFuturesFavoriteCoins } = ReduxSlice.actions;
-export default ReduxSlice.reducer;
+export const {
+  setSpotCoinData,
+  setFuturesCoinData,
+  setSpotCoinMetadata,
+  setFuturesCoinMetadata,
+  setSpotCoinList,
+  setFuturesCoinList,
+  setSpotMarketActivity,
+  setFuturesMarketActivity,
+  setSpotFavoriteCoins,
+  setFuturesFavoriteCoins,
+} = ReduxSlice.actions
+export default ReduxSlice.reducer
