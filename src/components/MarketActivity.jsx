@@ -38,14 +38,14 @@ const MarketActivity = ({ activity, isSpot }) => {
               <span className="text-grey1">{item.time}</span>
             </div>
           </div>
-          <div className="text-end">
+          <div className="flex flex-col items-end gap-4">
             <div
-              className={`text-[12px] rounded-[5px] font-semibold py-2 px-8 ${item.change < 0 ? 'text-red1 bg-red2' : 'text-green1 bg-green2'} mb-4`}
+              className={`text-[12px] rounded-[5px] font-semibold py-2 px-8 ${item.change < 0 ? 'text-red1 bg-red2' : 'text-green1 bg-green2'}`}
             >
               {item.oldPrice} → {item.newPrice}
             </div>
             <span
-              className={`text-[12px] rounded-[5px] font-semibold py-2 px-8 ${item.change < 0 ? 'text-red1 bg-red2' : 'text-green1 bg-green2'}`}
+              className={`max-w-max text-[12px] rounded-[5px] font-semibold py-2 px-8 ${item.change < 0 ? 'text-red1 bg-red2' : 'text-green1 bg-green2'}`}
             >
               <span>{item.change > 0 ? '↑' : '↓'}</span>
               {parseFloat(item.change).toFixed(2)}%

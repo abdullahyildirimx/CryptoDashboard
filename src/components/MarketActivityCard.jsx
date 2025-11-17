@@ -71,10 +71,10 @@ const MarketActivityCard = ({ isSpot = false }) => {
 
   return (
     <div className="p-8">
-      <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-white-15">
+      <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-border-grey">
         <div className={`flex flex-col md:flex-row justify-between mt-4`}>
-          <div className="flex items-center mb-16 self-stretch">
-            <h1 className="text-[20px] leading-[1.2] mr-4">
+          <div className="flex items-center mb-16 gap-4">
+            <h1 className="text-[20px] leading-[1.2]">
               {isSpot ? 'Spot' : 'Futures'} Market Activity
             </h1>
             <i

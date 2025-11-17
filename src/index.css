@@ -8,18 +8,14 @@
     'Segoe UI',
     'Roboto',
     sans-serif;
-  font-display: swap;
 }
 
 @theme {
   --breakpoint-md: 900px;
   --spacing: 1px;
-  --color-white-100: #ffffff;
   --color-white-80: rgba(255, 255, 255, 0.8);
   --color-white-65: rgba(255, 255, 255, 0.65);
-  --color-white-15: rgba(255, 255, 255, 0.15);
   --color-white1: #eaecef;
-  --color-white2: #dee2e6;
   --color-grey1: #6c757d;
   --color-black1: #1e2329;
   --color-red1: #c74242;

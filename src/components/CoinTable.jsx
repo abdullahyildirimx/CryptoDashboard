@@ -60,7 +60,7 @@ const CoinTable = ({
         <div className="flex items-center">
           <span
             className={
-              sortOrder.includes('symbol') ? 'text-white-100' : 'text-grey1'
+              sortOrder.includes('symbol') ? 'text-white1' : 'text-grey1'
             }
           >
             Coin
@@ -70,9 +70,9 @@ const CoinTable = ({
             onClick={() => handleToggleSort('symbol')}
           >
             {sortOrder === 'symbolAsc' ? (
-              <i className="fa-solid fa-sort-up text-white"></i>
+              <i className="fa-solid fa-sort-up text-white1"></i>
             ) : sortOrder === 'symbolDesc' ? (
-              <i className="fa-solid fa-sort-down text-white-100"></i>
+              <i className="fa-solid fa-sort-down text-white1"></i>
             ) : (
               <i className="fa-solid fa-sort text-grey1"></i>
             )}
@@ -80,7 +80,7 @@ const CoinTable = ({
           <span className="text-grey1">/</span>
           <span
             className={
-              sortOrder.includes('volume') ? 'text-white-100' : 'text-grey1'
+              sortOrder.includes('volume') ? 'text-white1' : 'text-grey1'
             }
           >
             Volume
@@ -90,9 +90,9 @@ const CoinTable = ({
             onClick={() => handleToggleSort('volume')}
           >
             {sortOrder === 'volumeAsc' ? (
-              <i className="fa-solid fa-sort-up text-white"></i>
+              <i className="fa-solid fa-sort-up text-white1"></i>
             ) : sortOrder === 'volumeDesc' ? (
-              <i className="fa-solid fa-sort-down text-white-100"></i>
+              <i className="fa-solid fa-sort-down text-white1"></i>
             ) : (
               <i className="fa-solid fa-sort text-grey1"></i>
             )}
@@ -101,7 +101,7 @@ const CoinTable = ({
         <div className="text-end">
           <span
             className={
-              sortOrder.includes('price') ? 'text-white-100' : 'text-grey1'
+              sortOrder.includes('price') ? 'text-white1' : 'text-grey1'
             }
           >
             Price
@@ -111,9 +111,9 @@ const CoinTable = ({
             onClick={() => handleToggleSort('price')}
           >
             {sortOrder === 'priceAsc' ? (
-              <i className="fa-solid fa-sort-up text-white"></i>
+              <i className="fa-solid fa-sort-up text-white1"></i>
             ) : sortOrder === 'priceDesc' ? (
-              <i className="fa-solid fa-sort-down text-white-100"></i>
+              <i className="fa-solid fa-sort-down text-white1"></i>
             ) : (
               <i className="fa-solid fa-sort text-grey1"></i>
             )}
@@ -121,7 +121,7 @@ const CoinTable = ({
           <span className="text-grey1">/</span>
           <span
             className={
-              sortOrder.includes('change') ? 'text-white-100' : 'text-grey1'
+              sortOrder.includes('change') ? 'text-white1' : 'text-grey1'
             }
           >
             Change
@@ -131,9 +131,9 @@ const CoinTable = ({
             onClick={() => handleToggleSort('change')}
           >
             {sortOrder === 'changeAsc' ? (
-              <i className="fa-solid fa-sort-up text-white"></i>
+              <i className="fa-solid fa-sort-up text-white1"></i>
             ) : sortOrder === 'changeDesc' ? (
-              <i className="fa-solid fa-sort-down text-white-100"></i>
+              <i className="fa-solid fa-sort-down text-white1"></i>
             ) : (
               <i className="fa-solid fa-sort text-grey1"></i>
             )}
@@ -150,14 +150,14 @@ const CoinTable = ({
             <div className="flex justify-between items-center ">
               <div className="flex justify-between items-center">
                 <button
-                  className="btn w-20"
+                  className="w-20"
                   aria-label="favorite-button"
                   onClick={(e) => handleToggleFavorite(e, item.symbol)}
                 >
                   {favoriteCoins.includes(item.symbol) ? (
                     <i className="align-middle fa-solid fa-star text-gold"></i>
                   ) : (
-                    <i className="align-middle fa-regular fa-star text-white"></i>
+                    <i className="align-middle fa-regular fa-star text-white1"></i>
                   )}
                 </button>
                 <img

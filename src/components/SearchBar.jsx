@@ -22,15 +22,15 @@ const SearchBar = ({ handleSearch }) => {
         onValueChange={(value) => handleChange(value)}
         placeholder="Search"
         autoComplete="off"
-        className="
+        className={`
           w-200 text-[12px] md:text-[14px]
-          border border-border-grey rounded-md
+          border rounded-md
           py-6 pr-8 pl-12
           placeholder:text-neutral-400
-          hover:border-blue-500 focus:border-blue-500
+          hover:border-blue-500 focus:border-blue-500 ${searchTerm !== '' ? 'border-blue-500' : 'border-border-grey'}
           focus:outline-none
-          transition-all
-        "
+          transition-all 
+        `}
       />
 
       {searchTerm && (
@@ -38,7 +38,7 @@ const SearchBar = ({ handleSearch }) => {
           type="button"
           onClick={handleClear}
           className="
-            btn absolute top-1/2 right-6 -translate-y-1/2
+            absolute top-1/2 right-6 -translate-y-1/2
             flex items-center justify-center
             h-20 w-20
             rounded-full

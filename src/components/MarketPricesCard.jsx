@@ -21,7 +21,7 @@ const MarketPricesCard = ({ isSpot = false }) => {
     localStorageData?.selectedTab || 'all',
   )
   const [sortOrder, setSortOrder] = useState('default')
-  const [searchedCoins, setSearchedCoins] = useState([])
+  const [searchedCoins, setSearchedCoins] = useState(null)
   const {
     spotCoinData,
     spotCoinList,
@@ -113,7 +113,7 @@ const MarketPricesCard = ({ isSpot = false }) => {
       return []
     }
     let coins = []
-    if (searchedCoins.length > 0) {
+    if (searchedCoins) {
       coins = searchedCoins
         .map((symbol) => {
           return selectedCoinData.find((data) => data.symbol === symbol) || null
@@ -159,19 +159,19 @@ const MarketPricesCard = ({ isSpot = false }) => {
     })
   }
 
-  const handleSearch = (result) => {
+  const handleSearch = (value) => {
     if (!selectedCoinData) {
       return []
     }
-    if (result) {
+    if (value) {
       const filteredResults = selectedCoinList
         ? selectedCoinList?.filter((item) =>
-            item.toLowerCase().includes(result.toLowerCase()),
+            item.toLowerCase().includes(value.toLowerCase()),
           )
         : []
       setSearchedCoins(filteredResults)
     } else {
-      setSearchedCoins([])
+      setSearchedCoins(null)
     }
   }
 
@@ -179,22 +179,22 @@ const MarketPricesCard = ({ isSpot = false }) => {
 
   return (
     <div className="p-8">
-      <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-white-15">
+      <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-border-grey">
         <div className="flex items-center justify-between mb-16">
-          <h1 className="text-[20px] leading-[1.2] mt-4 mr-8">
+          <h1 className="text-[20px] leading-[1.2]">
             {isSpot ? 'Spot' : 'Futures'} Market
           </h1>
           <SearchBar handleSearch={handleSearch} />
         </div>
         <div className="flex border-b border-border-grey">
           <button
-            className={`${selectedTab === 'favorite' ? '-mb-1 border-b-2 border-border-grey border-b-black1' : 'border-transparent hover:border-border-grey hover:border-b-transparent'} btn px-16 py-8 text-white border rounded-t-md`}
+            className={`${selectedTab === 'favorite' ? 'text-white1 -mb-1 border-b-2 border-border-grey border-b-black1' : 'border-transparent text-white-65 hover:text-white-80 hover:border-border-grey hover:border-b-transparent'} px-16 py-8 border rounded-t-md`}
             onClick={() => handleTabChange('favorite')}
           >
             Favorite
           </button>
           <button
-            className={`${selectedTab === 'all' ? '-mb-1 border-b-2 border-border-grey border-b-black1' : 'border-transparent hover:border-border-grey hover:border-b-transparent'} btn px-16 py-8 text-white border rounded-t-md`}
+            className={`${selectedTab === 'all' ? 'text-white1 -mb-1 border-b-2 border-border-grey border-b-black1' : 'border-transparent text-white-65 hover:text-white-80 hover:border-border-grey hover:border-b-transparent'} px-16 py-8 border rounded-t-md`}
             onClick={() => handleTabChange('all')}
           >
             All
@@ -202,9 +202,13 @@ const MarketPricesCard = ({ isSpot = false }) => {
         </div>
         <div className="h-250 md:h-[calc(100vh-240px)]">
           {selectedCoinData ? (
-            selectedTab === 'favorite' &&
-            !selectedFavoriteCoins.length &&
-            !searchedCoins.length ? (
+            searchedCoins?.length === 0 ? (
+              <div className="h-full flex justify-center items-center">
+                No results found.
+              </div>
+            ) : selectedTab === 'favorite' &&
+              !selectedFavoriteCoins.length &&
+              !searchedCoins?.length ? (
               <div className="h-full flex justify-center items-center">
                 You don&apos;t have any favorite coins.
               </div>
