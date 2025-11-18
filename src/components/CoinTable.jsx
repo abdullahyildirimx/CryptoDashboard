@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { getLogoFromUrl } from '../utils/urls'
 import ChartModal from './ChartModal'
+import { Button } from '@base-ui-components/react'
 
 const CoinTable = ({
   content,
@@ -65,7 +66,7 @@ const CoinTable = ({
           >
             Coin
           </span>
-          <button
+          <Button
             aria-label="symbol-sort-button"
             onClick={() => handleToggleSort('symbol')}
           >
@@ -76,7 +77,7 @@ const CoinTable = ({
             ) : (
               <i className="fa-solid fa-sort text-grey1"></i>
             )}
-          </button>
+          </Button>
           <span className="text-grey1">/</span>
           <span
             className={
@@ -85,7 +86,7 @@ const CoinTable = ({
           >
             Volume
           </span>
-          <button
+          <Button
             aria-label="volume-sort-button"
             onClick={() => handleToggleSort('volume')}
           >
@@ -96,7 +97,7 @@ const CoinTable = ({
             ) : (
               <i className="fa-solid fa-sort text-grey1"></i>
             )}
-          </button>
+          </Button>
         </div>
         <div className="text-end">
           <span
@@ -106,7 +107,7 @@ const CoinTable = ({
           >
             Price
           </span>
-          <button
+          <Button
             aria-label="price-sort-button"
             onClick={() => handleToggleSort('price')}
           >
@@ -117,7 +118,7 @@ const CoinTable = ({
             ) : (
               <i className="fa-solid fa-sort text-grey1"></i>
             )}
-          </button>
+          </Button>
           <span className="text-grey1">/</span>
           <span
             className={
@@ -126,7 +127,7 @@ const CoinTable = ({
           >
             Change
           </span>
-          <button
+          <Button
             aria-label="change-sort-button"
             onClick={() => handleToggleSort('change')}
           >
@@ -137,7 +138,7 @@ const CoinTable = ({
             ) : (
               <i className="fa-solid fa-sort text-grey1"></i>
             )}
-          </button>
+          </Button>
         </div>
       </div>
       <div className="h-205 md:h-[calc(100vh-295px)] text-[12px] md:text-[14px] overflow-y-auto font-semibold">
@@ -149,7 +150,7 @@ const CoinTable = ({
           >
             <div className="flex justify-between items-center ">
               <div className="flex justify-between items-center">
-                <button
+                <Button
                   className="w-20"
                   aria-label="favorite-button"
                   onClick={(e) => handleToggleFavorite(e, item.symbol)}
@@ -159,7 +160,7 @@ const CoinTable = ({
                   ) : (
                     <i className="align-middle fa-regular fa-star text-white1"></i>
                   )}
-                </button>
+                </Button>
                 <img
                   className="mx-8 rounded-full"
                   src={getLogo(item)}

@@ -1,4 +1,4 @@
-import { Input } from '@base-ui-components/react'
+import { Button, Input } from '@base-ui-components/react'
 import { useState } from 'react'
 
 const SearchBar = ({ handleSearch }) => {
@@ -34,8 +34,7 @@ const SearchBar = ({ handleSearch }) => {
       />
 
       {searchTerm && (
-        <button
-          type="button"
+        <Button
           onClick={handleClear}
           className="
             absolute top-1/2 right-6 -translate-y-1/2
@@ -46,7 +45,7 @@ const SearchBar = ({ handleSearch }) => {
           "
         >
           <i className="fa-solid fa-xmark text-[12px] md:text-[14px]" />
-        </button>
+        </Button>
       )}
     </div>
   )

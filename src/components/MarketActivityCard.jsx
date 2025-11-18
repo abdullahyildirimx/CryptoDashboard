@@ -90,7 +90,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
                     size-14 rounded-sm border border-border-grey 
                     data-checked:border-blue-500 data-checked:bg-blue-500
                     flex items-center justify-center
-                    transition-all
+                    transition-all cursor-pointer
                     hover:border-blue-500
                   "
                   checked={showFavorites}

@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@base-ui-components/react": "^1.0.0-beta.4",
+    "@base-ui-components/react": "^1.0.0-beta.6",
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@reduxjs/toolkit": "^2.10.1",
     "react": "^19.2.0",
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@tailwindcss/vite": "^4.1.17",
-    "@types/react": "^19.2.5",
+    "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react-swc": "^4.2.2",
     "eslint": "^9.39.1",

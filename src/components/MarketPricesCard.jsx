@@ -12,6 +12,7 @@ import {
   setSpotFavoriteCoins,
   setFuturesFavoriteCoins,
 } from '../utils/reduxStorage'
+import { Button } from '@base-ui-components/react'
 
 const MarketPricesCard = ({ isSpot = false }) => {
   const localStorageData = isSpot
@@ -187,18 +188,18 @@ const MarketPricesCard = ({ isSpot = false }) => {
           <SearchBar handleSearch={handleSearch} />
         </div>
         <div className="flex border-b border-border-grey">
-          <button
+          <Button
             className={`${selectedTab === 'favorite' ? 'text-white1 -mb-1 border-b-2 border-border-grey border-b-black1' : 'border-transparent text-white-65 hover:text-white-80 hover:border-border-grey hover:border-b-transparent'} px-16 py-8 border rounded-t-md`}
             onClick={() => handleTabChange('favorite')}
           >
             Favorite
-          </button>
-          <button
+          </Button>
+          <Button
             className={`${selectedTab === 'all' ? 'text-white1 -mb-1 border-b-2 border-border-grey border-b-black1' : 'border-transparent text-white-65 hover:text-white-80 hover:border-border-grey hover:border-b-transparent'} px-16 py-8 border rounded-t-md`}
             onClick={() => handleTabChange('all')}
           >
             All
-          </button>
+          </Button>
         </div>
         <div className="h-250 md:h-[calc(100vh-240px)]">
           {selectedCoinData ? (
