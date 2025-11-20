@@ -72,7 +72,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
   return (
     <div className="p-8">
       <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-border-grey">
-        <div className={`flex flex-col md:flex-row justify-between mt-4`}>
+        <div className={`flex flex-col lg:flex-row justify-between mt-4`}>
           <div className="flex items-center mb-16 gap-4">
             <h1 className="text-[20px] leading-[1.2]">
               {isSpot ? 'Spot' : 'Futures'} Market Activity
@@ -86,6 +86,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
             <div className="flex items-center mr-4">
               <label className="flex items-center gap-4">
                 <Checkbox.Root
+                  aria-label="Show only favorites"
                   className="
                     size-14 rounded-sm border border-border-grey 
                     data-checked:border-blue-500 data-checked:bg-blue-500
@@ -110,21 +111,21 @@ const MarketActivityCard = ({ isSpot = false }) => {
           </div>
         </div>
         <Tooltip
-          className="w-200! opacity-100!"
+          className="w-200 opacity-100!"
           id="infoTooltip1"
           place="bottom"
           variant="dark"
           content="5 minutes unusual price activity. For BTC, ETH and USDT, it is triggered when price is changed over 1%, for other coins it is 3%."
         />
         <Tooltip
-          className="w-200! opacity-100!"
+          className="w-200 opacity-100!"
           id="infoTooltip2"
           place="bottom"
           variant="dark"
           content="If 'Show only favorites' is unchecked, you may see many activities. The latest maximum of 1000 activities is displayed at once."
         />
         <div
-          className={`h-280 md:h-[calc(100vh-193px)] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}
+          className={`h-280 md:h-[calc(100vh-230px)] lg:h-[calc(100vh-193px)] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}
         >
           {selectedMarketActivity ? (
             <>

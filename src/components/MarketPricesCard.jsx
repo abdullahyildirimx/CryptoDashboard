@@ -25,14 +25,11 @@ const MarketPricesCard = ({ isSpot = false }) => {
   const [searchedCoins, setSearchedCoins] = useState(null)
   const {
     spotCoinData,
-    spotCoinList,
     spotFavoriteCoins,
     futuresCoinData,
-    futuresCoinList,
     futuresFavoriteCoins,
   } = useSelector((state) => state.dataStore)
   const selectedCoinData = isSpot ? spotCoinData : futuresCoinData
-  const selectedCoinList = isSpot ? spotCoinList : futuresCoinList
   const selectedFavoriteCoins = isSpot
     ? spotFavoriteCoins
     : futuresFavoriteCoins
@@ -165,11 +162,11 @@ const MarketPricesCard = ({ isSpot = false }) => {
       return []
     }
     if (value) {
-      const filteredResults = selectedCoinList
-        ? selectedCoinList?.filter((item) =>
-            item.toLowerCase().includes(value.toLowerCase()),
-          )
-        : []
+      const filteredResults = selectedCoinData
+        .filter((item) =>
+          item.symbol.toLowerCase().includes(value.toLowerCase()),
+        )
+        .map((item) => item.symbol)
       setSearchedCoins(filteredResults)
     } else {
       setSearchedCoins(null)
@@ -183,7 +180,9 @@ const MarketPricesCard = ({ isSpot = false }) => {
       <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-border-grey">
         <div className="flex items-center justify-between mb-16">
           <h1 className="text-[20px] leading-[1.2]">
-            {isSpot ? 'Spot' : 'Futures'} Market
+            {isSpot ? 'Spot ' : 'Futures '}
+            <br className="md:hidden" />
+            Market
           </h1>
           <SearchBar handleSearch={handleSearch} />
         </div>

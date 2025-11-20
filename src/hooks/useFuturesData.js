@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   setFuturesCoinData,
-  setFuturesCoinList,
   setFuturesCoinMetadata,
 } from '../utils/reduxStorage'
 import {
@@ -128,14 +127,8 @@ const useFuturesData = () => {
             return a.symbol.localeCompare(b.symbol)
           })
 
-        const coinSymbolList = coinMetadata.map((item) => {
-          let symbol = item.symbol
-          return symbol
-        })
-
         setCoinMetadata(coinMetadata)
         dispatch(setFuturesCoinMetadata(coinMetadata))
-        dispatch(setFuturesCoinList(coinSymbolList))
       } catch (error) {
         console.error('Error fetching data:', error)
       }

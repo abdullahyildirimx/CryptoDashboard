@@ -141,7 +141,7 @@ const CoinTable = ({
           </Button>
         </div>
       </div>
-      <div className="h-205 md:h-[calc(100vh-295px)] text-[12px] md:text-[14px] overflow-y-auto font-semibold">
+      <div className="h-210 md:h-[calc(100vh-285px)] text-[12px] md:text-[14px] overflow-y-auto font-semibold">
         {content.map((item) => (
           <div
             key={item.symbol}

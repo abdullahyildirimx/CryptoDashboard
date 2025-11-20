@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  setSpotCoinData,
-  setSpotCoinList,
-  setSpotCoinMetadata,
-} from '../utils/reduxStorage'
+import { setSpotCoinData, setSpotCoinMetadata } from '../utils/reduxStorage'
 import { spotPriceUrl, spotExchangeInfoUrl, coinLogosUrl } from '../utils/urls'
 
 const useSpotData = () => {
@@ -146,14 +142,8 @@ const useSpotData = () => {
             return a.symbol.localeCompare(b.symbol)
           })
 
-        const coinSymbolList = coinMetadata.map((item) => {
-          let symbol = item.symbol
-          return symbol
-        })
-
         setCoinMetadata(coinMetadata)
         dispatch(setSpotCoinMetadata(coinMetadata))
-        dispatch(setSpotCoinList(coinSymbolList))
       } catch (error) {
         console.error('Error fetching data:', error)
       }
