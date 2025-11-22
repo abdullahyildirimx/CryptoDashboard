@@ -111,14 +111,14 @@ const MarketActivityCard = ({ isSpot = false }) => {
           </div>
         </div>
         <Tooltip
-          className="w-200 opacity-100!"
+          className="w-200! bg-black!"
           id="infoTooltip1"
           place="bottom"
           variant="dark"
           content="5 minutes unusual price activity. For BTC, ETH and USDT, it is triggered when price is changed over 1%, for other coins it is 3%."
         />
         <Tooltip
-          className="w-200 opacity-100!"
+          className="w-200! bg-black!"
           id="infoTooltip2"
           place="bottom"
           variant="dark"
