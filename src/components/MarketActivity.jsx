@@ -29,6 +29,7 @@ const MarketActivity = ({ activity, isSpot }) => {
               src={item.logo}
               alt={item.symbol}
               width={30}
+              height={30}
               onError={(e) => {
                 e.target.src = '/genericicon.png'
               }}

@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className="grid grid-cols-4 p-16">
       <Link className="col-span-1 flex items-center gap-8 text-white1" to="/">
-        <img src="/android-chrome-192x192.png" width={40} alt="logo" />
+        <img src="/android-chrome-192x192.png" width={40} height={40} alt="logo" />
         <div className="hidden md:block font-medium">Crypto Dashboard</div>
       </Link>
 

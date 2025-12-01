@@ -166,6 +166,7 @@ const CoinTable = ({
                   src={getLogo(item)}
                   alt={item.symbol}
                   width={24}
+                  height={24}
                   onError={(e) => {
                     e.target.src = '/genericicon.png'
                   }}
