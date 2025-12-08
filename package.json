@@ -10,13 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@base-ui-components/react": "^1.0.0-beta.7",
+    "@base-ui-components/react": "^1.0.0-rc.0",
     "@fortawesome/fontawesome-free": "^7.1.0",
-    "@reduxjs/toolkit": "^2.11.0",
+    "@reduxjs/toolkit": "^2.11.1",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.10.0",
+    "react-router-dom": "^7.10.1",
     "react-tooltip": "^5.30.0"
   },
   "devDependencies": {
@@ -30,6 +30,6 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "tailwindcss": "^4.1.17",
-    "vite": "^7.2.6"
+    "vite": "^7.2.7"
   }
 }

@@ -19,10 +19,10 @@ const App = () => {
       <div className="mx-auto min-h-dvh min-w-360 max-w-1400">
         <Header />
         <Routes>
+          <Route path="/" element={<SpotPage />} />
           <Route path="/spot" element={<SpotPage />} />
           <Route path="/futures" element={<FuturesPage />} />
-          <Route path="/" element={<Navigate to="/spot" replace />} />
-          <Route path="*" element={<Navigate to="/spot" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </Router>
