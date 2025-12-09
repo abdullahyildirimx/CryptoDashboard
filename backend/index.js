@@ -282,6 +282,13 @@ setInterval(fetchSpotMarketActivity, activityDelta)
 setInterval(fetchFuturesMarketActivity, activityDelta)
 setInterval(purgeData, purgeControlDelta)
 
+app.get('/', function (req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', '*')
+  res.status(200).send("Hello!")
+})
+
 app.get('/spot', function (req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS')
