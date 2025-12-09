@@ -8,6 +8,7 @@ const ChartModal = ({ isOpen, onOpenChange, selectedCoin, isSpot }) => {
       ? `BINANCE:${selectedCoin.toUpperCase()}USDT`
       : `BINANCE:${selectedCoin.toUpperCase()}USDT.P`
     : ''
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
 
   const handleOpenChange = (open) => {
     if (!open) setLoading(true)
@@ -45,7 +46,7 @@ const ChartModal = ({ isOpen, onOpenChange, selectedCoin, isSpot }) => {
                 )}
                 <iframe
                   className="w-full h-full"
-                  src={`https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark`}
+                  src={`https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark&timezone=${timezone}`}
                   allowFullScreen
                   title={`${selectedCoin} Chart`}
                   onLoad={() => setLoading(false)}
