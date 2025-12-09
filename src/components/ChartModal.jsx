@@ -45,7 +45,7 @@ const ChartModal = ({ isOpen, onOpenChange, selectedCoin, isSpot }) => {
                 )}
                 <iframe
                   className="w-full h-full"
-                  src={`https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark&timezone=Europe/Istanbul`}
+                  src={`https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&theme=dark`}
                   allowFullScreen
                   title={`${selectedCoin} Chart`}
                   onLoad={() => setLoading(false)}
