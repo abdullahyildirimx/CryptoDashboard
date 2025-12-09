@@ -12,7 +12,7 @@ const Header = () => {
 
       <nav className="col-span-2 flex justify-center items-center gap-16">
         <Link
-          className={`${location.pathname === '/spot' ? 'text-white1 font-bold' : 'text-white-65 hover:text-white-80 transition duration-150 ease-in-out'}`}
+          className={`${location.pathname === '/' || location.pathname === '/spot' ? 'text-white1 font-bold' : 'text-white-65 hover:text-white-80 transition duration-150 ease-in-out'}`}
           to="/spot"
         >
           <i className="mr-4 fa-solid fa-chart-simple"></i>
