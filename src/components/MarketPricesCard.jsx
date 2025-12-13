@@ -12,7 +12,7 @@ import {
   setSpotFavoriteCoins,
   setFuturesFavoriteCoins,
 } from '../utils/reduxStorage'
-import { Button } from '@base-ui-components/react'
+import { Button } from '@base-ui/react'
 
 const MarketPricesCard = ({ isSpot = false }) => {
   const localStorageData = isSpot

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { getLogoFromUrl } from '../utils/urls'
 import ChartModal from './ChartModal'
-import { Button } from '@base-ui-components/react'
+import { Button } from '@base-ui/react'
 
 const CoinTable = ({
   content,

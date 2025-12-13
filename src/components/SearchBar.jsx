@@ -1,4 +1,4 @@
-import { Button, Input } from '@base-ui-components/react'
+import { Button, Input } from '@base-ui/react'
 import { useState } from 'react'
 
 const SearchBar = ({ handleSearch }) => {

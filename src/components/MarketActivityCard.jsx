@@ -9,7 +9,7 @@ import {
 } from '../utils/localStorageUtils'
 import MarketActivity from './MarketActivity'
 import { getLogoFromUrl } from '../utils/urls'
-import { Checkbox } from '@base-ui-components/react'
+import { Checkbox } from '@base-ui/react'
 
 const MarketActivityCard = ({ isSpot = false }) => {
   const localStorageActivity = isSpot
