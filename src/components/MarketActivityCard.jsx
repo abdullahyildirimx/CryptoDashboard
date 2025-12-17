@@ -72,9 +72,9 @@ const MarketActivityCard = ({ isSpot = false }) => {
   return (
     <div className="p-8">
       <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-border-grey">
-        <div className={`flex flex-col lg:flex-row justify-between mt-4`}>
+        <div className={`flex flex-col lg:flex-row justify-between`}>
           <div className="flex items-center mb-16 gap-4">
-            <h1 className="text-[20px] leading-[1.2]">
+            <h1 className="text-[20px] leading-[1.75]">
               {isSpot ? 'Spot' : 'Futures'} Market Activity
             </h1>
             <i
@@ -82,28 +82,26 @@ const MarketActivityCard = ({ isSpot = false }) => {
               data-tooltip-id="infoTooltip1"
             ></i>
           </div>
-          <div className="flex items-center mb-16">
-            <div className="flex items-center mr-4">
-              <label className="flex items-center gap-4">
-                <Checkbox.Root
-                  aria-label="Show only favorites"
-                  className="
-                    size-14 rounded-sm border border-border-grey 
-                    data-checked:border-blue-500 data-checked:bg-blue-500
-                    flex items-center justify-center
-                    transition-all cursor-pointer
-                    hover:border-blue-500
-                  "
-                  checked={showFavorites}
-                  onCheckedChange={(value) => handleToggleFavorites(value)}
-                >
-                  <Checkbox.Indicator>
-                    <i className="fa-solid fa-check text-[10px]" />
-                  </Checkbox.Indicator>
-                </Checkbox.Root>
-                Show only favorites
-              </label>
-            </div>
+          <div className="flex items-center mb-16 gap-4">
+            <label className="flex items-center gap-4 h-24">
+              <Checkbox.Root
+                aria-label="Show only favorites"
+                className="
+                  size-14 rounded-sm border border-border-grey 
+                  data-checked:border-blue-500 data-checked:bg-blue-500
+                  flex items-center justify-center
+                  transition-all cursor-pointer
+                  hover:border-blue-500
+                "
+                checked={showFavorites}
+                onCheckedChange={(value) => handleToggleFavorites(value)}
+              >
+                <Checkbox.Indicator>
+                  <i className="fa-solid fa-check text-[10px]" />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
+              Show only favorites
+            </label>
             <i
               className="fa-regular fa-circle-question"
               data-tooltip-id="infoTooltip2"
@@ -125,7 +123,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
           content="If 'Show only favorites' is unchecked, you may see many activities. The latest maximum of 1000 activities is displayed at once."
         />
         <div
-          className={`h-280 md:h-[calc(100vh-230px)] lg:h-[calc(100vh-193px)] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}
+          className={`h-280 md:h-[calc(100vh-240px)] lg:h-[calc(100vh-200px)] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}
         >
           {selectedMarketActivity ? (
             <>

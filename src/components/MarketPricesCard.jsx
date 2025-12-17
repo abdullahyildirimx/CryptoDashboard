@@ -200,7 +200,7 @@ const MarketPricesCard = ({ isSpot = false }) => {
             All
           </Button>
         </div>
-        <div className="h-250 md:h-[calc(100vh-240px)]">
+        <div className="h-260 md:h-[calc(100vh-240px)]">
           {selectedCoinData ? (
             searchedCoins?.length === 0 ? (
               <div className="h-full flex justify-center items-center">
