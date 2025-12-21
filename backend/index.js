@@ -150,7 +150,7 @@ const fetchSpotMarketActivity = async () => {
         const prevPrice = newPriceData[i]['data'][k]
         if (prevPrice !== 0) {
           const rate = currentPrice / prevPrice
-          const currentTime = new Date.now()
+          const currentTime = Date.now()
           if (
             (bigCoinList.includes(coin.symbol) &&
               (rate <= bigcoinTriggerLow || rate >= bigcoinTriggerHigh)) ||
