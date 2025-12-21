@@ -6,13 +6,13 @@ const useDocumentTitle = () => {
   )
 
   useEffect(() => {
-    const isSpot = location.pathname === '/' || location.pathname === '/spot'
+    const isSpot = location.pathname === '/'
     const btcPriceUsd = isSpot
       ? spotCoinData?.find((item) => item.symbol === 'BTC').price
       : futuresCoinData?.find((item) => item.symbol === 'BTC').price
     const title = btcPriceUsd
-      ? `Dashboard - $${btcPriceUsd}`
-      : 'Crypto Dashboard'
+      ? `$${btcPriceUsd} | BTC | CryptoPrices`
+      : 'CryptoPrices'
 
     document.title = `${title}`
   }, [spotCoinData, futuresCoinData])

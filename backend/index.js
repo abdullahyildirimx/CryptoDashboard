@@ -9,7 +9,6 @@ let spotPriceData = []
 let spotActivityData = []
 let futuresPriceData = []
 let futuresActivityData = []
-let futuresFullSymbols = []
 
 const spotPriceUrl = 'https://api.binance.com/api/v3/ticker/24hr'
 const spotExchangeInfoUrl = 'https://api.binance.com/api/v3/exchangeInfo'
@@ -94,17 +93,6 @@ const fetchFuturesCoinList = async () => {
         return a.localeCompare(b)
       })
 
-    const coinFullSymbols = filteredCoins
-      .map((item) => {
-        let symbol = item.symbol
-        return symbol
-      })
-      .slice()
-      .sort((a, b) => {
-        return a.localeCompare(b)
-      })
-
-    futuresFullSymbols = coinFullSymbols
     futuresPriceData = coinSymbolList.map((item) => {
       const data =
         futuresPriceData?.find((coin) => coin.symbol === item)?.data ||
@@ -162,7 +150,7 @@ const fetchSpotMarketActivity = async () => {
         const prevPrice = newPriceData[i]['data'][k]
         if (prevPrice !== 0) {
           const rate = currentPrice / prevPrice
-          const currentTime = new Date().getTime()
+          const currentTime = new Date.now()
           if (
             (bigCoinList.includes(coin.symbol) &&
               (rate <= bigcoinTriggerLow || rate >= bigcoinTriggerHigh)) ||
@@ -204,10 +192,12 @@ const fetchFuturesMarketActivity = async () => {
       throw new Error('Network response was not ok')
     }
     const jsonData = await response.json()
-
+    
+    const currentTime = Date.now()
     const filteredCoins = jsonData.filter((coin) => {
       return (
-        coin.symbol.endsWith('USDT') && futuresFullSymbols.includes(coin.symbol)
+        coin.symbol.endsWith('USDT') &&
+        currentTime <= coin.closeTime + 1800000
       )
     })
 
@@ -232,7 +222,7 @@ const fetchFuturesMarketActivity = async () => {
         const prevPrice = newPriceData[i]['data'][k]
         if (prevPrice !== 0) {
           const rate = currentPrice / prevPrice
-          const currentTime = new Date().getTime()
+          const currentTime = Date.now()
           if (
             (bigCoinList.includes(coin.symbol) &&
               (rate <= bigcoinTriggerLow || rate >= bigcoinTriggerHigh)) ||
@@ -265,7 +255,7 @@ const fetchFuturesMarketActivity = async () => {
 }
 
 const purgeData = () => {
-  const currentTime = new Date().getTime()
+  const currentTime = Date.now()
   spotActivityData = spotActivityData.filter((activity) => {
     return activity.time > currentTime - purgeDelta
   })
@@ -282,21 +272,21 @@ setInterval(fetchSpotMarketActivity, activityDelta)
 setInterval(fetchFuturesMarketActivity, activityDelta)
 setInterval(purgeData, purgeControlDelta)
 
-app.get('/', function (req, res) {
+app.get('/', function (_, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', '*')
   res.status(200).send("Hello!")
 })
 
-app.get('/spot', function (req, res) {
+app.get('/spot', function (_, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', '*')
   res.status(200).send(spotActivityData)
 })
 
-app.get('/futures', function (req, res) {
+app.get('/futures', function (_, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', '*')

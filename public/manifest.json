@@ -1,7 +1,7 @@
 {
-  "name": "Crypto Dashboard",
-  "short_name": "Dashboard",
-  "description": "Crypto Dashboard",
+  "name": "CryptoPrices",
+  "short_name": "CryptoPrices",
+  "description": "CryptoPrices",
   "id": "/",
   "start_url": "/",
   "display": "standalone",

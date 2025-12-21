@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cryptodashboard.tech/sitemap.xml
+Sitemap: https://cryptoprices.tech/sitemap.xml

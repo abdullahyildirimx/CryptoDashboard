@@ -20,7 +20,6 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<SpotPage />} />
-          <Route path="/spot" element={<SpotPage />} />
           <Route path="/futures" element={<FuturesPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

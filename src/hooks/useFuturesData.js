@@ -38,7 +38,7 @@ const useFuturesData = () => {
           throw new Error('Network response was not ok')
         }
         const jsonData = await response.json()
-        const currentTime = new Date().getTime()
+        const currentTime = Date.now()
         const filteredCoins = jsonData.filter((coin) => {
           return (
             coin.symbol.endsWith('USDT') &&

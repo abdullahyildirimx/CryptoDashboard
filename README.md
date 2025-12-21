@@ -1,8 +1,8 @@
 ## Intro
 
-The dashboard uses Binance APIs to track spot and futures market data and getting the unusual price movements.
+The app uses Binance APIs to track spot and futures market data and getting the unusual price movements.
 
-It is written using React + Vite, and Node.js v24 is recommended to run.
+It is written using React + Vite for frontend and Node.js for backend. Node.js v24 is recommended to run.
 
 ## Run locally
 
