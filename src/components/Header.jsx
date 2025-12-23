@@ -6,7 +6,12 @@ const Header = () => {
   return (
     <header className="grid grid-cols-4 p-16">
       <Link className="col-span-1 flex items-center gap-8 text-white1" to="/">
-        <img src="/android-chrome-192x192.png" width={40} height={40} alt="logo" />
+        <img
+          src="/android-chrome-192x192.png"
+          width={40}
+          height={40}
+          alt="logo"
+        />
         <div className="hidden md:block font-medium">CryptoPrices</div>
       </Link>
 
@@ -15,14 +20,14 @@ const Header = () => {
           className={`${location.pathname === '/' ? 'text-white1 font-bold' : 'text-white-65 hover:text-white-80 transition duration-150 ease-in-out'}`}
           to="/"
         >
-          <i className="mr-4 fa-solid fa-chart-simple"></i>
+          <i className="mr-4 fa-solid fa-chart-column"></i>
           Spot
         </Link>
         <Link
           className={`${location.pathname === '/futures' ? 'text-white1 font-bold' : 'text-white-65 hover:text-white-80 transition duration-150 ease-in-out'}`}
           to="/futures"
         >
-          <i className="mr-4 fa-solid fa-scroll"></i>
+          <i className="mr-4 fa-solid fa-chart-line"></i>
           Futures
         </Link>
       </nav>

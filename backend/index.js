@@ -1,7 +1,6 @@
 'use strict'
 import express from 'express'
 import { Buffer } from 'buffer'
-import sharp from 'sharp'
 
 const app = express()
 
@@ -192,12 +191,11 @@ const fetchFuturesMarketActivity = async () => {
       throw new Error('Network response was not ok')
     }
     const jsonData = await response.json()
-    
+
     const currentTime = Date.now()
     const filteredCoins = jsonData.filter((coin) => {
       return (
-        coin.symbol.endsWith('USDT') &&
-        currentTime <= coin.closeTime + 1800000
+        coin.symbol.endsWith('USDT') && currentTime <= coin.closeTime + 1800000
       )
     })
 
@@ -276,7 +274,7 @@ app.get('/', function (_, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', '*')
-  res.status(200).send("Hello!")
+  res.status(200).send('Hello!')
 })
 
 app.get('/spot', function (_, res) {
@@ -299,21 +297,17 @@ app.get('/logo', async (req, res) => {
 
   try {
     const response = await fetch(url)
-    if (!response.ok) return res.status(500).send('Failed to fetch image')
+    if (!response.ok) return res.status(500).send('Error fetching image')
 
     const arrayBuffer = await response.arrayBuffer()
     const buffer = Buffer.from(arrayBuffer)
 
-    const webpBuffer = await sharp(buffer)
-      .toFormat('webp', { quality: 90 })
-      .toBuffer()
-
-    res.set('Content-Type', 'image/webp')
+    res.set('Content-Type', 'image/png')
     res.set('Cache-Control', 'public, max-age=2592000, immutable')
-    res.send(webpBuffer)
+    res.send(buffer)
   } catch (err) {
     console.error(err)
-    res.status(500).send('Error fetching or converting image')
+    res.status(500).send('Error fetching image')
   }
 })
 

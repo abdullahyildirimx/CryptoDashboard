@@ -8,11 +8,17 @@ const useDocumentTitle = () => {
   useEffect(() => {
     const isSpot = location.pathname === '/'
     const btcPriceUsd = isSpot
-      ? spotCoinData?.find((item) => item.symbol === 'BTC').price
-      : futuresCoinData?.find((item) => item.symbol === 'BTC').price
-    const title = btcPriceUsd
-      ? `$${btcPriceUsd} | BTC | CryptoPrices`
-      : 'CryptoPrices'
+      ? Number(
+          spotCoinData?.find((item) => item.symbol === 'BTC')?.price,
+        ).toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+        })
+      : Number(
+          futuresCoinData?.find((item) => item.symbol === 'BTC')?.price,
+        ).toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+        })
+    const title = btcPriceUsd ? `${btcPriceUsd} | CryptoPrices` : 'CryptoPrices'
 
     document.title = `${title}`
   }, [spotCoinData, futuresCoinData])

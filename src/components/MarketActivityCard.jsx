@@ -71,7 +71,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
 
   return (
     <div className="p-8">
-      <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-border-grey">
+      <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-grey2">
         <div className={`flex flex-col lg:flex-row justify-between`}>
           <div className="flex items-center mb-16 gap-4">
             <h1 className="text-[20px] leading-[1.75]">
@@ -87,10 +87,10 @@ const MarketActivityCard = ({ isSpot = false }) => {
               <Checkbox.Root
                 aria-label="Show only favorites"
                 className="
-                  size-14 rounded-sm border border-border-grey 
+                  size-14 rounded-sm border border-grey2 
                   data-checked:border-blue-500 data-checked:bg-blue-500
                   flex items-center justify-center
-                  transition-all cursor-pointer
+                  transition-all duration-150 ease-in-out cursor-pointer
                   hover:border-blue-500
                 "
                 checked={showFavorites}

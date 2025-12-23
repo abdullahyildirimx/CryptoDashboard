@@ -177,7 +177,7 @@ const MarketPricesCard = ({ isSpot = false }) => {
 
   return (
     <div className="p-8">
-      <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-border-grey">
+      <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-grey2">
         <div className="flex items-center justify-between mb-16">
           <h1 className="text-[20px] leading-[1.2]">
             {isSpot ? 'Spot ' : 'Futures '}
@@ -186,15 +186,23 @@ const MarketPricesCard = ({ isSpot = false }) => {
           </h1>
           <SearchBar handleSearch={handleSearch} />
         </div>
-        <div className="flex border-b border-border-grey">
+        <div className="flex border-b border-grey2">
           <Button
-            className={`${selectedTab === 'favorite' ? 'text-white1 -mb-1 border-b-2 border-border-grey border-b-black1' : 'border-transparent text-white-65 hover:text-white-80 hover:border-border-grey hover:border-b-transparent'} px-16 py-8 border rounded-t-md`}
+            className={`px-16 py-8 border rounded-t-md ${
+              selectedTab === 'favorite'
+                ? 'text-white1 -mb-1 border-b-2 border-grey2 border-b-black1'
+                : 'border-transparent text-white-65 hover:text-white-80 hover:border-grey2 hover:border-b-transparent'
+            }`}
             onClick={() => handleTabChange('favorite')}
           >
             Favorite
           </Button>
           <Button
-            className={`${selectedTab === 'all' ? 'text-white1 -mb-1 border-b-2 border-border-grey border-b-black1' : 'border-transparent text-white-65 hover:text-white-80 hover:border-border-grey hover:border-b-transparent'} px-16 py-8 border rounded-t-md`}
+            className={`px-16 py-8 border rounded-t-md ${
+              selectedTab === 'all'
+                ? 'text-white1 -mb-1 border-b-2 border-grey2 border-b-black1'
+                : 'border-transparent text-white-65 hover:text-white-80 hover:border-grey2 hover:border-b-transparent'
+            }`}
             onClick={() => handleTabChange('all')}
           >
             All

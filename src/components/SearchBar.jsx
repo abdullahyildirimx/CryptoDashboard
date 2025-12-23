@@ -27,9 +27,9 @@ const SearchBar = ({ handleSearch }) => {
           border rounded-md
           py-6 pr-8 pl-12
           placeholder:text-neutral-400
-          hover:border-blue-500 focus:border-blue-500 ${searchTerm !== '' ? 'border-blue-500' : 'border-border-grey'}
+          border-grey2 hover:border-blue-500 focus:border-blue-500
           focus:outline-none
-          transition-all 
+          transition-all duration-150 ease-in-out
         `}
       />
 
@@ -41,10 +41,10 @@ const SearchBar = ({ handleSearch }) => {
             flex items-center justify-center
             h-20 w-20
             rounded-full
-            text-blue-500
+            text-grey1 hover:text-blue-500
           "
         >
-          <i className="fa-solid fa-xmark text-[12px] md:text-[14px]" />
+          <i className="fa-solid fa-xmark text-[10px] md:text-[12px]" />
         </Button>
       )}
     </div>

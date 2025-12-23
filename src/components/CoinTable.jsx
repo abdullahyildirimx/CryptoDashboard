@@ -69,6 +69,7 @@ const CoinTable = ({
           <Button
             aria-label="symbol-sort-button"
             onClick={() => handleToggleSort('symbol')}
+            className="flex justify-center items-center"
           >
             {sortOrder === 'symbolAsc' ? (
               <i className="fa-solid fa-sort-up text-white1"></i>
@@ -89,6 +90,7 @@ const CoinTable = ({
           <Button
             aria-label="volume-sort-button"
             onClick={() => handleToggleSort('volume')}
+            className="flex justify-center items-center"
           >
             {sortOrder === 'volumeAsc' ? (
               <i className="fa-solid fa-sort-up text-white1"></i>
@@ -99,7 +101,7 @@ const CoinTable = ({
             )}
           </Button>
         </div>
-        <div className="text-end">
+        <div className="flex items-center text-end">
           <span
             className={
               sortOrder.includes('price') ? 'text-white1' : 'text-grey1'
@@ -110,6 +112,7 @@ const CoinTable = ({
           <Button
             aria-label="price-sort-button"
             onClick={() => handleToggleSort('price')}
+            className="flex justify-center items-center"
           >
             {sortOrder === 'priceAsc' ? (
               <i className="fa-solid fa-sort-up text-white1"></i>
@@ -130,6 +133,7 @@ const CoinTable = ({
           <Button
             aria-label="change-sort-button"
             onClick={() => handleToggleSort('change')}
+            className="flex justify-center items-center"
           >
             {sortOrder === 'changeAsc' ? (
               <i className="fa-solid fa-sort-up text-white1"></i>
@@ -148,17 +152,17 @@ const CoinTable = ({
             className="p-8 rounded-lg hover:bg-gray-800 hover:cursor-pointer"
             onClick={() => handleOpenChart(item.symbol)}
           >
-            <div className="flex justify-between items-center ">
+            <div className="flex justify-between items-center">
               <div className="flex justify-between items-center">
                 <Button
-                  className="w-20"
+                  className="w-20 flex justify-center items-center"
                   aria-label="favorite-button"
                   onClick={(e) => handleToggleFavorite(e, item.symbol)}
                 >
                   {favoriteCoins.includes(item.symbol) ? (
-                    <i className="align-middle fa-solid fa-star text-gold"></i>
+                    <i className="fa-solid fa-star text-gold1"></i>
                   ) : (
-                    <i className="align-middle fa-regular fa-star text-white1"></i>
+                    <i className="fa-regular fa-star text-white1"></i>
                   )}
                 </Button>
                 <img
