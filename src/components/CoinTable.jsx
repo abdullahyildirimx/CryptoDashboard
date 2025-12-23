@@ -155,14 +155,14 @@ const CoinTable = ({
             <div className="flex justify-between items-center">
               <div className="flex justify-between items-center">
                 <Button
-                  className="w-20 flex justify-center items-center"
+                  className="w-20 h-20"
                   aria-label="favorite-button"
                   onClick={(e) => handleToggleFavorite(e, item.symbol)}
                 >
                   {favoriteCoins.includes(item.symbol) ? (
-                    <i className="fa-solid fa-star text-gold1"></i>
+                    <i className="align-middle fa-solid fa-star text-gold1"></i>
                   ) : (
-                    <i className="fa-regular fa-star text-white1"></i>
+                    <i className="align-middle fa-regular fa-star text-white1"></i>
                   )}
                 </Button>
                 <img
