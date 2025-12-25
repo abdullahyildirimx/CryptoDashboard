@@ -5,8 +5,9 @@
   font-family:
     'Fustat',
     -apple-system,
-    'Segoe UI',
-    'Roboto',
+    BlinkMacSystemFont,
+    Roboto,
+    Arial,
     sans-serif;
 }
 

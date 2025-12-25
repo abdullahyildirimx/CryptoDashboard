@@ -35,6 +35,15 @@ const MarketPricesCard = ({ isSpot = false }) => {
     : futuresFavoriteCoins
   const dispatch = useDispatch()
 
+  const formatTitlePrice = (value) => {
+    const num = Number(value)
+    if (!Number.isFinite(num)) return null
+
+    return num.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+    })
+  }
+
   const handleTabChange = (tab) => {
     setSelectedTab(tab)
     if (isSpot) {
@@ -177,6 +186,11 @@ const MarketPricesCard = ({ isSpot = false }) => {
 
   return (
     <div className="p-8">
+      <title>
+        {selectedCoinData
+          ? `${formatTitlePrice(selectedCoinData?.find((item) => item.symbol === 'BTC')?.price)} | CryptoPrices`
+          : 'CryptoPrices'}
+      </title>
       <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-grey2">
         <div className="flex items-center justify-between mb-16">
           <h1 className="text-[20px] leading-[1.2]">
