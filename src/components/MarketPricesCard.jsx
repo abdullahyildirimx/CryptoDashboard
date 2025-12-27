@@ -182,7 +182,7 @@ const MarketPricesCard = ({ isSpot = false }) => {
     }
   }
 
-  const content = sortedAllCoins()
+  const coins = sortedAllCoins()
 
   return (
     <div className="p-8">
@@ -192,37 +192,46 @@ const MarketPricesCard = ({ isSpot = false }) => {
           : 'CryptoPrices'}
       </title>
       <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-grey2">
-        <div className="flex items-center justify-between mb-16">
-          <h1 className="text-[20px] leading-[1.2]">
-            {isSpot ? 'Spot ' : 'Futures '}
-            <br className="md:hidden" />
-            Market
+        <div className="flex items-center justify-between mb-14">
+          <h1 className="text-[18px]/[24px] md:text-[20px]">
+            {isSpot ? 'Spot Market' : 'Futures Market'}
           </h1>
-          <SearchBar handleSearch={handleSearch} />
+          <SearchBar handleSearch={handleSearch} id={'searchCoin'} />
         </div>
-        <div className="flex border-b border-grey2">
-          <Button
-            className={`px-16 py-8 border rounded-t-md ${
-              selectedTab === 'favorite'
-                ? 'text-white1 -mb-1 border-b-2 border-grey2 border-b-black1'
-                : 'border-transparent text-white-65 hover:text-white-80 hover:border-grey2 hover:border-b-transparent'
-            }`}
-            onClick={() => handleTabChange('favorite')}
-          >
-            Favorite
-          </Button>
-          <Button
-            className={`px-16 py-8 border rounded-t-md ${
-              selectedTab === 'all'
-                ? 'text-white1 -mb-1 border-b-2 border-grey2 border-b-black1'
-                : 'border-transparent text-white-65 hover:text-white-80 hover:border-grey2 hover:border-b-transparent'
-            }`}
-            onClick={() => handleTabChange('all')}
-          >
-            All
-          </Button>
+        <div className="relative w-full border-b-2 border-grey2">
+          <div className="flex items-center">
+            {['favorite', 'all'].map((tab) => (
+              <Button
+                key={tab}
+                onClick={() => {
+                  handleTabChange(tab)
+                }}
+                className={`
+                  px-16 py-8 font-medium transition-all duration-150 ease-in-out
+                  ${
+                    selectedTab === tab
+                      ? 'text-white1'
+                      : 'text-white-65 hover:text-white-80'
+                  }
+                `}
+              >
+                {tab === 'favorite' ? 'Favorite' : 'All'}
+              </Button>
+            ))}
+          </div>
+          <span
+            className={`
+              absolute -bottom-2 h-2 rounded-full bg-white1
+              transition-all duration-300 ease-in-out
+              ${
+                selectedTab === 'all'
+                  ? 'w-24 translate-x-94'
+                  : 'w-36 translate-x-23'
+              }
+            `}
+          />
         </div>
-        <div className="h-270 md:h-[calc(100vh-240px)]">
+        <div className="h-290 md:h-[calc(100vh-232px)]">
           {selectedCoinData ? (
             searchedCoins?.length === 0 ? (
               <div className="h-full flex justify-center items-center">
@@ -236,7 +245,7 @@ const MarketPricesCard = ({ isSpot = false }) => {
               </div>
             ) : (
               <CoinTable
-                content={content}
+                coins={coins}
                 isSpot={isSpot}
                 favoriteCoins={selectedFavoriteCoins}
                 sortOrder={sortOrder}

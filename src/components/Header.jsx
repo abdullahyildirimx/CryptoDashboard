@@ -17,17 +17,17 @@ const Header = () => {
 
       <nav className="col-span-2 flex justify-center items-center gap-16">
         <Link
-          className={`${location.pathname === '/' ? 'text-white1 font-bold' : 'text-white-65 hover:text-white-80 transition duration-150 ease-in-out'}`}
+          className={`flex items-center gap-4 ${location.pathname === '/' ? 'text-white1 font-bold' : 'text-white-65 hover:text-white-80 transition-all duration-150 ease-in-out'}`}
           to="/"
         >
-          <i className="mr-4 fa-solid fa-chart-column"></i>
+          <i className="fa-solid fa-chart-column"></i>
           Spot
         </Link>
         <Link
-          className={`${location.pathname === '/futures' ? 'text-white1 font-bold' : 'text-white-65 hover:text-white-80 transition duration-150 ease-in-out'}`}
+          className={`flex items-center gap-4 ${location.pathname === '/futures' ? 'text-white1 font-bold' : 'text-white-65 hover:text-white-80 transition-all duration-150 ease-in-out'}`}
           to="/futures"
         >
-          <i className="mr-4 fa-solid fa-chart-line"></i>
+          <i className="fa-solid fa-chart-line"></i>
           Futures
         </Link>
       </nav>

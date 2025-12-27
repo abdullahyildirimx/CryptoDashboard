@@ -1,7 +1,7 @@
 import { Button, Input } from '@base-ui/react'
 import { useState } from 'react'
 
-const SearchBar = ({ handleSearch }) => {
+const SearchBar = ({ handleSearch, id }) => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const handleChange = (value) => {
@@ -17,13 +17,13 @@ const SearchBar = ({ handleSearch }) => {
   return (
     <div className="relative">
       <Input
-        id="searchBar"
+        id={id}
         value={searchTerm}
         onValueChange={(value) => handleChange(value)}
         placeholder="Search"
         autoComplete="off"
         className={`
-          w-200 text-[12px] md:text-[14px]
+          w-160 lg:w-200 text-[12px] md:text-[14px]
           border rounded-md
           py-6 pr-8 pl-12
           placeholder:text-neutral-400
@@ -37,7 +37,7 @@ const SearchBar = ({ handleSearch }) => {
         <Button
           onClick={handleClear}
           className="
-            absolute top-1/2 right-6 -translate-y-1/2
+            absolute top-6.5 md:top-7.5 right-6
             flex items-center justify-center
             h-20 w-20
             rounded-full

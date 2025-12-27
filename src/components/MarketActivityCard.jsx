@@ -10,6 +10,7 @@ import {
 import MarketActivity from './MarketActivity'
 import { getLogoFromUrl } from '../utils/urls'
 import { Checkbox } from '@base-ui/react'
+import SearchBar from './SearchBar'
 
 const MarketActivityCard = ({ isSpot = false }) => {
   const localStorageActivity = isSpot
@@ -18,6 +19,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
   const [showFavorites, setShowFavorites] = useState(
     localStorageActivity?.showFavorites || false,
   )
+  const [searchedActivities, setSearchedActivities] = useState(null)
   const {
     spotCoinData,
     spotMarketActivity,
@@ -55,39 +57,86 @@ const MarketActivityCard = ({ isSpot = false }) => {
     return tickSize ? parseFloat(price).toFixed(tickSize) : price
   }
 
-  const activity = selectedMarketActivity
-    ? (showFavorites
-        ? selectedMarketActivity.filter((item) =>
-            selectedFavoriteCoins.includes(item.symbol),
-          )
-        : selectedMarketActivity.slice(0, 1000)
-      ).map((item) => ({
-        ...item,
-        oldPrice: formatPrice(item.symbol, item.oldPrice),
-        newPrice: formatPrice(item.symbol, item.newPrice),
-        logo: getLogo(item.symbol),
-      }))
-    : []
+  const filterActivities = () => {
+    if (!selectedMarketActivity) {
+      return []
+    }
+    const activities = (
+      searchedActivities
+        ? searchedActivities
+            .map((symbol) => {
+              return (
+                selectedMarketActivity.find((data) => data.symbol === symbol) ||
+                null
+              )
+            })
+            .filter((coin) => coin !== null)
+        : showFavorites
+          ? selectedMarketActivity.filter((item) =>
+              selectedFavoriteCoins.includes(item.symbol),
+            )
+          : selectedMarketActivity.slice(0, 1000)
+    ).map((item) => ({
+      ...item,
+      oldPrice: formatPrice(item.symbol, item.oldPrice),
+      newPrice: formatPrice(item.symbol, item.newPrice),
+      logo: getLogo(item.symbol),
+    }))
+    return activities
+  }
+
+  const handleSearch = (value) => {
+    if (!selectedMarketActivity) {
+      return []
+    }
+    if (value) {
+      const filteredResults = selectedMarketActivity
+        .filter((item) =>
+          item.symbol.toLowerCase().includes(value.toLowerCase()),
+        )
+        .map((item) => item.symbol)
+      setSearchedActivities(filteredResults)
+    } else {
+      setSearchedActivities(null)
+    }
+  }
+
+  const activity = filterActivities()
 
   return (
     <div className="p-8">
       <div className="bg-black1 rounded-2xl p-16 text-white1 text-[14px] font-medium border border-grey2">
-        <div className={`flex flex-col lg:flex-row justify-between`}>
-          <div className="flex items-center mb-16 gap-4">
-            <h1 className="text-[20px] leading-[1.75]">
-              {isSpot ? 'Spot' : 'Futures'} Market Activity
-            </h1>
-            <i
-              className="fa-regular fa-circle-question"
-              data-tooltip-id="infoTooltip1"
-            ></i>
+        <div className={`flex flex-col justify-between`}>
+          <div className="flex justify-between mb-14">
+            <div className="hidden lg:flex items-center gap-4">
+              <h1 className="hidden lg:block text-[20px]/[35px]">
+                {isSpot ? 'Spot Market Activity' : 'Futures Market Activity'}
+              </h1>
+              <i
+                className="hidden lg:block fa-regular fa-circle-question"
+                data-tooltip-id="infoTooltip1"
+              ></i>
+            </div>
+            <div className="lg:hidden flex flex-col">
+              <h1 className="lg:hidden text-[18px]/[24px] lg:text-[20px]/[35px]">
+                {isSpot ? 'Spot Market' : 'Futures Market'}
+              </h1>
+              <div className="flex items-center gap-4">
+                <h1 className="lg:hidden text-[18px]/[24px]">Activity</h1>
+                <i
+                  className="hidden lg:block fa-regular fa-circle-question"
+                  data-tooltip-id="infoTooltip1"
+                ></i>
+              </div>
+            </div>
+            <SearchBar handleSearch={handleSearch} id={'searchActivity'} />
           </div>
-          <div className="flex items-center mb-16 gap-4">
+          <div className="flex items-center mb-14 gap-4">
             <label className="flex items-center gap-4 h-24">
               <Checkbox.Root
                 aria-label="Show only favorites"
                 className="
-                  size-14 rounded-sm border border-grey2 
+                  w-14 h-14 rounded-sm border border-grey2 
                   data-checked:border-blue-500 data-checked:bg-blue-500
                   flex items-center justify-center
                   transition-all duration-150 ease-in-out cursor-pointer
@@ -123,7 +172,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
           content="If 'Show only favorites' is unchecked, you may see many activities. The latest maximum of 1000 activities is displayed at once."
         />
         <div
-          className={`h-280 md:h-[calc(100vh-240px)] lg:h-[calc(100vh-200px)] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}
+          className={`h-275 md:h-[calc(100vh-244px)] lg:h-[calc(100vh-231px)] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}
         >
           {selectedMarketActivity ? (
             <>

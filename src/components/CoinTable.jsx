@@ -4,7 +4,7 @@ import ChartModal from './ChartModal'
 import { Button } from '@base-ui/react'
 
 const CoinTable = ({
-  content,
+  coins,
   isSpot,
   favoriteCoins,
   toggleFavorite,
@@ -145,8 +145,8 @@ const CoinTable = ({
           </Button>
         </div>
       </div>
-      <div className="h-230 md:h-[calc(100vh-285px)] text-[12px] md:text-[14px] overflow-y-auto font-semibold">
-        {content.map((item) => (
+      <div className="h-250 md:h-[calc(100vh-277px)] text-[12px] md:text-[14px] overflow-y-auto font-semibold">
+        {coins.map((item) => (
           <div
             key={item.symbol}
             className="p-8 rounded-lg hover:bg-gray-800 hover:cursor-pointer"

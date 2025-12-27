@@ -14,9 +14,9 @@ const spotExchangeInfoUrl = 'https://api.binance.com/api/v3/exchangeInfo'
 const futuresPriceUrl = 'https://fapi.binance.com/fapi/v1/ticker/24hr'
 const futuresExchangeInfoUrl = 'https://fapi.binance.com/fapi/v1/exchangeInfo'
 
-const coinListDelta = 3600000
+const coinListDelta = 300000
 const activityDelta = 10000
-const purgeControlDelta = 3600000
+const purgeControlDelta = 300000
 const purgeDelta = 86400000
 
 const bigcoinTriggerLow = 0.99
