@@ -19,7 +19,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
   const [showFavorites, setShowFavorites] = useState(
     localStorageActivity?.showFavorites || false,
   )
-  const [searchedActivities, setSearchedActivities] = useState(null)
+  const [searchedCoins, setSearchedCoins] = useState(null)
   const {
     spotCoinData,
     spotMarketActivity,
@@ -58,46 +58,41 @@ const MarketActivityCard = ({ isSpot = false }) => {
   }
 
   const filterActivities = () => {
-    if (!selectedMarketActivity) {
-      return []
-    }
-    const activities = (
-      searchedActivities
-        ? searchedActivities
-            .map((symbol) => {
-              return (
-                selectedMarketActivity.find((data) => data.symbol === symbol) ||
-                null
-              )
-            })
-            .filter((coin) => coin !== null)
-        : showFavorites
-          ? selectedMarketActivity.filter((item) =>
-              selectedFavoriteCoins.includes(item.symbol),
-            )
-          : selectedMarketActivity.slice(0, 1000)
-    ).map((item) => ({
+    if (!selectedMarketActivity) return []
+
+    const base = searchedCoins
+      ? selectedMarketActivity.filter((item) =>
+          searchedCoins.includes(item.symbol),
+        )
+      : showFavorites
+        ? selectedMarketActivity.filter((item) =>
+            selectedFavoriteCoins.includes(item.symbol),
+          )
+        : selectedMarketActivity.slice(0, 1000)
+    return base.map((item) => ({
       ...item,
       oldPrice: formatPrice(item.symbol, item.oldPrice),
       newPrice: formatPrice(item.symbol, item.newPrice),
       logo: getLogo(item.symbol),
     }))
-    return activities
   }
 
   const handleSearch = (value) => {
-    if (!selectedMarketActivity) {
-      return []
-    }
+    if (!selectedMarketActivity) return []
+
     if (value) {
-      const filteredResults = selectedMarketActivity
-        .filter((item) =>
-          item.symbol.toLowerCase().includes(value.toLowerCase()),
-        )
-        .map((item) => item.symbol)
-      setSearchedActivities(filteredResults)
+      const filteredResults = Array.from(
+        new Set(
+          selectedMarketActivity
+            .filter((item) =>
+              item.symbol.toLowerCase().includes(value.toLowerCase()),
+            )
+            .map((item) => item.symbol),
+        ),
+      )
+      setSearchedCoins(filteredResults)
     } else {
-      setSearchedActivities(null)
+      setSearchedCoins(null)
     }
   }
 
@@ -158,14 +153,14 @@ const MarketActivityCard = ({ isSpot = false }) => {
           </div>
         </div>
         <Tooltip
-          className="w-200! bg-black!"
+          className="w-200! bg-black! opacity-100!"
           id="infoTooltip1"
           place="bottom"
           variant="dark"
           content="5 minutes unusual price activity. For BTC, ETH and USDT, it is triggered when price is changed over 1%, for other coins it is 3%."
         />
         <Tooltip
-          className="w-200! bg-black!"
+          className="w-200! bg-black! opacity-100!"
           id="infoTooltip2"
           place="bottom"
           variant="dark"
