@@ -167,7 +167,7 @@ const MarketActivityCard = ({ isSpot = false }) => {
           content="If 'Show only favorites' is unchecked, you may see many activities. The latest maximum of 1000 activities is displayed at once."
         />
         <div
-          className={`h-275 md:h-[calc(100vh-244px)] lg:h-[calc(100vh-231px)] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}
+          className={`h-275 md:h-[calc(100vh-242px)] lg:h-[calc(100vh-229px)] text-[12px] md:text-[14px] overflow-y-auto ${!activity.length ? 'flex justify-center items-center' : ''}`}
         >
           {selectedMarketActivity ? (
             <>

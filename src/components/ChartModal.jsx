@@ -3,17 +3,23 @@ import { useState } from 'react'
 
 const ChartModal = ({ isOpen, onOpenChange, selectedCoin, isSpot }) => {
   const [loading, setLoading] = useState(true)
-  const symbol = selectedCoin
-    ? isSpot
-      ? `BINANCE:${selectedCoin.toUpperCase()}USDT`
-      : `BINANCE:${selectedCoin.toUpperCase()}USDT.P`
-    : ''
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
+
+  const normalizeCoinName = (coin) => {
+    return coin === '币安人生' ? 'BIANRENSHENG' : coin
+  }
 
   const handleOpenChange = (open) => {
     if (!open) setLoading(true)
     onOpenChange(open)
   }
+
+  const convertedCoin = normalizeCoinName(selectedCoin)
+  const symbol = convertedCoin
+    ? isSpot
+      ? `BINANCE:${convertedCoin.toUpperCase()}USDT`
+      : `BINANCE:${convertedCoin.toUpperCase()}USDT.P`
+    : ''
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
